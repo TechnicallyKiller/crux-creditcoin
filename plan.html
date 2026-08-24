@@ -1,0 +1,1076 @@
+<title>CRUX — Attestation-Settled Prediction Markets · Build Plan</title>
+
+<style>
+  /* ============ tokens: complete light palette on bare :root ============ */
+  :root {
+    --paper:      #FAF8F3;
+    --surface:    #FFFDF8;
+    --sunk:       #F1EDE3;
+    --ink:        #14211E;
+    --body:       #2E3D39;
+    --muted:      #6B7B76;
+    --rule:       #DED9CD;
+    --rule-soft:  #EBE7DC;
+
+    --teal:       #0B6E5F;   /* the cryptographic lane */
+    --teal-ink:   #065044;
+    --teal-soft:  #E4F0EC;
+    --clay:       #A64B26;   /* the AI / judgment lane */
+    --clay-soft:  #F8E8DF;
+    --amber:      #866415;
+    --crit:       #98292B;
+
+    --shadow:     0 1px 2px rgba(20,33,30,.05), 0 8px 24px -16px rgba(20,33,30,.22);
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono:  ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+
+  /* system-dark (un-stamped) — redefine tokens only */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #0E1614;
+      --surface:   #141F1C;
+      --sunk:      #101A18;
+      --ink:       #EAF2EF;
+      --body:      #C2D1CD;
+      --muted:     #849A94;
+      --rule:      #26352F;
+      --rule-soft: #1C2A26;
+
+      --teal:      #4FCEB5;
+      --teal-ink:  #7FE0CB;
+      --teal-soft: #12302A;
+      --clay:      #E28C60;
+      --clay-soft: #2F1D14;
+      --amber:     #DBB055;
+      --crit:      #EB7272;
+
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+    }
+  }
+  /* explicit dark toggle wins the other direction */
+  :root[data-theme="dark"] {
+    --paper:     #0E1614;
+    --surface:   #141F1C;
+    --sunk:      #101A18;
+    --ink:       #EAF2EF;
+    --body:      #C2D1CD;
+    --muted:     #849A94;
+    --rule:      #26352F;
+    --rule-soft: #1C2A26;
+
+    --teal:      #4FCEB5;
+    --teal-ink:  #7FE0CB;
+    --teal-soft: #12302A;
+    --clay:      #E28C60;
+    --clay-soft: #2F1D14;
+    --amber:     #DBB055;
+    --crit:      #EB7272;
+
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--body);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 3rem) 6rem;
+  }
+
+  /* ---------- type ---------- */
+  h1, h2, h3, h4 { font-family: var(--serif); color: var(--ink); text-wrap: balance; margin: 0; font-weight: 600; }
+  h1 { font-size: clamp(2.1rem, 5.5vw, 3.4rem); line-height: 1.05; letter-spacing: -.02em; }
+  h2 { font-size: clamp(1.45rem, 3vw, 1.95rem); line-height: 1.15; letter-spacing: -.01em; }
+  h3 { font-size: 1.16rem; line-height: 1.3; }
+  h4 { font-size: 1rem; font-family: var(--sans); font-weight: 650; }
+  p  { margin: 0; }
+  a  { color: var(--teal-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 2px; }
+  strong { color: var(--ink); font-weight: 650; }
+  code { font-family: var(--mono); font-size: .875em; }
+  p code, li code, td code, th code {
+    background: var(--sunk); border: 1px solid var(--rule-soft);
+    padding: .1em .34em; border-radius: 3px; color: var(--ink); white-space: nowrap;
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .705rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--muted); margin: 0;
+  }
+
+  /* ---------- structure: sections stack with gap, no per-element margins ---------- */
+  .stack   { display: flex; flex-direction: column; gap: 1.05rem; }
+  .stack-s { display: flex; flex-direction: column; gap: .6rem; }
+  main     { display: flex; flex-direction: column; gap: 3.6rem; }
+  section  { display: flex; flex-direction: column; gap: 1.15rem; scroll-margin-top: 1.5rem; }
+
+  .sec-head { display: flex; flex-direction: column; gap: .38rem; padding-bottom: .85rem; border-bottom: 1px solid var(--rule); }
+  .sec-head .num { font-family: var(--mono); font-size: .705rem; letter-spacing: .16em; color: var(--teal); text-transform: uppercase; }
+
+  .measure { max-width: 68ch; }
+
+  ul, ol { margin: 0; padding-left: 1.35rem; display: flex; flex-direction: column; gap: .42rem; max-width: 68ch; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- masthead ---------- */
+  header.masthead { display: flex; flex-direction: column; gap: 1.4rem; padding-bottom: 2.6rem; margin-bottom: .6rem; border-bottom: 2px solid var(--ink); }
+  .tagline { font-family: var(--serif); font-size: clamp(1.1rem, 2.4vw, 1.4rem); font-style: italic; color: var(--teal-ink); max-width: 46ch; line-height: 1.4; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: .45rem 1.4rem; font-family: var(--mono); font-size: .735rem; color: var(--muted); letter-spacing: .04em; }
+  .meta-row span b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- verification receipt (the one flourish) ---------- */
+  .receipt {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal); border-radius: 4px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .receipt-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem;
+    padding: .7rem 1.05rem; background: var(--teal-soft); border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: .715rem; letter-spacing: .13em; text-transform: uppercase; color: var(--teal-ink);
+  }
+  .receipt-body { padding: .3rem 0; }
+  .rrow {
+    display: grid; grid-template-columns: minmax(9rem, 15rem) 1fr; gap: .2rem 1rem;
+    padding: .3rem 1.05rem; font-family: var(--mono); font-size: .795rem;
+    border-bottom: 1px solid var(--rule-soft); align-items: baseline;
+  }
+  .rrow:last-child { border-bottom: 0; }
+  .rrow dt { color: var(--muted); letter-spacing: .03em; }
+  .rrow dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .rrow.pass { background: var(--teal-soft); }
+  .rrow.pass dd { color: var(--teal-ink); font-weight: 600; letter-spacing: .04em; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    display: flex; flex-direction: column; gap: .55rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+    padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
+  }
+  .callout.key   { border-left: 3px solid var(--teal); }
+  .callout.warn  { border-left: 3px solid var(--amber); }
+  .callout.danger{ border-left: 3px solid var(--crit); }
+  .callout p { max-width: 66ch; }
+  .callout .eyebrow { color: var(--teal); }
+  .callout.warn .eyebrow { color: var(--amber); }
+  .callout.danger .eyebrow { color: var(--crit); }
+
+  /* ---------- code ---------- */
+  pre {
+    margin: 0; background: var(--sunk); color: var(--ink);
+    border: 1px solid var(--rule-soft); border-radius: 4px;
+    padding: .95rem 1.1rem; overflow-x: auto;
+    font-family: var(--mono); font-size: .785rem; line-height: 1.6;
+    -moz-tab-size: 2; tab-size: 2;
+  }
+  pre code { background: none; border: 0; padding: 0; white-space: pre; font-size: inherit; }
+
+  /* ---------- tables ---------- */
+  .tscroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: .875rem; }
+  th, td { text-align: left; padding: .58rem .85rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: .69rem; letter-spacing: .11em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; background: var(--sunk); border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.id { font-family: var(--mono); color: var(--teal-ink); font-weight: 600; white-space: nowrap; }
+  td.num, td.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  /* ---------- pills ---------- */
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: .655rem; letter-spacing: .1em;
+    text-transform: uppercase; padding: .16em .5em; border-radius: 3px; white-space: nowrap; font-weight: 600;
+  }
+  .pill.proof { background: var(--teal-soft); color: var(--teal-ink); border: 1px solid var(--teal); }
+  .pill.ai    { background: var(--clay-soft); color: var(--clay); border: 1px solid var(--clay); }
+  .pill.crit  { background: var(--crit); color: var(--paper); }
+  .pill.high  { background: var(--clay-soft); color: var(--clay); border: 1px solid var(--clay); }
+  .pill.med   { background: var(--sunk); color: var(--body); border: 1px solid var(--rule); }
+  .pill.low   { background: var(--sunk); color: var(--muted); border: 1px solid var(--rule-soft); }
+
+  /* ---------- decisions ---------- */
+  .decision {
+    display: flex; flex-direction: column; gap: .5rem;
+    padding: 1rem 1.15rem; background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 4px; border-left: 3px solid var(--rule);
+  }
+  .decision.user { border-left-color: var(--clay); }
+  .decision.mine { border-left-color: var(--teal); }
+  .dhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; }
+  .dhead .did { font-family: var(--mono); font-size: .78rem; font-weight: 700; color: var(--ink); }
+  .dhead h3 { font-size: 1.04rem; flex: 1 1 14rem; }
+  .who { font-family: var(--mono); font-size: .655rem; letter-spacing: .1em; text-transform: uppercase; padding: .16em .5em; border-radius: 3px; }
+  .decision.user .who { background: var(--clay-soft); color: var(--clay); }
+  .decision.mine .who { background: var(--teal-soft); color: var(--teal-ink); }
+  .why { font-size: .93rem; }
+  .why b { color: var(--ink); }
+
+  /* ---------- timeline (real sequence → numbering earns its place) ---------- */
+  .phases { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--rule); padding-left: 0; }
+  .phase { display: grid; grid-template-columns: auto 1fr; gap: 0 1rem; padding: 0 0 1.5rem 1.4rem; position: relative; }
+  .phase:last-child { padding-bottom: 0; }
+  .phase::before {
+    content: ""; position: absolute; left: -6px; top: .42rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--teal);
+  }
+  .phase-body { grid-column: 1 / -1; display: flex; flex-direction: column; gap: .4rem; }
+  .phase-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; }
+  .phase-top .pn { font-family: var(--mono); font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--teal); }
+  .phase-top .dates { font-family: var(--mono); font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .phase-top h3 { font-size: 1.06rem; }
+  .exit { font-size: .88rem; color: var(--muted); font-style: italic; }
+  .exit b { font-style: normal; color: var(--ink); }
+
+  /* ---------- checklist ---------- */
+  .checks { display: flex; flex-direction: column; gap: .55rem; list-style: none; padding: 0; max-width: none; }
+  .checks li {
+    display: grid; grid-template-columns: 1.5rem 1fr; gap: .1rem .7rem;
+    padding: .7rem .9rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+  }
+  .checks li.block { border-left: 3px solid var(--crit); }
+  .box { font-family: var(--mono); color: var(--muted); font-size: 1rem; line-height: 1.4; }
+  .checks .ctext { display: flex; flex-direction: column; gap: .25rem; }
+  .checks .ctext .cwhy { font-size: .875rem; color: var(--muted); }
+  .checks .ctext .cwhy b { color: var(--ink); }
+
+  /* ---------- diagram ---------- */
+  .figure { display: flex; flex-direction: column; gap: .6rem; }
+  .diagram { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 1.1rem; }
+  .diagram svg { display: block; min-width: 620px; width: 100%; height: auto; }
+  figcaption { font-size: .84rem; color: var(--muted); max-width: 66ch; }
+  .d-lane   { fill: var(--sunk); stroke: var(--rule); }
+  .d-card   { fill: var(--surface); stroke: var(--rule); }
+  .d-proof  { fill: var(--teal-soft); stroke: var(--teal); }
+  .d-ai     { fill: var(--clay-soft); stroke: var(--clay); }
+  .d-t      { fill: var(--ink);   font-family: var(--mono); font-size: 11px; }
+  .d-tm     { fill: var(--muted); font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; }
+  .d-tl     { fill: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .13em; }
+  .d-teal   { fill: var(--teal-ink); font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .d-arrow  { stroke: var(--teal); stroke-width: 1.6; fill: none; }
+  .d-head   { fill: var(--teal); }
+
+  /* ---------- footer ---------- */
+  footer { margin-top: 1rem; padding-top: 1.6rem; border-top: 1px solid var(--rule); font-size: .84rem; color: var(--muted); max-width: 68ch; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  @media (max-width: 620px) {
+    .rrow { grid-template-columns: 1fr; }
+    .rrow dt { font-size: .72rem; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">BUIDL CTC 2026 Fall · Attestcoin Protocol · Build Plan</p>
+  <h1>CRUX</h1>
+  <p class="tagline">Built on Creditcoin. Settled by Ethereum reality.</p>
+  <p class="measure">Every prediction market dies at the oracle. CRUX markets settle themselves: resolution is a cryptographic proof that an event occurred on Ethereum, verified inside a single Creditcoin block by the Attestcoin precompile. No committee, no admin key, no trusted reporter.</p>
+  <div class="meta-row">
+    <span>DATE <b>2026-08-11</b></span>
+    <span>DEADLINE <b>2026-09-06 23:59 ET</b></span>
+    <span>WINDOW <b>26 days</b></span>
+    <span>TRACKS <b>DeFi · AI</b></span>
+    <span>STATUS <b>feasibility proven</b></span>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================== VERDICT ============================== -->
+<section id="verdict">
+  <div class="sec-head">
+    <span class="num">01 — Verdict</span>
+    <h2>Feasible. Proven end-to-end before a line of product code.</h2>
+  </div>
+
+  <p class="measure">The full pipeline — take a real Ethereum <strong>mainnet</strong> transaction, generate a Merkle + continuity proof, and have Creditcoin's precompile cryptographically confirm it — was executed successfully against the live network. Everything below labelled <strong>verified</strong> was run, not read from documentation.</p>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span>Verification receipt · chainKey 3 · Ethereum Mainnet</span>
+      <span>2026-08-11</span>
+    </div>
+    <dl class="receipt-body">
+      <div class="rrow"><dt>source block</dt><dd>25733720</dd></div>
+      <div class="rrow"><dt>transaction</dt><dd>0x36cc3c251f4906a0ff794687742c4a8fe44d34b4ec2bc872979d1a5f2c43f62a</dd></div>
+      <div class="rrow"><dt>proof generation</dt><dd>875 ms</dd></div>
+      <div class="rrow"><dt>txBytes</dt><dd>4224 bytes &nbsp;<span style="color:var(--muted)">(max 449280)</span></dd></div>
+      <div class="rrow"><dt>merkle siblings</dt><dd>10</dd></div>
+      <div class="rrow"><dt>continuity roots</dt><dd>1 &nbsp;<span style="color:var(--muted)">(cheapest case — fresh proof)</span></dd></div>
+      <div class="rrow pass"><dt>verify on 0x0FD2</dt><dd>TRUE ✓ PROVEN — 257 ms</dd></div>
+    </dl>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span>Verification receipt · chainKey 1 · Sepolia</span>
+      <span>2026-08-11</span>
+    </div>
+    <dl class="receipt-body">
+      <div class="rrow"><dt>source block</dt><dd>11468100</dd></div>
+      <div class="rrow"><dt>transaction</dt><dd>0x9b44698fc4886b62af865ce874b7796b70165d1f24a7c7b86024da9fd519f01d</dd></div>
+      <div class="rrow"><dt>proof generation</dt><dd>233 ms</dd></div>
+      <div class="rrow"><dt>txBytes</dt><dd>2208 bytes</dd></div>
+      <div class="rrow"><dt>merkle siblings</dt><dd>7</dd></div>
+      <div class="rrow"><dt>continuity roots</dt><dd>1</dd></div>
+      <div class="rrow pass"><dt>verify on 0x0FD2</dt><dd>TRUE ✓ PROVEN — 240 ms</dd></div>
+    </dl>
+  </div>
+
+  <div class="callout key">
+    <p class="eyebrow">The discovery that shapes the entire project</p>
+    <p><strong>Creditcoin testnet attests Ethereum mainnet.</strong> Not only Sepolia.</p>
+    <p>The hackathon requires deployment on a testnet, which normally means every demo is synthetic. Here it does not: markets can be written against <strong>real Chainlink prices, real whale transfers, real DAO votes</strong>, resolved by cryptographic proof, while the dApp sits on Creditcoin testnet exactly as the rules require. This is the highest-leverage fact in the document, and it is why the demo will not look like a toy.</p>
+  </div>
+
+  <h3>Why the fit is unusually good</h3>
+  <p class="measure">The hardest unsolved problem in prediction markets is the oracle. Polymarket needs UMA's optimistic oracle — bonds, disputes, a two-hour challenge window, human token-holders voting. Kalshi needs a CFTC-registered clearinghouse and a review committee.</p>
+  <p class="measure">Attestcoin makes that machinery unnecessary for any question whose answer is an Ethereum event. Resolution stops being a governance problem and becomes a proof. That is not a bolt-on integration — it is the product, which is precisely what <em>“depth of Attestcoin Protocol utilization will be evaluated as one of the core scoring criteria”</em> is asking for.</p>
+</section>
+
+<!-- ============================== RESEARCH ============================== -->
+<section id="research">
+  <div class="sec-head">
+    <span class="num">02 — Research</span>
+    <h2>What the Attestcoin Protocol actually is</h2>
+  </div>
+
+  <p class="measure">Formerly <em>Universal Smart Contracts (USC)</em>. It extends Creditcoin with decentralized infrastructure for verified cross-chain data, replacing centralized oracle operators.</p>
+
+  <h3>Mechanism</h3>
+  <p class="measure"><strong>Attestors</strong> independently monitor source-chain blocks and gossip attestations over libp2p. Creditcoin trusts no single attestor; a decentralized set must reach consensus. Votes are signed <strong>SR25519</strong> for identity and <strong>BLS</strong> for aggregation, so many votes collapse into one verifiable aggregate signature. <strong>Validators</strong> include attestation transactions in blocks; the runtime verifies the BLS aggregate and checks quorum before committing to on-chain storage.</p>
+  <p class="measure">Committing an attestation for every source block would be prohibitively expensive, so they land at intervals — <strong>verified: every 10 blocks</strong> on both Ethereum mainnet and Sepolia.</p>
+
+  <h3>The two proofs</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Proof</th><th>Proves</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Merkle proof</td><td>this transaction is included in that block</td></tr>
+        <tr><td class="mono">Continuity proof</td><td>that block is part of the finalized chain, linking it to a committed attestation</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="measure">A precompile at <code>0x…0FD2</code> verifies both synchronously, in compiled Rust, within a single Creditcoin block. A foreign transaction can therefore be validated, decoded, and acted on inside one transaction.</p>
+
+  <h3>Readability vs. writability</h3>
+  <ul>
+    <li><strong>Readability</strong> — Creditcoin reads other chains. Live on mainnet and testnet. This is what we use.</li>
+    <li><strong>Writability</strong> — Creditcoin writes to other chains. <strong>Not available.</strong> Docs state it is undergoing third-party audits and that details appear only <em>“once the writability feature is mature and released on Creditcoin testnet.”</em> It is not on testnet. Unusable this hackathon.</li>
+  </ul>
+
+  <h3>The decoder is the whole ballgame</h3>
+  <p class="measure"><code>EvmV1Decoder</code> turns “prove a transaction happened” into “read the data inside it”. From the reference <code>USCMinter.sol</code>:</p>
+  <pre><code>uint8 txType = EvmV1Decoder.getTransactionType(encodedTransaction);
+require(EvmV1Decoder.isValidTransactionType(txType), "Unsupported transaction type");
+
+EvmV1Decoder.ReceiptFields memory receipt = EvmV1Decoder.decodeReceiptFields(encodedTransaction);
+require(receipt.receiptStatus == 1, "Transaction did not succeed");
+
+EvmV1Decoder.LogEntry[] memory logs =
+    EvmV1Decoder.getLogsByEventSignature(receipt, EVENT_SIGNATURE);</code></pre>
+  <p class="measure"><code>LogEntry</code> carries <code>address_</code>, <code>topics[]</code> and <code>data</code> — everything needed to reconstruct any Ethereum event inside Solidity on Creditcoin. <strong>A prediction market is exactly this, plus a comparator, plus a payout.</strong></p>
+</section>
+
+<!-- ============================== VERIFICATION LOG ============================== -->
+<section id="verification">
+  <div class="sec-head">
+    <span class="num">03 — Verification log</span>
+    <h2>What I ran, and what came back</h2>
+  </div>
+  <p class="measure">All executed live on 2026-08-11 against Creditcoin CC3 testnet, the Attestcoin proof builder, and Ethereum mainnet.</p>
+
+  <h3>3.1 · Chain liveness</h3>
+  <pre><code>chainId       : 102031
+blockNumber   : 5292523
+gasPrice      : 500000000 wei   (0.5 gwei)
+maxFeePerGas  : 1000000000 wei</code></pre>
+
+  <h3>3.2 · Supported source chains — <code>getSupportedChains()</code></h3>
+  <pre><code>[
+  { "chainKey": 3, "chainId": 1,        "chainName": "0x457468657265756d", "chainEncoding": 1 },
+  { "chainKey": 1, "chainId": 11155111, "chainName": "0x5365706f6c696120657468657265756d", "chainEncoding": 1 }
+]</code></pre>
+  <p class="measure">Hex-decoded: chainKey 3 = <code>"Ethereum"</code> (mainnet), chainKey 1 = <code>"Sepolia ethereum"</code>. Both registered on Creditcoin <em>testnet</em>. Registration alone proves nothing, so:</p>
+
+  <h3>3.3 · Live attestation lag — is it actually running?</h3>
+  <pre><code>======== chainKey 3 — Ethereum Mainnet ========
+attestation genesis height : 0
+latest ATTESTED height     : 25733640
+source chain HEAD          : 25733678
+  &gt;&gt; LAG: 38 blocks (~7.6 min behind head)
+  &gt;&gt; LIVE ATTESTATION: YES — actively attesting
+
+======== chainKey 1 — Sepolia ========
+latest ATTESTED height     : 11468020
+source chain HEAD          : 11468058
+  &gt;&gt; LAG: 38 blocks (~7.6 min behind head)
+  &gt;&gt; LIVE ATTESTATION: YES — actively attesting</code></pre>
+  <p class="measure">Checkpoint interval, from <code>getContinuityBounds</code>: <code>parentHeight 25733630 → childHeight 25733640</code> — <strong>every 10 source blocks</strong>, both chains.</p>
+
+  <h3>3.4 · SDK is real and installs clean</h3>
+  <pre><code>├── @gluwa/usc-sdk@0.18.0
+└── ethers@6.17.0
+
+PrecompileBlockProver:
+  computeTransactionIndex, verifySingle, verifyAndEmitSingle, verifyBatch, verifyAndEmitBatch
+
+PrecompileChainInfoProvider:
+  getAttestationGenesisHeight, getAttestationHeightForDigest, getCheckpointForHeight,
+  getContinuityBounds, getLatestAttestedHeightAndHash, getSupportedChainByKey,
+  waitUntilHeightAttested
+
+MAX_ENCODED_SIZE = 449280</code></pre>
+  <p class="measure"><code>@gluwa/usc-contracts@0.1.2</code> also exists — Solidity source distributed for Foundry, shipping <code>EvmV1Decoder</code>.</p>
+
+  <h3>3.5 · Proof Builder REST API</h3>
+  <p class="measure">Docs give two conflicting hostnames. <strong>Both are live and both work</strong> (identical Swagger UI). No OpenAPI JSON is served — every spec path 404s — so routes were recovered from SDK source:</p>
+  <pre><code>GET /api/v1/attested-height/{chainKey}
+GET /api/v1/proof-by-tx/{chainKey}/{transactionHash}
+GET /api/v1/proof-batch-by-tx
+
+GET /api/v1/attested-height/1  →  {"attestedHeight":11468110}
+GET /api/v1/attested-height/3  →  {"attestedHeight":25733730}</code></pre>
+
+  <h3>3.6 · Proof generation latency</h3>
+  <pre><code>SEPOLIA          proof-by-tx  →  HTTP 200  0.916s   15098 byte payload
+ETHEREUM MAINNET proof-by-tx  →  HTTP 200  0.910s    9873 byte payload</code></pre>
+  <div class="callout warn">
+    <p class="eyebrow">Recorded so nobody repeats it</p>
+    <p>An earlier 25-minute hang was my own <code>eth_getLogs</code> scan against rate-limited public RPCs — <strong>not the protocol</strong>. It nearly produced a false negative on the whole feasibility question. Proof generation is ~1 second on both chains.</p>
+  </div>
+
+  <h3>3.7 · End-to-end verification</h3>
+  <p class="measure">Both chains returned <code>TRUE</code> — receipts in <a href="#verdict">§01</a>. One property discovered along the way matters disproportionately:</p>
+  <div class="callout key">
+    <p class="eyebrow">Unblocks everything</p>
+    <p><code>verifySingle</code> is a <strong>staticcall</strong>. Proofs can be verified with <strong>zero funds and no wallet</strong>. All development can proceed before the faucet is sorted, and the frontend can verify proofs client-side for free — trusting neither our backend nor us.</p>
+  </div>
+
+  <h3>3.8 · Reference implementation exists</h3>
+  <p class="measure">Docs claim <em>“No code examples or reference implementations are provided.”</em> <strong>This is wrong.</strong> <code>gluwa/usc-testnet-bridge-examples</code> clones and contains nine Solidity contracts, a working off-chain worker, and four tutorials. The complete precompile interface, verbatim:</p>
+  <pre><code>interface INativeQueryVerifier {
+    struct MerkleProofEntry { bytes32 hash; bool isLeft; }
+    struct MerkleProof { bytes32 root; MerkleProofEntry[] siblings; }
+    struct ContinuityProof { bytes32 lowerEndpointDigest; bytes32[] roots; }
+
+    function verifyAndEmit(
+        uint64 chainKey,
+        uint64 height,
+        bytes calldata encodedTransaction,
+        MerkleProof calldata merkleProof,
+        ContinuityProof calldata continuityProof
+    ) external returns (bool);
+
+    function calculateTxIndex(MerkleProof calldata merkle_proof) external view returns (uint64);
+}
+
+library NativeQueryVerifierLib {
+    address constant PRECOMPILE_ADDRESS = 0x0000000000000000000000000000000000000FD2;
+    function getVerifier() internal pure returns (INativeQueryVerifier) {
+        return INativeQueryVerifier(PRECOMPILE_ADDRESS);
+    }
+}</code></pre>
+  <p class="measure"><code>USCBase.sol</code> gives us verify-then-dispatch with replay protection for free, so we inherit it directly. Its <code>queryId</code> is <code>keccak256(chainKey ‖ blockHeight ‖ txIndex)</code> — replay protection at exactly the granularity a resolver needs.</p>
+
+  <h3>3.9 · Chainlink on Ethereum mainnet — our flagship data source</h3>
+  <pre><code>ETH/USD proxy       : 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
+current aggregator  : 0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5
+latest answer       : $1863.15 @ 2026-08-11T18:38:47Z
+AnswerUpdated topic0: 0x0559884fd3a460db3073b7fc896cc77986f16e378210ded43186175bf646fc5f</code></pre>
+  <p class="measure"><code>AnswerUpdated(int256 indexed current, uint256 indexed roundId, uint256 updatedAt)</code> — the price sits in <strong>indexed topic[1]</strong>, extractable straight from <code>LogEntry.topics[1]</code> with no ABI decoding. Chainlink price markets are the cheapest thing to build on this stack.</p>
+  <div class="callout warn">
+    <p class="eyebrow">Trap</p>
+    <p>The aggregator address changes when Chainlink upgrades a feed. Resolve <code>proxy.aggregator()</code> at market-creation time and pin it into the market's spec. <strong>Never hardcode it in a contract.</strong></p>
+  </div>
+
+  <h3>3.10 · Local toolchain</h3>
+  <pre><code>node    v24.18.0        yarn 1.22.22      npm 11.16.0      pnpm 11.13.1
+forge   1.7.1           git  2.43.0
+docker  NOT AVAILABLE (WSL2 integration disabled)</code></pre>
+  <p class="measure">The examples repo pins foundry v1.2.3 and we have 1.7.1 — pin per-project if it misbehaves. Docker is only needed to run an <em>attestor node</em>, which we are not doing, so its absence is harmless.</p>
+
+  <h3>3.11 · Taken from docs but NOT independently verified</h3>
+  <p class="measure">Recorded honestly so nobody mistakes them for measurements: the gas formula <code>CTC ≈ 2.3e-5 + 2.9e-7 × continuity_hash_count</code> and its 10–100× staleness penalty; batch limits of 10 proofs / 1000 blocks; 15s block time and 1–3 block finality; the Discord faucet process and its undocumented rate limits; writability's audit status; and the decoder contract addresses.</p>
+</section>
+
+<!-- ============================== CONSTRAINTS ============================== -->
+<section id="constraints">
+  <div class="sec-head">
+    <span class="num">04 — Constraints</span>
+    <h2>What the verification forces us to design around</h2>
+  </div>
+  <p class="measure">These are load-bearing. Every decision in <a href="#decisions">§06</a> traces back to one of them.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Constraint</th><th>Consequence for CRUX</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C1</td><td><strong>Writability unavailable.</strong> No Creditcoin → Ethereum messaging.</td><td>All collateral, trading and payout live on Creditcoin. Ethereum is read-only truth. Nothing to bridge back.</td></tr>
+        <tr><td class="id">C2</td><td><strong>~7.6 min attestation lag</strong> plus Ethereum finality.</td><td>Minimum honest market cycle ≈ 15 min. <strong>CRSHMARKET's 60-second markets are impossible on cross-chain data.</strong> Design around it; don't pretend.</td></tr>
+        <tr><td class="id">C3</td><td><strong>Inclusion ≠ success.</strong> The precompile proves a tx was <em>included</em>, not that it <em>succeeded</em>.</td><td><code>require(receipt.receiptStatus == 1)</code> is mandatory. Omitting it lets an attacker resolve a market with a deliberately reverted transaction. Highest-severity foot-gun in the stack.</td></tr>
+        <tr><td class="id">C4</td><td><strong>Stale proofs cost 10–100×</strong> as continuity proofs lengthen.</td><td>Resolve promptly. Fund a bounty so somebody always wants to. Our fresh proofs used <strong>1 continuity root</strong> — the cheapest case.</td></tr>
+        <tr><td class="id">C5</td><td><strong>Payload cap 449,280 bytes</strong>; batch cap 10 proofs / 1000 blocks.</td><td>Fine for events (ours were 2–4 KB). Batch-resolve markets sharing a continuity proof to amortise gas.</td></tr>
+        <tr><td class="id">C6</td><td><strong>Proof gen ~1s, verify ~250ms, staticcall.</strong></td><td>Resolution feels instant once attested. Verification needs no gas, so the UI can prove client-side for free.</td></tr>
+        <tr><td class="id">C7</td><td><strong>No subgraph on Creditcoin.</strong></td><td>Write a small custom event indexer. Budget ~1 day.</td></tr>
+        <tr><td class="id">C8</td><td><strong>Public Ethereum RPCs block archive <code>eth_getLogs</code>.</strong></td><td>A paid RPC key with mainnet archive access is a <strong>blocking</strong> prerequisite.</td></tr>
+        <tr><td class="id">C9</td><td><strong>Only Ethereum mainnet + Sepolia</strong> are attested. No BTC, no L2s.</td><td>Market universe = Ethereum L1 events. Ample, but scope the pitch honestly.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================== COMPETITIVE ============================== -->
+<section id="competitive">
+  <div class="sec-head">
+    <span class="num">05 — Competitive research</span>
+    <h2>Where the gap is</h2>
+  </div>
+
+  <h3>CRSHMARKET (Monad) — the stated inspiration</h3>
+  <div class="callout warn">
+    <p class="eyebrow">Confidence: low</p>
+    <p>Public sources are thin and much of what matters could not be confirmed. Recorded as-is rather than dressed up.</p>
+  </div>
+  <p class="measure"><strong>What sources support:</strong> a livestream-native prediction market on Monad, pitched as “Twitch × Kalshi”, where viewers predict outcomes during live esports/IRL/creator streams. Markets settle in as little as 60 seconds, leaning on Monad's ~0.4s blocks. Blink integration provides one-tap stablecoin deposits without leaving the stream. Reported ~20,000 users, ~$175K volume, ~$1.25M raised — from a single low-authority interview, so indicative rather than factual.</p>
+  <p class="measure"><strong>What could not be verified, and we should not claim:</strong> market microstructure (AMM vs CLOB vs parimutuel) is undocumented; the resolution mechanism is undocumented, and for 60-second settlement is most likely a streamer/operator report, i.e. centralized; specific gamification features are plausible but unconfirmed.</p>
+  <p class="measure"><strong>What we can act on:</strong> CRSHMARKET's edge is distribution and UX, not market design. Its resolution is very likely its weakest link — the exact thing Attestcoin lets us make our strongest. Borrow the consumer-app energy; invert the trust model.</p>
+
+  <h3>Landscape</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Protocol</th><th>Mechanism</th><th>Resolution</th><th>Collateral</th></tr></thead>
+      <tbody>
+        <tr><td>Polymarket</td><td>CLOB + conditional tokens</td><td>UMA optimistic oracle, ~2h challenge, bonded</td><td class="mono">USDC</td></tr>
+        <tr><td>Kalshi</td><td>CLOB</td><td>CFTC-regulated clearinghouse + review committee</td><td class="mono">USD</td></tr>
+        <tr><td>Azuro</td><td>vAMM, shared liquidity pool</td><td>Data provider + DAO arbitration</td><td class="mono">Stablecoin</td></tr>
+        <tr><td>Drift BET</td><td>Orderbook + AMM backstop</td><td>Oracle, price-bounded 0–1</td><td class="mono">Stablecoin</td></tr>
+        <tr><td>Limitless</td><td>CLOB + CFMM hybrid</td><td>Chainlink / Pyth automated</td><td class="mono">USDC</td></tr>
+        <tr><td>Myriad</td><td>vAMM + CLOB hybrid</td><td>Oracle-submitted outcome</td><td class="mono">Stablecoin</td></tr>
+        <tr><td>SX Bet</td><td>P2P CLOB</td><td>On-chain reporter, objective sports</td><td class="mono">Fully collateralized</td></tr>
+        <tr><td>Parimutuel</td><td>Pooled, proportional payout</td><td>Pool-determined</td><td class="mono">Pool</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout key">
+    <p class="eyebrow">The gap</p>
+    <p><strong>Every one of them</strong> trusts a reporter, a committee, a regulator, or a bonded optimistic game. <strong>None resolve by cryptographic proof of the underlying event.</strong> That gap is the product.</p>
+  </div>
+</section>
+
+<!-- ============================== DECISIONS ============================== -->
+<section id="decisions">
+  <div class="sec-head">
+    <span class="num">06 — Decision register</span>
+    <h2>Every decision, who made it, and why</h2>
+  </div>
+
+  <div class="stack">
+    <div class="decision user">
+      <div class="dhead"><span class="did">D1</span><h3>Resolution: cryptographic + AI, disputes on the AI path only</h3><span class="who">user</span></div>
+      <p>Two lanes with a hard boundary. <span class="pill proof">proof</span> questions about Ethereum events resolve by Attestcoin proof — no dispute window, because you cannot dispute mathematics. <span class="pill ai">ai</span> off-chain questions get an AI resolver that posts an outcome plus a bond and an evidence hash, followed by a window in which anyone can challenge with a counter-bond.</p>
+      <p class="why"><b>Why:</b> an AI oracle is centralized, and applying it everywhere would undercut the whole thesis. Confining it to questions <em>provably</em> outside cryptography's reach — and bonding it — contains the damage. The trustless claim stays precise: <b>if it happened on Ethereum, no human can change the outcome.</b> Also earns a legitimate AI track claim.</p>
+    </div>
+
+    <div class="decision user">
+      <div class="dhead"><span class="did">D2</span><h3>AI scope: off-chain events only</h3><span class="who">user</span></div>
+      <p class="why">AI handles sports, politics, news, “did X ship by date Y”. It never reinterprets on-chain data. <b>Why:</b> a clean conceptual split, trivially explainable to judges, that keeps the lane boundary from blurring.</p>
+    </div>
+
+    <div class="decision user">
+      <div class="dhead"><span class="did">D3</span><h3>Market mechanism: LMSR</h3><span class="who">user</span></div>
+      <pre><code>C(q) = b·ln(Σ exp(qᵢ/b))          pᵢ = exp(qᵢ/b) / Σ exp(qⱼ/b)</code></pre>
+      <p class="why"><b>Why:</b> always quotable against a protocol-subsidized <code>b</code>, so a market is tradeable from block one with zero LPs — decisive in a hackathon with no users. Prices move on every trade, which is what makes the odds bar feel alive in a swipe UI. Loss is bounded by <code>b·ln(n)</code>, a known budgetable subsidy. <b>Rejected:</b> parimutuel (no live price discovery — kills the gamification), CPMM (needs real LPs we won't have).</p>
+    </div>
+
+    <div class="decision user">
+      <div class="dhead"><span class="did">D4</span><h3>Fact source: Ethereum mainnet (chainKey 3) + Sepolia (chainKey 1)</h3><span class="who">user</span></div>
+      <p class="why">Mainnet carries the flagship demo — real Chainlink prices, real whale moves. Sepolia is the test harness where we deploy our own contracts and fire any event on demand with free gas. <b>Why both:</b> mainnet alone means we cannot force an event during a live demo; Sepolia alone means every market is visibly synthetic. Together: real-world credibility plus deterministic tests.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D5</span><h3>Collateral: native tCTC</h3><span class="who">mine</span></div>
+      <p class="why">No trusted stablecoin exists on CC3 testnet, and a mock one adds surface while teaching judges nothing. Native token keeps the faucet as the only funding dependency.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D6</span><h3>Permissionless, bounty-paid resolution</h3><span class="who">mine</span></div>
+      <p>Anyone may submit a resolving proof; the first valid one wins and collects a bounty from the market's fee pool.</p>
+      <p class="why"><b>Why:</b> it directly answers <b>C4</b> by manufacturing an economic incentive to resolve <em>fast</em>, when proofs are cheapest. It also removes the privileged-resolver role, so there is no admin key in the proof lane at all — our worker becomes a convenience rather than a trust assumption. Likely the detail that most impresses a technical judge.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D7</span><h3>Window/EXISTS predicate as the primary market shape</h3><span class="who">mine</span></div>
+      <p>Markets ask: <em>will a matching event occur in block window [from, to]?</em></p>
+      <p class="why"><b>Why:</b> YES becomes provable by a single proof, and NO provable by the mere passage of time — once <code>to</code> is attested, absence is established. Asymmetric, cheap, and it matches the natural shape of nearly every prediction market (<em>will X happen by T</em>). The alternative — “what was the value exactly at block N” — requires pinning a specific Chainlink round and is far more brittle.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D8</span><h3><code>CruxBeacon</code> state-snapshot primitive on Sepolia</h3><span class="who">mine</span></div>
+      <p>A permissionless contract that <code>staticcall</code>s any target and emits the returned bytes as an event.</p>
+      <p class="why"><b>Why:</b> Attestcoin can only prove <em>transactions and their logs</em>, never raw storage slots. A beacon converts any <code>view</code>-readable EVM state into an attestable event, generalizing the system from “markets about events” to “markets about any on-chain state”. Our strongest original technical contribution. Sepolia-only, since snapshotting on mainnet costs real ETH.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D9</span><h3>Latency reframed as spectacle, not hidden</h3><span class="who">mine</span></div>
+      <p><b>C2</b> makes sub-minute cross-chain markets impossible. Rather than disguise ~15 minutes, make resolution the highlight: a <strong>Proof Drop</strong> animating the Merkle path, then stamping <code>PROVEN · ETHEREUM MAINNET · BLOCK 25,733,720</code>.</p>
+      <p class="why"><b>Why:</b> no competitor can render that screen, because none of them actually prove anything. Split the clock — the game loop runs at Creditcoin's 15s blocks and feels instant; the truth loop runs at Ethereum's pace and feels weighty.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D10</span><h3>Brier calibration score as soulbound reputation</h3><span class="who">mine</span></div>
+      <p class="why">Each user accrues an on-chain Brier score, streak and season XP in a non-transferable token. <b>Why:</b> gamification that argues the thesis instead of decorating it. Because resolution is cryptographic, the reputation is <em>provably</em> untainted by oracle manipulation — a claim literally no other prediction market can make. Leaderboards and seasons come free with it.</p>
+    </div>
+
+    <div class="decision mine">
+      <div class="dhead"><span class="did">D11</span><h3>Name: CRUX</h3><span class="who">mine · open to change</span></div>
+      <p class="why">“The decisive point.” Phonetically echoes CRSHMARKET — a nod to the inspiration without imitating it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRODUCT ============================== -->
+<section id="product">
+  <div class="sec-head">
+    <span class="num">07 — Product</span>
+    <h2>Two clocks, one feed</h2>
+  </div>
+  <p class="measure"><strong>CRUX</strong> is a mobile-first, gamified prediction market on Creditcoin where markets about Ethereum settle themselves by cryptographic proof.</p>
+
+  <div class="tscroll">
+    <table>
+      <thead><tr><th></th><th>Runs on</th><th>Cadence</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Game loop</strong></td><td>Creditcoin</td><td class="num">15s blocks</td><td>Swipe, trade, live LMSR odds, streaks, XP, leaderboard. Feels instant.</td></tr>
+        <tr><td><strong>Truth loop</strong></td><td>Attestcoin</td><td class="num">~15 min</td><td>Attestation, proof, verification, settlement. Feels weighty.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Market catalogue at launch</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Template</th><th>Source</th><th>Event</th><th>Lane</th></tr></thead>
+      <tbody>
+        <tr><td>ETH above $X before T</td><td class="mono">Mainnet</td><td class="mono">Chainlink AnswerUpdated topic[1]</td><td><span class="pill proof">proof</span></td></tr>
+        <tr><td>Whale wallet moves &gt; N ETH</td><td class="mono">Mainnet</td><td class="mono">ERC-20 / native Transfer</td><td><span class="pill proof">proof</span></td></tr>
+        <tr><td>Uniswap proposal #N executes</td><td class="mono">Mainnet</td><td class="mono">Governor ProposalExecuted</td><td><span class="pill proof">proof</span></td></tr>
+        <tr><td>Gas above N gwei before T</td><td class="mono">Sepolia</td><td class="mono">CruxBeacon Snapshot</td><td><span class="pill proof">proof</span></td></tr>
+        <tr><td>Contract X hits N total swaps</td><td class="mono">Sepolia</td><td class="mono">CruxBeacon Snapshot</td><td><span class="pill proof">proof</span></td></tr>
+        <tr><td>Will &lt;off-chain event&gt; occur</td><td class="mono">—</td><td class="mono">AI resolver + bonded dispute</td><td><span class="pill ai">ai</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="measure">Anyone can create a market by composing a spec from the template gallery, and earns a share of its fees.</p>
+
+  <div class="callout key">
+    <p class="eyebrow">The demo, in one sentence</p>
+    <p>Open a market on the real ETH price, watch Chainlink update on Ethereum mainnet, watch the proof land on Creditcoin ~8 minutes later, and watch the market settle itself with no human involved anywhere.</p>
+  </div>
+</section>
+
+<!-- ============================== ARCHITECTURE ============================== -->
+<section id="architecture">
+  <div class="sec-head">
+    <span class="num">08 — Architecture</span>
+    <h2>Where truth enters the system</h2>
+  </div>
+
+  <figure class="figure">
+    <div class="diagram">
+      <svg viewBox="0 0 760 476" role="img" aria-label="Architecture: Ethereum mainnet and Sepolia events are attested and verified by the Creditcoin precompile, feeding the proof-lane and AI-lane resolvers, then the LMSR market and score contracts.">
+        <!-- ETHEREUM -->
+        <rect class="d-lane" x="8" y="8" width="744" height="112" rx="5"/>
+        <text class="d-tl" x="22" y="28">ETHEREUM — SOURCE OF TRUTH</text>
+        <rect class="d-card" x="24" y="40" width="350" height="66" rx="4"/>
+        <text class="d-teal" x="38" y="58">MAINNET · chainKey 3</text>
+        <text class="d-tm" x="38" y="76">Chainlink AnswerUpdated · Transfer</text>
+        <text class="d-tm" x="38" y="92">Governor ProposalExecuted</text>
+        <rect class="d-card" x="388" y="40" width="348" height="66" rx="4"/>
+        <text class="d-teal" x="402" y="58">SEPOLIA · chainKey 1</text>
+        <text class="d-tm" x="402" y="76">CruxBeacon.sol  ← we deploy</text>
+        <text class="d-tm" x="402" y="92">staticcall → emit Snapshot</text>
+
+        <!-- attestation arrow -->
+        <path class="d-arrow" d="M380 120 L380 156"/>
+        <path class="d-head" d="M380 164 l-5 -9 h10 z"/>
+        <text class="d-tm" x="396" y="136">attestors gossip · BLS aggregate · quorum</text>
+        <text class="d-tm" x="396" y="152">verified: checkpoint / 10 blocks · ~7.6 min lag</text>
+
+        <!-- CREDITCOIN -->
+        <rect class="d-lane" x="8" y="170" width="744" height="252" rx="5"/>
+        <text class="d-tl" x="22" y="190">CREDITCOIN CC3 TESTNET — 102031</text>
+
+        <rect class="d-proof" x="24" y="202" width="712" height="40" rx="4"/>
+        <text class="d-t" x="38" y="219">precompile 0x…0FD2</text>
+        <text class="d-tm" x="38" y="234">verify(merkle, continuity) → bool   ·   ~250 ms   ·   staticcall, no gas</text>
+
+        <path class="d-arrow" d="M200 242 L200 268"/><path class="d-head" d="M200 276 l-5 -9 h10 z"/>
+        <path class="d-arrow" d="M560 242 L560 268"/><path class="d-head" d="M560 276 l-5 -9 h10 z"/>
+
+        <rect class="d-proof" x="24" y="280" width="352" height="76" rx="4"/>
+        <text class="d-t" x="38" y="298">CruxAttestedResolver is USCBase</text>
+        <text class="d-tm" x="38" y="315">receiptStatus == 1   (C3)</text>
+        <text class="d-tm" x="38" y="330">match emitter + topic0 · extract · compare</text>
+        <text class="d-tm" x="38" y="345">pay resolution bounty   (D6)</text>
+
+        <rect class="d-ai" x="388" y="280" width="348" height="76" rx="4"/>
+        <text class="d-t" x="402" y="298">CruxAIResolver</text>
+        <text class="d-tm" x="402" y="315">AI posts outcome + bond</text>
+        <text class="d-tm" x="402" y="330">dispute window · counter-bond</text>
+        <text class="d-tm" x="402" y="345">escalate → committee · else finalize</text>
+
+        <path class="d-arrow" d="M200 356 L200 372 L380 372 L380 386"/>
+        <path class="d-arrow" d="M560 356 L560 372 L380 372"/>
+        <path class="d-head" d="M380 394 l-5 -9 h10 z"/>
+
+        <rect class="d-card" x="196" y="398" width="368" height="30" rx="4"/>
+        <text class="d-t" x="210" y="418">CruxMarket — LMSR · tCTC collateral</text>
+
+        <!-- OFFCHAIN -->
+        <rect class="d-lane" x="8" y="436" width="744" height="32" rx="5"/>
+        <text class="d-tm" x="22" y="456">crux-worker  ·  crux-ai  ·  crux-indexer   →   Next.js frontend   ·   none of them trusted</text>
+      </svg>
+    </div>
+    <figcaption><strong>Trust boundary, stated precisely:</strong> in the proof lane the only assumption is the Attestcoin attestor quorum — the same assumption Creditcoin itself makes. No admin key, no reporter, no dispute window. In the AI lane, trust is an AI agent bounded by an economic dispute game. The UI labels every market with its lane, so users always know which guarantee they hold.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================== CONTRACTS ============================== -->
+<section id="contracts">
+  <div class="sec-head">
+    <span class="num">09 — Contracts</span>
+    <h2>Resolution rules as data, not code</h2>
+  </div>
+  <p class="measure">Solidity <code>^0.8.23</code> matching the reference contracts, Foundry, OpenZeppelin, PRBMath.</p>
+
+  <h3><code>CruxAttestedResolver.sol is USCBase</code></h3>
+  <p class="measure">The core contribution. A market's resolution rule is <strong>data</strong>:</p>
+  <pre><code>enum Extract    { TOPIC, DATA_WORD }
+enum Comparator { GT, GTE, LT, LTE, EQ, EXISTS }
+
+struct AttestSpec {
+    uint64     chainKey;      // 3 = Ethereum mainnet, 1 = Sepolia
+    address    emitter;       // log MUST originate here
+    bytes32    topic0;        // event signature
+    Extract    extractMode;   // indexed topic, or a 32-byte data word
+    uint8      extractIndex;  // topic index 1..3, or word offset in data
+    Comparator cmp;
+    int256     threshold;
+    uint64     fromBlock;     // observation window, source-chain heights
+    uint64     toBlock;
+}</code></pre>
+  <p class="measure"><code>_processAndEmitEvent</code> performs, in order:</p>
+  <ol>
+    <li><code>getTransactionType</code> + <code>isValidTransactionType</code></li>
+    <li><strong><code>require(receipt.receiptStatus == 1)</code></strong> — C3, non-negotiable</li>
+    <li><code>getLogsByEventSignature(receipt, spec.topic0)</code></li>
+    <li><code>require(log.address_ == spec.emitter)</code> — a matching topic from the wrong contract is an attack</li>
+    <li><code>require(blockHeight &gt;= spec.fromBlock &amp;&amp; blockHeight &lt;= spec.toBlock)</code></li>
+    <li>extract operand per <code>extractMode</code> / <code>extractIndex</code></li>
+    <li>apply <code>cmp</code> against <code>threshold</code> → on match, settle <strong>YES</strong></li>
+    <li>pay the resolution bounty to <code>msg.sender</code> (D6)</li>
+  </ol>
+  <p class="measure">Replay protection is inherited: <code>processedQueries[queryId]</code>, keyed on <code>keccak256(chainKey ‖ blockHeight ‖ txIndex)</code>.</p>
+  <p class="measure"><strong>Settling NO</strong> — <code>settleNo(marketId)</code>, callable by anyone once <code>getLatestAttestedHeightAndHash(chainKey).height &gt; spec.toBlock</code>. No proof needed: if the window is fully attested and no valid YES proof ever arrived, the event did not occur. Absence is established by attested time (D7).</p>
+
+  <h3><code>CruxMarket.sol</code></h3>
+  <ul>
+    <li>One contract holding many binary markets — cheaper than per-market deploys.</li>
+    <li>LMSR over <code>{YES, NO}</code> using PRBMath <code>UD60x18</code> for <code>exp</code>/<code>ln</code>.</li>
+    <li><code>buy(marketId, outcome, shares, maxCost)</code> / <code>sell(…, minProceeds)</code> — both slippage-guarded.</li>
+    <li>Fee split: subsidy recovery / creator share / <strong>resolution bounty pool</strong> / protocol.</li>
+    <li><code>claim(marketId)</code> after settlement; winning shares redeem 1:1 in tCTC.</li>
+  </ul>
+  <div class="callout danger">
+    <p class="eyebrow">The most important economic parameter in the system</p>
+    <p>Trading halts at <code>tradingCloseBlock</code>, set safely <em>before</em> <code>spec.toBlock</code> so nobody can trade on an outcome already visible on Ethereum but not yet attested. Size the gap generously against the observed ~7.6 min lag. This is an invariant, not a UI nicety — document it and test it explicitly. See <a href="#risks">R3</a>.</p>
+  </div>
+
+  <h3><code>CruxAIResolver.sol</code></h3>
+  <ul>
+    <li><code>propose(marketId, outcome, bytes32 evidenceHash)</code> — requires a bond.</li>
+    <li>Dispute window in Creditcoin blocks (~30 min = 120 blocks).</li>
+    <li><code>dispute(marketId)</code> with a larger counter-bond → escalates to committee vote.</li>
+    <li><code>finalize(marketId)</code> after an unchallenged window; proposer reclaims bond plus fee.</li>
+    <li>Losing side's bond is slashed to the winner. Evidence text off-chain, hash on-chain.</li>
+    <li><strong>Only ever attached to markets flagged <code>Lane.AI</code>.</strong> Proof-lane markets have no path into this contract.</li>
+  </ul>
+
+  <h3><code>CruxScore.sol</code></h3>
+  <p class="measure">Soulbound, ERC-5192-style. Per user: resolved-market count, <strong>Brier score</strong> <code>(1/N)·Σ(pᵢ − oᵢ)²</code>, current and best streak, season XP. Written by <code>CruxMarket</code> on claim; read by leaderboards.</p>
+
+  <h3><code>CruxBeacon.sol</code> — Sepolia</h3>
+  <pre><code>event Snapshot(
+    bytes32 indexed specId,
+    address indexed target,
+    bytes4  selector,
+    bytes   result,
+    uint256 blockNumber
+);
+
+function snapshot(bytes32 specId, address target, bytes calldata data) external;</code></pre>
+  <p class="measure"><code>staticcall</code>s <code>target</code> and emits the raw return bytes. Anyone may call it. The emitted event is then attestable, so any <code>view</code>-readable Sepolia state becomes a resolvable market (D8).</p>
+</section>
+
+<!-- ============================== OFFCHAIN ============================== -->
+<section id="offchain">
+  <div class="sec-head">
+    <span class="num">10 — Off-chain &amp; frontend</span>
+    <h2>Conveniences, never trust assumptions</h2>
+  </div>
+  <p class="measure">All TypeScript. Every one is a wrapper over permissionless calls — none of them are trusted.</p>
+
+  <h4><code>crux-worker</code></h4>
+  <p class="measure">Watches markets approaching <code>toBlock</code>. For each: scan the source chain for matching logs → <code>waitUntilHeightAttested</code> → <code>getProof</code> (~1s) → submit <code>execute(…)</code>. Idempotent, since on-chain replay protection makes duplicate submissions harmless. Persists in-flight state to survive restarts and catches up on missed blocks after downtime. Also calls <code>settleNo</code> once windows lapse. <strong>Anyone can run one</strong> — if ours dies, the bounty ensures someone else resolves. That is the point of D6.</p>
+
+  <h4><code>crux-ai</code></h4>
+  <p class="measure">Claude-based resolver for <code>Lane.AI</code> markets. Gathers evidence, emits a structured verdict with citations, pins the evidence, posts <code>propose()</code> with a bond. Deliberately conservative — it abstains rather than guesses, because a wrong call costs it real money.</p>
+
+  <h4><code>crux-indexer</code></h4>
+  <p class="measure">There is no subgraph on Creditcoin (C7). A small <code>viem</code> <code>watchEvent</code> indexer writes markets, trades, resolutions and leaderboards into Postgres and serves the frontend.</p>
+
+  <h4>Frontend — Next.js + wagmi/viem + Tailwind, mobile-first</h4>
+  <ul>
+    <li><strong>Swipe feed</strong> — one market per card; swipe right YES, left NO; preset stake chips; live LMSR odds bar.</li>
+    <li><strong>Proof Drop</strong> — the resolution moment. Animates the Merkle path, then stamps <code>PROVEN · ETHEREUM MAINNET · BLOCK 25,733,720</code> with links to Etherscan and the Creditcoin verification tx. <strong>Client-side verification is free</strong> (C6), so the browser independently re-verifies and shows a check that trusts nobody — not even our own backend.</li>
+    <li><strong>Lane badges</strong> — every market visibly <span class="pill proof">proof</span> or <span class="pill ai">ai</span>. Never let a user confuse the guarantees.</li>
+    <li><strong>Profile</strong> — Brier score, streak, season XP, soulbound badge.</li>
+    <li><strong>Create</strong> — compose an <code>AttestSpec</code> from templates; topic0, aggregator address and block windows are resolved for the user at creation time.</li>
+  </ul>
+</section>
+
+<!-- ============================== PREREQS ============================== -->
+<section id="prereqs">
+  <div class="sec-head">
+    <span class="num">11 — Prerequisites</span>
+    <h2>Blocking. Do these first.</h2>
+  </div>
+  <p class="measure">Ordered by risk. The first three gate everything else.</p>
+  <ul class="checks">
+    <li class="block"><span class="box">☐</span><span class="ctext"><strong>1 · tCTC from the Discord faucet</strong> — join <code>discord.gg/creditcoin</code>, <code>#token-faucet</code>, <code>/faucet address:0x…</code><span class="cwhy">Cannot deploy anything without gas. <b>Rate limits are undocumented</b> — if it drips slowly, all deployment work stalls. Request early and often.</span></span></li>
+    <li class="block"><span class="box">☐</span><span class="ctext"><strong>2 · Ethereum mainnet RPC with archive <code>eth_getLogs</code></strong> (paid Alchemy/Infura tier)<span class="cwhy"><b>Verified blocker (C8):</b> public RPCs reject archive log queries. The worker cannot find resolving events without this.</span></span></li>
+    <li class="block"><span class="box">☐</span><span class="ctext"><strong>3 · Sepolia RPC + Sepolia ETH</strong><span class="cwhy">Needed to deploy <code>CruxBeacon</code> and fire test events on demand.</span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>4 · Reproduce <code>hello-bridge</code> end-to-end</strong><span class="cwhy">Proves the whole toolchain works on our machine before we build on it.</span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>5 · Confirm Foundry version</strong><span class="cwhy">Repo pins v1.2.3; we have 1.7.1. Pin per-project if it misbehaves.</span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>6 · Verify <code>EvmV1Decoder</code> import path from <code>@gluwa/usc-contracts@0.1.2</code></strong><span class="cwhy">Everything in the proof lane depends on it. Source-distributed for forge — needs a remapping.</span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>7 · Contract verification on Blockscout testnet</strong><span class="cwhy">Judges will want to read the contracts.</span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>8 · Ask in <code>#buidl-ctc-qna</code></strong><span class="cwhy">Testnet reset schedule; faucet limits; whether mainnet attestation (chainKey 3) is guaranteed up through Sept 6. <b>R1 depends entirely on the answer.</b></span></span></li>
+    <li><span class="box">☐</span><span class="ctext"><strong>9 · Team eligibility + submission fields</strong><span class="cwhy">Names, emails, countries, bios. Trivial, but easy to leave to the last night.</span></span></li>
+  </ul>
+  <p class="measure">Already confirmed present: Node v24.18.0, forge 1.7.1, yarn, git. Docker is <strong>not</strong> available but is not needed (attestor-only).</p>
+</section>
+
+<!-- ============================== TIMELINE ============================== -->
+<section id="timeline">
+  <div class="sec-head">
+    <span class="num">12 — Timeline</span>
+    <h2>26 days, risk front-loaded</h2>
+  </div>
+  <p class="measure">Today <strong>2026-08-11</strong>. Submissions open <strong>08-13</strong>. Deadline <strong>09-06 23:59 ET</strong>.</p>
+
+  <div class="phases">
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 0</span><span class="dates">Aug 11 – 13</span><h3>Foundations</h3></div>
+      <p>Prerequisites 1–6. Scaffold monorepo (<code>contracts/ worker/ ai/ indexer/ web/</code>). Reproduce <code>hello-bridge</code>.</p>
+      <p class="exit"><b>Exit:</b> the toolchain is proven locally, not just read about.</p>
+    </div></div>
+
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 1</span><span class="dates">Aug 14 – 20</span><h3>Proof lane</h3></div>
+      <p><code>CruxAttestedResolver</code> + <code>AttestSpec</code> + <code>CruxMarket</code> (LMSR). Foundry tests using fixture proofs captured from the live prover API. Deploy to CC3 testnet; <code>CruxBeacon</code> to Sepolia.</p>
+      <p class="exit"><b>Exit:</b> a Sepolia-sourced market resolves itself end-to-end, no human in the loop.</p>
+    </div></div>
+
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 2</span><span class="dates">Aug 21 – 27</span><h3>Mainnet + automation</h3></div>
+      <p>Chainlink mainnet template. <code>crux-worker</code> with restart-safety and bounty claiming. <code>settleNo</code>. <code>crux-indexer</code>. Batch resolution sharing one continuity proof (C5).</p>
+      <p class="exit"><b>Exit:</b> a real ETH-price market resolves from Ethereum mainnet data.</p>
+    </div></div>
+
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 3</span><span class="dates">Aug 28 – Sep 1</span><h3>AI lane + gamification</h3></div>
+      <p><code>CruxAIResolver</code> with bonds and disputes. <code>crux-ai</code> agent. <code>CruxScore</code> Brier/streak/XP.</p>
+      <p class="exit"><b>Exit:</b> an AI-resolved market is successfully disputed and overturned in a test.</p>
+    </div></div>
+
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 4</span><span class="dates">Sep 2 – 4</span><h3>Frontend</h3></div>
+      <p>Swipe feed, Proof Drop with client-side verification, lane badges, leaderboard, profile, market creation.</p>
+      <p class="exit"><b>Exit:</b> the demo runs on a phone.</p>
+    </div></div>
+
+    <div class="phase"><div class="phase-body">
+      <div class="phase-top"><span class="pn">Phase 5</span><span class="dates">Sep 5 – 6</span><h3>Submission</h3></div>
+      <p>Demo video, deck, README, Attestcoin Integration Summary, contract verification, final redeploy, dry-run the demo twice.</p>
+      <p class="exit"><b>Exit:</b> submitted ≥12h before deadline.</p>
+    </div></div>
+  </div>
+
+  <div class="callout key">
+    <p class="eyebrow">Deliberate slack</p>
+    <p>Phase 4 is short because Phases 1–2 carry the technical risk. If they slip, the frontend compresses; if they don't, the surplus goes into polish.</p>
+  </div>
+</section>
+
+<!-- ============================== RISKS ============================== -->
+<section id="risks">
+  <div class="sec-head">
+    <span class="num">13 — Risk register</span>
+    <h2>What could sink this, and the answer</h2>
+  </div>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>ID</th><th>Risk</th><th>Sev</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td class="id">R1</td><td>Mainnet attestation (chainKey 3) stops or lags badly before judging</td><td><span class="pill crit">critical</span></td><td>Verified at 38-block lag today, but it is testnet infrastructure. Ask in <code>#buidl-ctc-qna</code>. Keep a Sepolia-only demo path working at all times so no single failure kills the submission. Worker monitors lag and alerts.</td></tr>
+        <tr><td class="id">R4</td><td>Forgetting <code>receiptStatus == 1</code> (C3)</td><td><span class="pill crit">critical</span></td><td>A reverted tx could resolve a market. Enforced in the <code>USCBase</code> subclass and covered by a dedicated adversarial test that submits a proof of a reverted transaction and asserts revert.</td></tr>
+        <tr><td class="id">R2</td><td>Faucet rate limits starve deployment</td><td><span class="pill high">high</span></td><td>Request on day 0, accumulate a buffer across addresses, keep deploys lean. Note <code>verifySingle</code> is a staticcall — most development needs no gas at all.</td></tr>
+        <tr><td class="id">R3</td><td>Trading window vs. attestation gap lets someone trade on a known outcome</td><td><span class="pill high">high</span></td><td>Close trading well before <code>spec.toBlock</code>, sized generously against the observed ~7.6 min lag. An economic invariant, not a UI nicety — documented and explicitly tested.</td></tr>
+        <tr><td class="id">R5</td><td>Testnet reset wipes deployments</td><td><span class="pill med">medium</span></td><td>Idempotent deploy scripts, addresses in config, one-command redeploy. Ask about the schedule.</td></tr>
+        <tr><td class="id">R6</td><td>Chainlink upgrades the aggregator mid-hackathon</td><td><span class="pill med">medium</span></td><td>Resolve <code>proxy.aggregator()</code> at market creation and pin it into the spec. Never hardcode.</td></tr>
+        <tr><td class="id">R7</td><td>LMSR fixed-point math bugs / overflow</td><td><span class="pill med">medium</span></td><td>PRBMath rather than hand-rolled. Fuzz buy/sell round-trips; invariant-test that <code>Σ prices == 1</code>.</td></tr>
+        <tr><td class="id">R8</td><td>Scope creep across two resolution lanes</td><td><span class="pill med">medium</span></td><td>Proof lane is the thesis and ships first. AI lane is Phase 3 and is <strong>cuttable</strong> if Phases 1–2 slip.</td></tr>
+        <tr><td class="id">R9</td><td>Docs are unreliable — proven wrong about reference code, conflicting prover URLs</td><td><span class="pill low">low</span></td><td>Verify against the live network, as done throughout §03. Trust the chain over the docs.</td></tr>
+        <tr><td class="id">R10</td><td>Public Ethereum RPC rate limits (cost a 25-min false alarm)</td><td><span class="pill low">low</span></td><td>Paid RPC key (prereq 2). Exponential backoff in the worker.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================== SUBMISSION ============================== -->
+<section id="submission">
+  <div class="sec-head">
+    <span class="num">14 — Submission checklist</span>
+    <h2>Mapped to the stated requirements</h2>
+  </div>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Requirement</th><th>How CRUX satisfies it</th></tr></thead>
+      <tbody>
+        <tr><td>Working Attestcoin integration <strong>running in the project</strong></td><td><code>CruxAttestedResolver</code> calls precompile <code>0x…0FD2</code> on every proof-lane settlement. Not optional, not mocked — the market cannot resolve without it.</td></tr>
+        <tr><td>Technical documentation of the integration</td><td>This document + <code>/docs/attestcoin-integration.md</code> covering <code>AttestSpec</code>, the proof flow, and the trust boundary.</td></tr>
+        <tr><td><strong>Depth of utilization</strong> (core scoring criterion)</td><td>Precompile verification; <code>EvmV1Decoder</code> receipt/log extraction; <code>USCBase</code> replay protection; <code>getLatestAttestedHeightAndHash</code> driving NO-settlement; batch proofs sharing a continuity proof; gas-aware prompt resolution; <strong>both</strong> chainKey 1 and 3.</td></tr>
+        <tr><td>Deployed on a testnet</td><td>CC3 testnet (102031) + Sepolia for <code>CruxBeacon</code>.</td></tr>
+        <tr><td>Attestcoin as a <strong>core feature</strong></td><td>Resolution <em>is</em> Attestcoin. Remove it and there is no product.</td></tr>
+        <tr><td>Original work created during the hackathon</td><td>Yes. Only dependencies are <code>@gluwa/*</code>, OpenZeppelin, PRBMath.</td></tr>
+        <tr><td>GitHub repo with README</td><td>Present.</td></tr>
+        <tr><td>Deck / whitepaper PDF · demo video</td><td>Phase 5. The Proof Drop is the centrepiece.</td></tr>
+        <tr><td>Project sector</td><td>DeFi (primary), AI (secondary).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================== OPEN QUESTIONS ============================== -->
+<section id="open">
+  <div class="sec-head">
+    <span class="num">15 — Open questions</span>
+    <h2>Unresolved, and who can answer</h2>
+  </div>
+  <ol>
+    <li><strong>Is chainKey 3 attestation guaranteed to stay up through Sept 6?</strong> R1 hinges on this. Ask in <code>#buidl-ctc-qna</code>.</li>
+    <li><strong>Faucet rate limits and per-request amount?</strong> Undocumented. Determines deployment cadence.</li>
+    <li><strong>Testnet reset schedule?</strong> Undocumented. Determines whether one-command redeploy is mandatory.</li>
+    <li><strong>Which prover hostname is canonical</strong> — <code>prover.</code> or <code>proof-gen-api.</code>? Both live today; docs conflict. Pick one, keep the other as automatic fallback.</li>
+    <li><strong>Exact attestor quorum threshold?</strong> Not public. Needed to state our trust assumption precisely.</li>
+    <li><strong>Does <code>verifyBatch</code> require all proofs to share one continuity proof?</strong> Determines real batching savings. Test empirically in Phase 2.</li>
+    <li><strong>Committee composition for AI disputes</strong> — multisig for the hackathon, or token vote? Multisig is honest and simpler; document it as a known centralization confined to the AI lane.</li>
+  </ol>
+</section>
+
+<!-- ============================== APPENDIX ============================== -->
+<section id="appendix">
+  <div class="sec-head">
+    <span class="num">16 — Reference appendix</span>
+    <h2>Addresses, endpoints, limits</h2>
+  </div>
+
+  <h3>Networks</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th></th><th>CC3 Testnet</th><th>Mainnet</th></tr></thead>
+      <tbody>
+        <tr><td>EVM chain ID</td><td class="num">102031</td><td class="num">102030</td></tr>
+        <tr><td>RPC HTTPS</td><td class="mono">https://rpc.cc3-testnet.creditcoin.network</td><td class="mono">https://mainnet3.creditcoin.network</td></tr>
+        <tr><td>Explorer (EVM)</td><td class="mono">creditcoin-testnet.blockscout.com</td><td class="mono">creditcoin.blockscout.com</td></tr>
+        <tr><td>Explorer (Substrate)</td><td class="mono">creditcoin3-testnet.subscan.io</td><td class="mono">creditcoin.subscan.io</td></tr>
+        <tr><td>Block time</td><td class="num">~15s</td><td class="num">~15s</td></tr>
+        <tr><td>Base gas price</td><td class="num">0.5 gwei <em>(verified)</em></td><td class="num">0.5 gwei</td></tr>
+        <tr><td>Block gas limit</td><td class="num">75,000,000</td><td class="num">75,000,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Attestcoin addresses</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Contract</th><th>Testnet</th><th>Mainnet</th></tr></thead>
+      <tbody>
+        <tr><td>BlockProver precompile</td><td class="mono">0x…0FD2</td><td class="mono">same</td></tr>
+        <tr><td>ChainInfo precompile</td><td class="mono">0x…0fd3</td><td class="mono">same</td></tr>
+        <tr><td>Decoder</td><td class="mono">0x731c345d79Fb8BbDC541f9DF3b6317585F849F9f</td><td class="mono">0x9D094C9f22B10FCf842c2fC6A0981630A4F94B5C</td></tr>
+        <tr><td>SubstrateTransfer precompile</td><td class="mono">0x…0Fd1</td><td class="mono">same</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Source chains, as seen from CC3 <em>testnet</em></h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>chainKey</th><th>Chain</th><th>chainId</th><th>Genesis</th><th>Checkpoint interval</th></tr></thead>
+      <tbody>
+        <tr><td class="id">3</td><td>Ethereum Mainnet</td><td class="num">1</td><td class="num">0</td><td class="num">every 10 blocks <em>(verified)</em></td></tr>
+        <tr><td class="id">1</td><td>Ethereum Sepolia</td><td class="num">11155111</td><td class="num">0</td><td class="num">every 10 blocks <em>(verified)</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Proof Builder API · packages · limits</h3>
+  <pre><code>Base: https://prover.cc3-testnet.creditcoin.network
+      https://proof-gen-api.cc3-testnet.creditcoin.network      (both live)
+
+GET /api/v1/attested-height/{chainKey}
+GET /api/v1/proof-by-tx/{chainKey}/{transactionHash}
+GET /api/v1/proof-batch-by-tx
+
+@gluwa/usc-sdk        0.18.0   TypeScript, peer-dep ethers v6
+@gluwa/usc-contracts  0.1.2    Solidity source for Foundry (EvmV1Decoder)
+
+MAX_ENCODED_SIZE   449,280 bytes   (verified in SDK)
+batch              10 proofs / 1000-block range        (docs)
+gas                CTC ≈ 2.3e-5 + 2.9e-7 × continuity_hash_count   (docs)
+                   10–100× penalty for proofs older than ~24h</code></pre>
+
+  <h3>Links</h3>
+  <ul>
+    <li>Docs — <a href="https://docs.creditcoin.org/attestcoin-protocol.md">docs.creditcoin.org/attestcoin-protocol</a></li>
+    <li>Examples — <a href="https://github.com/gluwa/usc-testnet-bridge-examples">gluwa/usc-testnet-bridge-examples</a></li>
+    <li>Core — <a href="https://github.com/gluwa/creditcoin3">gluwa/creditcoin3</a></li>
+    <li>Faucet — <a href="https://discord.gg/creditcoin">discord.gg/creditcoin</a> → <code>#token-faucet</code></li>
+    <li>Q&amp;A — Discord <code>#buidl-ctc-qna</code> · team@creditcoin.org</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  Research and verification performed 2026-08-11 against live Creditcoin CC3 testnet, the Attestcoin proof builder service, and Ethereum mainnet. Every claim labelled <strong>verified</strong> was executed, not read.
+</footer>
+
+</div>

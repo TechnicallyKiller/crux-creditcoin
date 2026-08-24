@@ -1,0 +1,14 @@
+node_modules/
+dist/
+out/
+cache/
+cache_forge/
+broadcast/
+.env
+.env.*
+!.env.example
+*.log
+.next/
+coverage/
+lcov.info
+.DS_Store
