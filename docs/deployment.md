@@ -86,6 +86,33 @@ The consequence worth knowing: CRUX does **not** use Attestcoin's published
 decoder at `0x731c345d…F9f`. It uses its own instance compiled from the same
 `@gluwa/usc-contracts@0.1.2` source.
 
+### D5 — Deleting the wiring transaction, because gas estimation cannot be trusted
+
+`--gas-estimate-multiplier 300` fixed the *deploy* estimates but not the call
+estimate: forge priced `setResolver` at ~49,709 while the chain needs ~153,244,
+a >3x under-estimate, so 3x landed just short and the wiring transaction died a
+second time. Both contracts deployed fine again, leaving a market that looked
+live and could not trade.
+
+Chasing the multiplier upward is the wrong fix. The market's `resolver` is now
+**immutable**, set from an address predicted with CREATE nonce arithmetic:
+
+```solidity
+address predicted = vm.computeCreateAddress(deployer, vm.getNonce(deployer) + 1);
+market   = new CruxMarket(ICruxResolver(predicted));  // nonce n
+resolver = new CruxAttestedResolver(market);          // nonce n+1 == predicted
+require(address(resolver) == predicted, "prediction failed");
+```
+
+Two transactions, no wiring call, nothing left to run out of gas. It also
+removes the last privileged write on the settlement path: there is no longer any
+moment in the contract's life when anyone can change who settles markets.
+
+**Lesson worth keeping:** on a chain whose gas estimation is unreliable, prefer
+designs with fewer post-deployment transactions over designs that need correct
+estimates. A deployment step that can partially fail will eventually partially
+fail.
+
 ### D4 — The SDK's method names are not the precompile's ABI names
 
 `IChainInfo` was written against `@gluwa/usc-sdk`'s TypeScript surface, which

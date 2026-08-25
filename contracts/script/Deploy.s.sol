@@ -9,10 +9,15 @@ import {ICruxMarket} from "../src/ICruxMarket.sol";
 /**
  * @notice Deploys the proof lane to Creditcoin CC3 testnet.
  *
- * Market and resolver each need the other's address, so the cycle is broken by
- * a one-shot `setResolver` rather than by making either mutable. `setResolver`
- * reverts on a second call, so the wiring cannot be changed after this script
- * runs — there is no lingering admin power over settlement.
+ * Market and resolver each need the other's address. The cycle is broken by
+ * predicting the resolver's CREATE address from the deployer's nonce, so both
+ * references are immutable and NO wiring transaction is needed.
+ *
+ * That is not just tidiness. The earlier design used a one-shot `setResolver`,
+ * and it failed two deployments in a row: Foundry under-estimates call gas on
+ * CC3 by more than 3x, so the wiring transaction ran out of gas while both
+ * contracts deployed successfully — producing a market that looked live and
+ * could not process a single trade. Deleting the step deletes the failure.
  *
  *   forge script script/Deploy.s.sol --account crux-deployer \
  *     --rpc-url cc3_testnet --broadcast
@@ -22,17 +27,24 @@ import {ICruxMarket} from "../src/ICruxMarket.sol";
  */
 contract Deploy is Script {
     function run() external returns (CruxMarket market, CruxAttestedResolver resolver) {
+        // The resolver is deployed immediately after the market, so its
+        // address is the deployer's next-but-one CREATE address. Asserted
+        // below rather than trusted.
+        address deployer = msg.sender;
+        uint64 nonce = vm.getNonce(deployer);
+        address predictedResolver = vm.computeCreateAddress(deployer, nonce + 1);
+
         vm.startBroadcast();
-
-        market = new CruxMarket();
+        market = new CruxMarket(ICruxResolver(predictedResolver));
         resolver = new CruxAttestedResolver(ICruxMarket(address(market)));
-        market.setResolver(ICruxResolver(address(resolver)));
-
         vm.stopBroadcast();
+
+        require(address(resolver) == predictedResolver, "resolver address prediction failed");
 
         console.log("CruxMarket          :", address(market));
         console.log("CruxAttestedResolver:", address(resolver));
         console.log("resolver wired      :", address(market.resolver()) == address(resolver));
+        console.log("(immutable - no wiring transaction, nothing left to fail)");
 
         // Record addresses so the market-lifecycle scripts and the off-chain
         // worker need no hand-copied constants. R5: after a testnet reset this

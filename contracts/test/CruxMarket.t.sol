@@ -35,9 +35,8 @@ contract CruxMarketTest is Test {
     uint64 constant TO = FROM + 1000;
 
     function setUp() public {
-        market = new CruxMarket();
         stub = new StubResolver();
-        market.setResolver(stub);
+        market = new CruxMarket(stub);
 
         _attested(CLOSE - 1000); // trading open
         vm.deal(alice, 1000 ether);

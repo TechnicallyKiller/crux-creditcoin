@@ -67,7 +67,22 @@ contract CruxMarket is ICruxMarket {
     }
 
     address public immutable OWNER;
-    ICruxResolver public resolver;
+
+    /**
+     * @notice The only contract permitted to settle a market.
+     *
+     * @dev Immutable, set in the constructor from an address predicted with
+     *      CREATE nonce arithmetic — see script/Deploy.s.sol. The obvious
+     *      alternative, a one-shot `setResolver`, cost two deployments before
+     *      it worked: Foundry under-estimates call gas on CC3 by >3x, so the
+     *      wiring transaction ran out of gas while both contracts deployed
+     *      fine, leaving a market that looked deployed and could not trade.
+     *
+     *      Removing the setter removes that failure mode, and with it the last
+     *      privileged write on the settlement path. There is now no point in
+     *      the contract's life at which anyone can change who settles markets.
+     */
+    ICruxResolver public immutable resolver;
 
     uint256 public nextMarketId = 1;
     mapping(uint256 => Market) public markets;
@@ -91,7 +106,7 @@ contract CruxMarket is ICruxMarket {
     event Claimed(uint256 indexed marketId, address indexed user, uint256 payout);
 
     error NotOwner();
-    error ResolverAlreadySet();
+    error ZeroResolver();
     error NotResolver();
     error InsufficientSubsidy(uint256 required, uint256 supplied);
     error TradingWindowTooTight(uint64 tradingCloseBlock, uint64 fromBlock, uint64 required);
@@ -108,16 +123,20 @@ contract CruxMarket is ICruxMarket {
         _;
     }
 
-    constructor() {
+    constructor(ICruxResolver r) {
+        if (address(r) == address(0)) revert ZeroResolver();
         OWNER = msg.sender;
+        resolver = r;
     }
 
-    /// @dev Set once, right after deployment. The resolver needs this contract's
-    ///      address in its constructor, so the two cannot both be immutable.
-    function setResolver(ICruxResolver r) external {
+    /// @notice Withdraw accrued protocol fees. Touches only `protocolFees`,
+    ///         never market collateral or subsidies, so it cannot make a
+    ///         market unable to pay its winners.
+    function withdrawProtocolFees(address to) external {
         if (msg.sender != OWNER) revert NotOwner();
-        if (address(resolver) != address(0)) revert ResolverAlreadySet();
-        resolver = r;
+        uint256 amount = protocolFees;
+        protocolFees = 0;
+        _send(to, amount);
     }
 
     // -------------------------------------------------------------- creation
