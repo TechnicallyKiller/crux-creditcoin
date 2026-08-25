@@ -45,11 +45,12 @@ contract CruxMarketTest is Test {
         vm.deal(address(this), 10_000 ether);
     }
 
+    /// @dev Mirrors the real precompile ABI; see scripts/check-abi.ts.
     function _attested(uint64 h) internal {
         vm.mockCall(
             CHAIN_INFO,
-            abi.encodeWithSelector(IChainInfo.getLatestAttestedHeightAndHash.selector),
-            abi.encode(h, bytes32(0))
+            abi.encodeWithSelector(IChainInfo.get_latest_attestation_height_and_hash.selector),
+            abi.encode(IChainInfo.HeightHashResult({height: h, hash: bytes32(0), isAttestation: true, exists: true}))
         );
     }
 

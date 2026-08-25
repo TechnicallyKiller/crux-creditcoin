@@ -4,7 +4,7 @@ pragma solidity ^0.8.23;
 import {LMSR} from "./LMSR.sol";
 import {AttestSpec, Lane} from "./CruxTypes.sol";
 import {ICruxMarket} from "./ICruxMarket.sol";
-import {IChainInfo} from "./IChainInfo.sol";
+import {ChainInfoLib} from "./IChainInfo.sol";
 
 interface ICruxResolver {
     function registerSpec(uint256 marketId, AttestSpec calldata spec) external;
@@ -21,9 +21,6 @@ interface ICruxResolver {
  * the market's event actually occurred on Ethereum.
  */
 contract CruxMarket is ICruxMarket {
-    IChainInfo public constant CHAIN_INFO =
-        IChainInfo(0x0000000000000000000000000000000000000fD3);
-
     /**
      * @notice How far ahead of the observation window trading must close, in
      *         source-chain blocks. ~30 minutes of Ethereum.
@@ -234,7 +231,7 @@ contract CruxMarket is ICruxMarket {
      */
     function _requireTradingOpen(Market storage m) internal view {
         if (m.settled) revert AlreadySettled();
-        (uint64 attested,) = CHAIN_INFO.getLatestAttestedHeightAndHash(m.chainKey);
+        uint64 attested = ChainInfoLib.attestedHeight(m.chainKey);
         if (attested >= m.tradingCloseBlock) revert TradingClosed(attested, m.tradingCloseBlock);
     }
 

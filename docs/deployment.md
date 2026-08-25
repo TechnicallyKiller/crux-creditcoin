@@ -85,3 +85,39 @@ is the idempotence R5 wants. Cost is ~0.004 tCTC, once.
 The consequence worth knowing: CRUX does **not** use Attestcoin's published
 decoder at `0x731c345d…F9f`. It uses its own instance compiled from the same
 `@gluwa/usc-contracts@0.1.2` source.
+
+### D4 — The SDK's method names are not the precompile's ABI names
+
+`IChainInfo` was written against `@gluwa/usc-sdk`'s TypeScript surface, which
+exposes `getLatestAttestedHeightAndHash(chainKey)` returning `(height, hash)`.
+The Solidity ABI is neither of those things:
+
+```solidity
+// what the precompile actually exposes
+function get_latest_attestation_height_and_hash(uint64 chainKey)
+    external view returns (HeightHashResult memory);   // snake_case, struct return
+struct HeightHashResult { uint64 height; bytes32 hash; bool isAttestation; bool exists; }
+```
+
+The camelCase form reverts `Unknown selector`. Since `CruxMarket` gates **every
+trade** through that call, the first deployment was inert: deployed, verified,
+and unable to process a single buy.
+
+The test suite passed throughout, because it mocked the interface it had
+invented. This is the sharp edge of docs/phase-0.md F2 — the precompile has no
+EVM bytecode, so a forked test cannot call it, and a mocked test validates the
+mock rather than the chain. Neither kind of test can catch a wrong ABI.
+
+The guard is `scripts/check-abi.ts`, which asserts every precompile selector the
+contracts depend on actually exists on live CC3. **Run it before every deploy:**
+
+```bash
+npm run check:abi
+```
+
+The precompile's own verified source is readable on Blockscout at
+`0x…0fD3` — a better authority than the SDK for anything ABI-shaped.
+
+Note `HeightHashResult.exists`: `ChainInfoLib.attestedHeight` reverts when it is
+false rather than reading the height as 0, since treating an absent attestation
+as height zero would silently reopen trading on every market.

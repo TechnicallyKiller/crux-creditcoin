@@ -5,7 +5,7 @@ import {Script, console} from "forge-std/Script.sol";
 import {CruxMarket} from "../src/CruxMarket.sol";
 import {AttestSpec, Extract, Comparator} from "../src/CruxTypes.sol";
 import {LMSR} from "../src/LMSR.sol";
-import {IChainInfo} from "../src/IChainInfo.sol";
+import {ChainInfoLib} from "../src/IChainInfo.sol";
 
 /**
  * @notice Step 1 of the end-to-end demo: open a market whose answer lives on
@@ -32,8 +32,7 @@ contract CreateMarket is Script {
         string memory sep = vm.readFile("../deployments/sepolia.json");
         address beacon = vm.parseJsonAddress(sep, ".CruxBeacon");
 
-        (uint64 attested,) =
-            IChainInfo(0x0000000000000000000000000000000000000fD3).getLatestAttestedHeightAndHash(SEPOLIA);
+        uint64 attested = ChainInfoLib.attestedHeight(SEPOLIA);
 
         // Trading closes shortly from now; the window opens a safety buffer
         // after that, and runs long enough to fire a snapshot inside it.

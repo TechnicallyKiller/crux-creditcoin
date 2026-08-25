@@ -6,7 +6,7 @@ import {INativeQueryVerifier} from "./usc/VerifierInterface.sol";
 import {EvmV1Decoder} from "@gluwa/usc-contracts/contracts/decoding/EvmV1Decoder.sol";
 import {AttestSpec, Extract, Comparator} from "./CruxTypes.sol";
 import {ICruxMarket} from "./ICruxMarket.sol";
-import {IChainInfo} from "./IChainInfo.sol";
+import {ChainInfoLib} from "./IChainInfo.sol";
 
 /**
  * @title CruxAttestedResolver
@@ -37,9 +37,6 @@ struct Proof {
 }
 
 contract CruxAttestedResolver is USCBase {
-    IChainInfo public constant CHAIN_INFO =
-        IChainInfo(0x0000000000000000000000000000000000000fD3);
-
     ICruxMarket public immutable MARKET;
 
     mapping(uint256 => AttestSpec) private _specs;
@@ -154,7 +151,7 @@ contract CruxAttestedResolver is USCBase {
         if (MARKET.isSettled(marketId)) revert MarketAlreadySettled(marketId);
 
         AttestSpec memory spec = _specs[marketId];
-        (uint64 attested,) = CHAIN_INFO.getLatestAttestedHeightAndHash(spec.chainKey);
+        uint64 attested = ChainInfoLib.attestedHeight(spec.chainKey);
 
         // Strictly greater: `toBlock` itself must be behind the attested tip,
         // otherwise a matching event could still be sitting in an unattested

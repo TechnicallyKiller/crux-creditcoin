@@ -87,11 +87,15 @@ contract CruxAttestedResolverTest is Test {
         );
     }
 
+    /// @dev Must mirror the REAL precompile ABI, not a convenient shape. The
+    ///      first version of this mock encoded a made-up signature, which made
+    ///      the suite pass against contracts that reverted on chain.
+    ///      scripts/check-abi.ts is what keeps this honest.
     function _mockAttestedHeight(uint64 h) internal {
         vm.mockCall(
             CHAIN_INFO,
-            abi.encodeWithSelector(IChainInfo.getLatestAttestedHeightAndHash.selector),
-            abi.encode(h, bytes32(0))
+            abi.encodeWithSelector(IChainInfo.get_latest_attestation_height_and_hash.selector),
+            abi.encode(IChainInfo.HeightHashResult({height: h, hash: bytes32(0), isAttestation: true, exists: true}))
         );
     }
 
