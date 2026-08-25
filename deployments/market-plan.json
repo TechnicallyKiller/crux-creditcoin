@@ -1,0 +1,8 @@
+{
+  "marketId": 1,
+  "closeBlock": "11561645",
+  "fromBlock": "11561795",
+  "toBlock": "11562395",
+  "attestedAtPlan": "11561620",
+  "beacon": "0x0F1bf92EE0C79F7Ca5C1e30E9412aD5BFF45c7C8"
+}
