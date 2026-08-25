@@ -1,6 +1,11 @@
 {
-  "CruxAttestedResolver": "0xD7EeD2a64762A7038d64886882161bA1b1EfC074",
-  "CruxMarket": "0x9872b13257E958c2F7E4DcCc3F96b3C70c8e050c",
   "chainId": 102031,
-  "deployedAtBlock": 5369209
+  "network": "Creditcoin CC3 Testnet",
+  "CruxMarket": "0x9872b13257E958c2F7E4DcCc3F96b3C70c8e050c",
+  "CruxAttestedResolver": "0xD7EeD2a64762A7038d64886882161bA1b1EfC074",
+  "EvmV1Decoder": "0x6e94c85Bf6b80394a4c051d03EC93Eefc854423F",
+  "deployedAtBlock": 5369274,
+  "deployer": "0x364edc06254874e62ff4ad8fa4d9a45238cb5609",
+  "resolverWired": false,
+  "note": "resolverWired false until setResolver lands; its first attempt ran out of gas"
 }
