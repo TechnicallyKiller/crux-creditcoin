@@ -21,5 +21,11 @@ contract DeployBeacon is Script {
         vm.stopBroadcast();
 
         console.log("CruxBeacon (Sepolia):", address(beacon));
+
+        string memory out = "beacon";
+        vm.serializeAddress(out, "CruxBeacon", address(beacon));
+        vm.serializeUint(out, "chainId", block.chainid);
+        string memory json = vm.serializeUint(out, "deployedAtBlock", block.number);
+        vm.writeJson(json, "../deployments/sepolia.json");
     }
 }

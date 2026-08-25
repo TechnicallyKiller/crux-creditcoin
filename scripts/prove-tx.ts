@@ -66,6 +66,28 @@ async function main(): Promise<void> {
   }
   console.log(`transaction    : ${txHash}`);
 
+  // A freshly-fired event is not yet attested. Checkpoints land every 10
+  // source blocks and run ~38-45 blocks behind head, so the wait is ~8 min.
+  // Poll rather than fail, so the end-to-end flow is one command.
+  const txReceipt = await rpc(HEAD_RPC[chainKey], 'eth_getTransactionReceipt', [txHash]);
+  if (txReceipt) {
+    const txBlock = parseInt(txReceipt.blockNumber, 16);
+    if (txBlock > attested) {
+      const behind = txBlock - attested;
+      console.log(`waiting for attestation: tx is ${behind} blocks ahead of the attested tip`);
+      const deadline = Date.now() + 30 * 60_000;
+      while (Date.now() < deadline) {
+        await new Promise((r) => setTimeout(r, 30_000));
+        const now = Number((await info.getLatestAttestedHeightAndHash(chainKey)).height);
+        console.log(`  attested ${now} / need ${txBlock}  (${Math.max(0, txBlock - now)} to go)`);
+        if (now >= txBlock) break;
+      }
+      if (Number((await info.getLatestAttestedHeightAndHash(chainKey)).height) < txBlock) {
+        throw new Error('timed out waiting for attestation (30 min)');
+      }
+    }
+  }
+
   const t0 = Date.now();
   const builder = new proofProvider.service.ProofBuilder(chainKey, PROVER);
   const result = await builder.getProof(txHash);

@@ -33,5 +33,15 @@ contract Deploy is Script {
         console.log("CruxMarket          :", address(market));
         console.log("CruxAttestedResolver:", address(resolver));
         console.log("resolver wired      :", address(market.resolver()) == address(resolver));
+
+        // Record addresses so the market-lifecycle scripts and the off-chain
+        // worker need no hand-copied constants. R5: after a testnet reset this
+        // file is the only thing that has to change, and it rewrites itself.
+        string memory out = "deployment";
+        vm.serializeAddress(out, "CruxMarket", address(market));
+        vm.serializeAddress(out, "CruxAttestedResolver", address(resolver));
+        vm.serializeUint(out, "chainId", block.chainid);
+        string memory json = vm.serializeUint(out, "deployedAtBlock", block.number);
+        vm.writeJson(json, "../deployments/cc3-testnet.json");
     }
 }
