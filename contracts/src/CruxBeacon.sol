@@ -79,6 +79,20 @@ contract CruxBeacon {
         emit Snapshot(specId, target, word0, bytes4(data[:4]), block.number, result);
     }
 
+    /**
+     * @notice A trivially non-zero view, so the beacon can snapshot itself.
+     *
+     * @dev Exists so an end-to-end test or a live demo has a guaranteed
+     *      readable target on the source chain with no external dependency —
+     *      nothing to go stale when a testnet resets, and nothing whose
+     *      address has to be looked up. Returns the source-chain block height,
+     *      which is always non-zero and always changing, so a snapshot of it
+     *      is never confusable with a stale one.
+     */
+    function probe() external view returns (uint256) {
+        return block.number;
+    }
+
     /// @notice Convenience for the common zero-argument getter.
     function snapshotSelector(bytes32 specId, address target, bytes4 selector)
         external

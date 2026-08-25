@@ -59,6 +59,16 @@ contract CruxBeaconTest is Test {
         beacon.snapshot(bytes32(0), address(counter), hex"1234");
     }
 
+    /// @notice The beacon must be able to snapshot itself, so the end-to-end
+    ///         demo has no external dependency on the source chain.
+    function test_beaconCanSnapshotItself() public {
+        vm.roll(12345);
+        vm.recordLogs();
+        beacon.snapshotSelector(bytes32("crux-demo"), address(beacon), beacon.probe.selector);
+        Vm.Log[] memory logs = vm.getRecordedLogs();
+        assertEq(uint256(logs[0].topics[3]), 12345, "self-snapshot lands at topics[3] like any other");
+    }
+
     function test_anyoneCanSnapshot() public {
         vm.prank(address(0xDEAD));
         beacon.snapshotSelector(bytes32(0), address(counter), counter.value.selector);

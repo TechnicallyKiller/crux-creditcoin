@@ -6,6 +6,7 @@
   "EvmV1Decoder": "0x6e94c85Bf6b80394a4c051d03EC93Eefc854423F",
   "deployedAtBlock": 5369274,
   "deployer": "0x364edc06254874e62ff4ad8fa4d9a45238cb5609",
-  "resolverWired": false,
-  "note": "resolverWired false until setResolver lands; its first attempt ran out of gas"
+  "resolverWired": true,
+  "setResolverTx": "0x3a95ac52bb0e2ab983d741f5b65bf309e72aad549550f345ad83fb26560f3b85",
+  "verifiedOnChain": "market.resolver, resolver.MARKET, resolver.VERIFIER all cross-checked"
 }
