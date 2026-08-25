@@ -1,0 +1,10 @@
+{
+  "proxy": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+  "aggregator": "0x7d4e742018fb52e48b08be73d041c18b21de6fb5",
+  "topic0": "0x0559884fd3a460db3073b7fc896cc77986f16e378210ded43186175bf646fc5f",
+  "txHash": "0xc11c38119bc0940e3fb91d8ffc02898bef1be4cf2b128588cd9e39721513018c",
+  "blockNumber": 25829173,
+  "priceRaw": "251295201307",
+  "priceUsd": 2512.95201307,
+  "capturedAt": "2026-08-25T02:31:02.793Z"
+}
