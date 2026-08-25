@@ -77,3 +77,32 @@ windows. For a live demo, the honest framing is D9: don't hide the latency,
 make the resolution the spectacle. The game loop runs on Creditcoin's 15s
 blocks and feels instant; the truth loop runs at Ethereum's pace and feels
 weighty.
+
+---
+
+## It worked — 2026-08-25
+
+First market resolved itself end to end on live networks.
+
+| | |
+|---|---|
+| market | id 1, `CruxMarket` `0xbaaB5e17…653f` on CC3 testnet |
+| question | "Will CruxBeacon report a non-zero value on Sepolia?" |
+| window | Sepolia 11,561,795 → 11,562,395 |
+| event | `CruxBeacon.Snapshot` at Sepolia block 11,561,840, tx `0xc304faf6…2437` |
+| operand | 11,561,840 extracted from `topics[3]`, `> 0` so YES |
+| proof | 8 merkle siblings, 1 continuity root (checkpoint-aligned), generated in 704 ms |
+| settlement | CC3 block 5,369,741, tx `0x5e36bdfb…82a9`, 544,474 gas |
+
+The settling transaction's logs are the whole thesis in three lines:
+
+```
+0x…0FD2                 chainKey 1 · height 11561840 · txIndex 136   <- the precompile verifying
+CruxAttestedResolver    MarketResolved · market 1 · YES · operand 11561840
+CruxMarket              Settled · outcome YES
+```
+
+The first log is emitted by the **precompile itself**. Creditcoin's own runtime
+is attesting that the Ethereum transaction was included in a finalised block.
+Nothing else in the chain of custody is trusted — no reporter, no committee, no
+admin key, no dispute window.
