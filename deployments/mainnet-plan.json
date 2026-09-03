@@ -1,0 +1,9 @@
+{
+  "aggregator": "0x7d4e742018fb52e48b08be73d041c18b21de6fb5",
+  "spot": "237901127200",
+  "closeBlock": "25894695",
+  "fromBlock": "25894845",
+  "toBlock": "25895445",
+  "thresholdYes": "190320901760",
+  "thresholdNo": "1000000000000000"
+}
