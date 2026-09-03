@@ -12,3 +12,5 @@ broadcast/
 coverage/
 lcov.info
 .DS_Store
+indexer/crux.db
+worker/.state.json
