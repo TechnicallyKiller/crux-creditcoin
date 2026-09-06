@@ -1,5 +1,7 @@
 {
-  "CruxBeacon": "0x0F1bf92EE0C79F7Ca5C1e30E9412aD5BFF45c7C8",
   "chainId": 11155111,
-  "deployedAtBlock": 11561441
+  "network": "Ethereum Sepolia",
+  "CruxBeacon": "0x0F1bf92EE0C79F7Ca5C1e30E9412aD5BFF45c7C8",
+  "deployedAtBlock": 11561441,
+  "note": "unaffected by the settleNo fix; still current"
 }
