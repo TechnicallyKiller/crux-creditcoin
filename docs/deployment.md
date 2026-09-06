@@ -148,3 +148,54 @@ The precompile's own verified source is readable on Blockscout at
 Note `HeightHashResult.exists`: `ChainInfoLib.attestedHeight` reverts when it is
 false rather than reading the height as 0, since treating an absent attestation
 as height zero would silently reopen trading on every market.
+
+
+---
+
+## Security fix — settleNo front-running (2026-09-06)
+
+`settleNo` originally required only `attested > toBlock`. It never checked that
+no qualifying event had occurred, because it *cannot* — absence is not provable.
+It inferred absence from "the window is fully attested and no YES proof has
+arrived."
+
+But **"no proof submitted yet" and "no event occurred" are not the same thing**,
+and the gap between them lasts exactly as long as it takes an honest resolver to
+notice, fetch a proof, and land a transaction.
+
+A holder of NO shares is *rationally motivated* to exploit that gap: call
+`settleNo` the instant `toBlock` becomes attested, and win a market the chain
+can prove they lost. This is the profit-maximising play rather than griefing, so
+the resolution bounty (D6) does not deter it — a NO position is worth far more
+than the bounty.
+
+This was live. Market 2 on CC3 had a Chainlink update at $2,407.57 sitting
+inside its window, provably YES, and anyone could have closed it NO.
+
+**Fix:** `SETTLE_NO_GRACE_BLOCKS = 150` (~30 min of Ethereum). `settleNo` now
+requires `attested > toBlock + grace`, giving anyone holding a valid proof a
+guaranteed half hour to land it, against a proof-generation time measured in
+seconds. Losing after that means nobody was watching at all — the only case
+where inferring absence is honest.
+
+Pinned by `test_attack_settleNoCannotFrontRunAnExistingProof`.
+
+## RPC degradation (2026-09-06)
+
+The official CC3 endpoint degraded from ~200ms to a consistent **15.7s** per
+call — suspiciously close to one block time. The chain itself is healthy (tip
+timestamp ~15s old, blocks advancing normally).
+
+Blockscout proxies an RPC at
+`https://creditcoin-testnet.blockscout.com/api/eth-rpc` which returns the same
+heights in **~950ms**, and supports `eth_call` and `eth_getLogs` — enough for
+the indexer, the frontend, and every read path.
+
+It is **not** a full replacement: it rejects Foundry's fork state fetches
+(`invalid type: string "Invalid block number"`) and does not accept
+`eth_estimateGas` in the shape cast sends. So:
+
+| use | endpoint |
+|---|---|
+| reads: indexer, frontend, liveness | Blockscout proxy (fast) |
+| forge tests, deploys, writes | official RPC (slow but complete) |

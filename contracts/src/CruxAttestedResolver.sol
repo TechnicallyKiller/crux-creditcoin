@@ -39,6 +39,34 @@ struct Proof {
 contract CruxAttestedResolver is USCBase {
     ICruxMarket public immutable MARKET;
 
+    /**
+     * @notice How far past a market's window must be attested before anyone may
+     *         settle it NO. ~30 minutes of Ethereum.
+     *
+     * @dev Without this, settleNo is a RACE, and losing it settles a market
+     *      against the truth.
+     *
+     *      settleNo takes no proof — it cannot, since absence is not provable.
+     *      It infers absence from the window being fully attested with no YES
+     *      proof submitted. But "no proof submitted yet" and "no event
+     *      occurred" are not the same thing, and the gap between them is
+     *      exactly as long as it takes an honest resolver to notice, fetch a
+     *      proof (~1s) and land a transaction.
+     *
+     *      A holder of NO shares is RATIONALLY MOTIVATED to exploit that gap:
+     *      call settleNo the instant `toBlock` is attested and win a market
+     *      that the chain can prove they lost. That is not griefing, it is the
+     *      profit-maximising play, so the bounty in D6 does not deter it — the
+     *      NO position is worth far more than the bounty.
+     *
+     *      The grace period makes the honest path unmissable: anyone watching
+     *      has a guaranteed half hour to submit a proof that already exists,
+     *      against a proof-generation time measured in seconds. Losing after
+     *      that means nobody was watching at all, which is the only case where
+     *      inferring absence is honest.
+     */
+    uint64 public constant SETTLE_NO_GRACE_BLOCKS = 150;
+
     mapping(uint256 => AttestSpec) private _specs;
     mapping(uint256 => bool) public specRegistered;
 
@@ -78,7 +106,7 @@ contract CruxAttestedResolver is USCBase {
     error BlockOutsideWindow(uint64 blockHeight, uint64 fromBlock, uint64 toBlock);
     error NoMatchingLog();
     error PredicateNotMet();
-    error WindowNotYetAttested(uint64 attested, uint64 toBlock);
+    error WindowNotYetAttested(uint64 attested, uint64 requiredHeight);
     error MarketAlreadySettled(uint256 marketId);
 
     constructor(ICruxMarket market) {
@@ -142,9 +170,9 @@ contract CruxAttestedResolver is USCBase {
     }
 
     /**
-     * @notice Settle NO once the observation window is fully attested and no
-     *         valid proof ever arrived. Permissionless, and needs no proof:
-     *         absence is established by attested time.
+     * @notice Settle NO once the observation window is fully attested, plus a
+     *         grace period, and no valid proof ever arrived. Permissionless,
+     *         and needs no proof: absence is established by attested time.
      */
     function settleNo(uint256 marketId) external {
         if (!specRegistered[marketId]) revert SpecMissing(marketId);
@@ -153,10 +181,17 @@ contract CruxAttestedResolver is USCBase {
         AttestSpec memory spec = _specs[marketId];
         uint64 attested = ChainInfoLib.attestedHeight(spec.chainKey);
 
-        // Strictly greater: `toBlock` itself must be behind the attested tip,
-        // otherwise a matching event could still be sitting in an unattested
-        // block and we would settle NO on an event that did happen.
-        if (attested <= spec.toBlock) revert WindowNotYetAttested(attested, spec.toBlock);
+        // Two separate guards, for two separate failure modes.
+        //
+        // `toBlock` must be strictly behind the attested tip, or a matching
+        // event could still be sitting in an unattested block — settling NO on
+        // an event that did happen.
+        //
+        // And the grace period on top, so a resolver holding a valid proof has
+        // a guaranteed window to land it before anyone can close the market
+        // against them. See SETTLE_NO_GRACE_BLOCKS.
+        uint64 required = spec.toBlock + SETTLE_NO_GRACE_BLOCKS;
+        if (attested <= required) revert WindowNotYetAttested(attested, required);
 
         MARKET.settle(marketId, false, msg.sender);
         emit SettledNoByTimeout(marketId, attested);

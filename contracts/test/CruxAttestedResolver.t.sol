@@ -272,9 +272,10 @@ contract CruxAttestedResolverTest is Test {
 
     // -------------------------------------------------------- NO by timeout
 
-    function test_settleNoOnceWindowFullyAttested() public {
+    function test_settleNoOnceWindowFullyAttestedPlusGrace() public {
         _register(1, _priceSpec(2000e8));
-        _mockAttestedHeight(CHAINLINK_BLOCK + 200); // past toBlock
+        // toBlock is CHAINLINK_BLOCK + 100; grace is another 150.
+        _mockAttestedHeight(CHAINLINK_BLOCK + 100 + 150 + 1);
 
         resolver.settleNo(1);
         assertTrue(market.settled(1));
@@ -294,9 +295,40 @@ contract CruxAttestedResolverTest is Test {
             abi.encodeWithSelector(
                 CruxAttestedResolver.WindowNotYetAttested.selector,
                 CHAINLINK_BLOCK,
-                CHAINLINK_BLOCK + 100
+                CHAINLINK_BLOCK + 100 + 150
             )
         );
+        resolver.settleNo(1);
+    }
+
+    /**
+     * @notice The attack the grace period exists to stop.
+     *
+     * A holder of NO shares watches for `toBlock` to become attested and calls
+     * settleNo immediately, winning a market that a proof sitting in the
+     * window shows they lost. It is the profit-maximising play, not griefing,
+     * so the resolution bounty does not deter it — the NO position is worth
+     * far more than the bounty.
+     */
+    function test_attack_settleNoCannotFrontRunAnExistingProof() public {
+        _register(1, _priceSpec(2000e8));
+
+        // Window fully attested. Under the old rule this settled NO instantly.
+        _mockAttestedHeight(CHAINLINK_BLOCK + 101);
+        vm.prank(address(0xBAD));
+        vm.expectRevert();
+        resolver.settleNo(1);
+
+        // The honest resolver's proof still lands, and YES wins.
+        resolver.resolveMarket(1, _proof("chainlink-answerupdated.json"));
+        assertTrue(market.outcome(1), "the provable truth must win the race");
+    }
+
+    /// @notice Boundary: exactly toBlock + grace is still too early.
+    function test_settleNoRejectedAtExactlyGraceBoundary() public {
+        _register(1, _priceSpec(2000e8));
+        _mockAttestedHeight(CHAINLINK_BLOCK + 100 + 150);
+        vm.expectRevert();
         resolver.settleNo(1);
     }
 
@@ -307,5 +339,15 @@ contract CruxAttestedResolverTest is Test {
         _mockAttestedHeight(CHAINLINK_BLOCK + 100);
         vm.expectRevert();
         resolver.settleNo(1);
+    }
+
+    /// @notice The grace period must not become a loophole in the other
+    ///         direction: once it has elapsed, NO settlement still works.
+    function test_settleNoStillWorksLongAfterGrace() public {
+        _register(1, _priceSpec(2000e8));
+        _mockAttestedHeight(CHAINLINK_BLOCK + 100_000);
+        resolver.settleNo(1);
+        assertTrue(market.settled(1));
+        assertFalse(market.outcome(1));
     }
 }
