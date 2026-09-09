@@ -26,7 +26,9 @@ export function Profile({ markets }: { markets: Market[] }) {
     />;
   }
 
-  const brier = calibration?.brier;
+  // null means scored-but-empty; undefined means not loaded yet. Collapse
+  // both to null so the screen has one 'nothing to show' branch.
+  const brier: number | null = calibration?.brier ?? null;
 
   return (
     <div className="scroll">
