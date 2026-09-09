@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#0B0F26; color:#EDEFE3; -webkit-font-smoothing:antialiased; }
+  a { color:#4DD8E0; text-decoration:none; }
+  a:hover { color:#EDEFE3; }
+  @keyframes crux-strike { 0%{transform:scale(1.5);opacity:0} 60%{transform:scale(.96);opacity:1} 100%{transform:scale(1);opacity:1} }
+</style>
+</helmet>
+
+<section style="padding:56px 56px 40px;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;align-items:flex-end;gap:22px;border-bottom:1px solid #2C3468;padding-bottom:18px">
+    <div style="font:600 46px/0.9 'Bodoni Moda',serif;letter-spacing:6px;color:#EDEFE3">CRUX</div>
+    <div style="font:500 11px/1.6 Archivo,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#8E97C8;padding-bottom:5px">Prediction markets that settle themselves<br>Creditcoin CC3 · Series 2026 · Design specification</div>
+    <div style="margin-left:auto;font:400 10px/1.7 'JetBrains Mono',monospace;color:#5C67A8;text-align:right">TURN 1 · 20 ARTBOARDS<br>390 × 844 PHONE · 1440 DESKTOP</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:52px;align-items:flex-start">
+
+    <div id="1a" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1A</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">The system — colour, type, motifs</span>
+      </div>
+      <div style="width:940px;background:#EDEFE3;color:#101425;padding:38px 40px 44px;border:1px solid #2C3468;position:relative;overflow:hidden">
+        <svg viewBox="0 0 200 200" width="520" height="520" style="position:absolute;right:-140px;top:-90px;opacity:0.07;pointer-events:none"><path d="{{ tintSystem }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+        <div style="position:relative;display:flex;flex-direction:column;gap:34px">
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #101425;padding-bottom:12px">
+            <div>
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;color:#5A6180">Design specification</div>
+              <div style="font:600 34px/1.05 'Bodoni Moda',serif;margin-top:8px">Security engraving as proof</div>
+            </div>
+            <div style="font:400 9px/1.8 'JetBrains Mono',monospace;text-align:right;color:#3D4460">N° CRUX-SPEC-0001<br>PLATE 1 OF 1 · INTAGLIO</div>
+          </div>
+
+          <div style="display:flex;gap:40px">
+            <div style="flex:1">
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;color:#5A6180;margin-bottom:14px">Palette</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px 12px">
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#0B0F26"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#0B0F26<br>INDIGO-ABYSS</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#151A3D"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#151A3D<br>INDIGO-INK</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#1E2450"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#1E2450<br>INDIGO-RAISED</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#2C3468"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#2C3468<br>INDIGO-RULE</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#EDEFE3;border:1px solid #101425"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#EDEFE3<br>VELLUM</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#DFE2D2;border:1px solid #101425"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#DFE2D2<br>VELLUM-SUNK</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#101425"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#101425<br>VELLUM-INK</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#4DD8E0"></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#4DD8E0<br>CYAN-THREAD</div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px">
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#0B0F26;display:flex;align-items:center;justify-content:center"><div style="width:34px;height:34px;background:#C8FF3D"></div></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#C8FF3D LIME<br>PROVEN — UV INK</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#0B0F26;display:flex;align-items:center;justify-content:center"><div style="width:34px;height:34px;background:#93C412"></div></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#93C412 LIME-DEEP<br>PROVEN ON VELLUM</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#3A1520;display:flex;align-items:center;justify-content:center"><div style="width:34px;height:34px;background:#D6304A"></div></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#D6304A VERMILLION<br>ASSERTED — STAMP</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><div style="height:56px;background:#0B0F26;display:flex;align-items:center;justify-content:center"><div style="width:34px;height:34px;background:#C8A24A"></div></div><div style="font:400 8px/1.5 'JetBrains Mono',monospace;color:#3D4460">#C8A24A BRONZE<br>PENDING — PLATE</div></div>
+              </div>
+              <div style="margin-top:16px;border-top:1px solid #101425;padding-top:10px;font:400 10px/1.6 Archivo,sans-serif;color:#3D4460;max-width:440px">Lime is ultraviolet security ink: it is invisible until something is <em style="font-family:'Bodoni Moda',serif">checked</em>. It appears only where a cryptographic proof has verified. Never a button, never a highlight.</div>
+            </div>
+
+            <div style="width:1px;background:#101425;opacity:.25"></div>
+
+            <div style="flex:1">
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;color:#5A6180;margin-bottom:14px">Typography — three voices</div>
+              <div style="display:flex;flex-direction:column;gap:18px">
+                <div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;letter-spacing:1px">BODONI MODA — PROPOSITIONS</div>
+                  <div style="font:500 30px/1.12 'Bodoni Moda',serif;margin-top:6px">Will ETH trade above $1,903 before block 25,895,445?</div>
+                </div>
+                <div style="border-top:1px solid #101425;opacity:.2"></div>
+                <div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;letter-spacing:1px">ARCHIVO — CHROME, QUIET</div>
+                  <div style="font:400 14px/1.5 Archivo,sans-serif;margin-top:6px">Portfolio · Trading closes in 4h 12m · Claim 240 tCTC</div>
+                  <div style="font:500 10px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;margin-top:10px">Observation window · bearer · series 2026</div>
+                </div>
+                <div style="border-top:1px solid #101425;opacity:.2"></div>
+                <div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;letter-spacing:1px">JETBRAINS MONO — CHECKABLE THINGS</div>
+                  <div style="font:400 12px/1.7 'JetBrains Mono',monospace;margin-top:6px">0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5<br>topic0 0x0559884f…fc5f · block 25,895,136<br>5,824 bytes · 914 ms gen · 536 ms verify</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #101425;padding-top:26px">
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;color:#5A6180;margin-bottom:18px">Motif set</div>
+            <div style="display:flex;gap:26px;flex-wrap:wrap">
+
+              <div style="width:150px">
+                <div style="height:150px;background:#DFE2D2;border:1px solid #101425;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                  <svg viewBox="0 0 200 200" width="150" height="150" style="opacity:.5"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.4"></path></svg>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">GUILLOCHE TINT<br>seeded from spec hash —<br>unique per market</div>
+              </div>
+
+              <div style="width:210px">
+                <div style="height:150px;background:#151A3D;border:1px solid #2C3468;display:flex;align-items:center;justify-content:space-around;padding:0 8px">
+                  <svg viewBox="0 0 100 100" width="60" height="60"><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path><circle cx="50" cy="50" r="46" fill="none" stroke="#2C3468" stroke-width="0.6"></circle></svg>
+                  <svg viewBox="0 0 100 100" width="60" height="60"><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.62"></path><circle cx="50" cy="50" r="46" fill="none" stroke="#2C3468" stroke-width="0.6"></circle></svg>
+                  <svg viewBox="0 0 100 100" width="60" height="60"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="0.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path><circle cx="50" cy="50" r="46" fill="none" stroke="#93C412" stroke-width="0.6"></circle></svg>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">VERIFICATION MARK · 0 → 62% → 100%<br>bronze while pending, lime on proof.<br>incomplete rosette = unproven</div>
+              </div>
+
+              <div style="width:170px">
+                <div style="height:150px;background:#DFE2D2;border:1px solid #101425;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:0 10px">
+                  <div style="height:26px;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.6px)"></div>
+                  <div style="height:26px;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 3px)"></div>
+                  <div style="height:26px;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 5px)"></div>
+                  <div style="height:26px;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 9px)"></div>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">INTAGLIO HATCHING<br>tone by line density, not fill.<br>denser = higher probability</div>
+              </div>
+
+              <div style="width:180px">
+                <div style="height:150px;background:#DFE2D2;border:1px solid #101425;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:0 10px;overflow:hidden">
+                  <div style="font:400 2.6px/1 'JetBrains Mono',monospace;letter-spacing:.35px;color:#101425;white-space:nowrap;overflow:hidden;opacity:.85">CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·CRUXMARKET·0x34a712</div>
+                  <div style="font:400 7px/1 'JetBrains Mono',monospace;letter-spacing:.9px;color:#101425;white-space:nowrap;overflow:hidden">CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33</div>
+                  <div style="font:400 14px/1 'JetBrains Mono',monospace;letter-spacing:1.6px;color:#101425;white-space:nowrap;overflow:hidden">CRUXMARKET·0x34</div>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">MICROTEXT RULE, ZOOMED 1× / 3× / 5×<br>dividers say the contract address,<br>the topic0, the serial. Real strings.</div>
+              </div>
+
+              <div style="width:150px">
+                <div style="height:150px;background:#0B0F26;border:1px solid #2C3468;display:flex;align-items:center;justify-content:center">
+                  <div style="width:104px;height:104px;border-radius:50%;border:1.5px solid #C8FF3D;display:flex;align-items:center;justify-content:center;position:relative">
+                    <div style="position:absolute;inset:5px;border-radius:50%;border:0.5px solid #93C412"></div>
+                    <svg viewBox="0 0 200 200" width="92" height="92" style="position:absolute;opacity:.4"><path d="{{ tintSeal }}" fill="none" stroke="#C8FF3D" stroke-width="0.5"></path></svg>
+                    <div style="position:relative;text-align:center">
+                      <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2px;color:#C8FF3D">✦</div>
+                      <div style="font:600 13px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#C8FF3D;margin-top:3px">PROVEN</div>
+                      <div style="font:400 6px/1.4 'JetBrains Mono',monospace;color:#93C412;margin-top:4px">PRECOMPILE<br>0x…0FD2</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">THE SEAL<br>reserved for PROVEN. Nothing<br>else may use the seal form.</div>
+              </div>
+
+              <div style="width:150px">
+                <div style="height:150px;background:#DFE2D2;border:1px solid #101425;display:flex;align-items:center;justify-content:center;position:relative">
+                  <div style="position:absolute;left:0;right:0;top:50%;height:9px;background-image:radial-gradient(circle at 4.5px 4.5px,#0B0F26 0 2.2px,transparent 2.4px);background-size:11px 9px"></div>
+                  <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#101425;position:absolute;top:22px">DETACH HERE</div>
+                  <div style="width:52px;height:52px;border:1px solid #D6304A;transform:rotate(-8deg);position:absolute;bottom:16px;display:flex;align-items:center;justify-content:center;text-align:center"><span style="font:700 9px/1.15 Archivo,sans-serif;letter-spacing:1px;color:#D6304A">AI<br>ASSERTED</span></div>
+                </div>
+                <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">PERFORATION + RUBBER STAMP<br>tear-off sections; assertion is<br>stamped, never engraved.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #101425;padding-top:26px">
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;text-transform:uppercase;color:#5A6180;margin-bottom:6px">Typographic provenance — every fact carries its origin</div>
+            <div style="font:400 11px/1.6 Archivo,sans-serif;color:#3D4460;max-width:620px;margin-bottom:18px">Three registers, no exceptions. A reader can tell, without reading a word of explanation, whether a number on screen is mathematics, arithmetic, or somebody's opinion.</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+              <div style="background:#0B0F26;border:1px solid #93C412;padding:16px 16px 18px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <svg viewBox="0 0 100 100" width="26" height="26"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="0.7" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+                  <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#C8FF3D">1 · PROVEN</div>
+                </div>
+                <div style="font:400 15px/1.4 'JetBrains Mono',monospace;color:#C8FF3D;margin-top:14px">$2,407.57</div>
+                <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#8E97C8;margin-top:6px">ETH MAINNET · BLOCK 25,895,136<br>VERIFIED ON PRECOMPILE 0x…0FD2</div>
+                <div style="font:400 10px/1.5 Archivo,sans-serif;color:#8E97C8;margin-top:12px;border-top:1px solid #2C3468;padding-top:10px">Verified by an Attestcoin proof. Lime, completed rosette, seal. Nobody can dispute it.</div>
+              </div>
+              <div style="background:#DFE2D2;border:1px solid #101425;padding:16px 16px 18px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:26px;height:12px;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 2.4px)"></div>
+                  <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#101425">2 · DERIVED</div>
+                </div>
+                <div style="font:400 15px/1.4 'JetBrains Mono',monospace;color:#101425;margin-top:14px">240.00 tCTC</div>
+                <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#5A6180;margin-top:6px">PAYOUT = SHARES × 1.00<br>COMPUTED BY CruxMarket</div>
+                <div style="font:400 10px/1.5 Archivo,sans-serif;color:#3D4460;margin-top:12px;border-top:1px solid #101425;padding-top:10px">Computed by our contracts from proven inputs. Engraved hatching, vellum ink, no seal.</div>
+              </div>
+              <div style="background:#3A1520;border:1px solid #D6304A;padding:16px 16px 18px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="border:1px solid #D6304A;padding:2px 5px;font:700 9px/1 Archivo,sans-serif;letter-spacing:1.4px;color:#D6304A;transform:rotate(-3deg)">STAMP</div>
+                  <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#D6304A">3 · ASSERTED</div>
+                </div>
+                <div style="font:400 15px/1.4 'JetBrains Mono',monospace;color:#EDEFE3;margin-top:14px">RESOLVED YES</div>
+                <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#C99AA6;margin-top:6px">BOND 500 tCTC · CHALLENGE 2h 00m<br>RESOLVER 0x9f21…4c0e</div>
+                <div style="font:400 10px/1.5 Archivo,sans-serif;color:#C99AA6;margin-top:12px;border-top:1px solid #D6304A;padding-top:10px">A human or AI said so. Bonded and challengeable — deliberately less refined than engraving.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1B</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Swipe feed — resting · <span style="color:#C8A24A">drag this card</span></span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column;touch-action:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px">
+          <div style="display:flex;align-items:baseline;gap:8px">
+            <div style="font:600 17px/1 'Bodoni Moda',serif;letter-spacing:3.4px;color:#EDEFE3">CRUX</div>
+            <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">SEASON 3</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font:400 10px/1.3 'JetBrains Mono',monospace;color:#8E97C8;text-align:right">1,284.50 tCTC</div>
+            <div style="width:26px;height:26px;border:1px solid #2C3468;display:flex;align-items:center;justify-content:center;font:400 8px/1 'JetBrains Mono',monospace;color:#8E97C8">YV</div>
+          </div>
+        </div>
+        <div style="font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#2C3468;white-space:nowrap;overflow:hidden;padding:0 16px 8px">CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·CRUXATTESTEDRESOLVER·0x3a2153c98B967578F764c5Df340dc7c5E99B8757·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·CRUXATTESTEDRESOLVER·0x3a2153c98B967578F764c5Df340dc7c5E99B8757</div>
+
+        <div style="flex:1;position:relative;margin:0 14px">
+          <div style="position:absolute;left:10px;right:10px;top:8px;bottom:14px;border:1px solid #2C3468;background:#151A3D"></div>
+          <div style="position:absolute;left:5px;right:5px;top:4px;bottom:14px;border:1px solid #2C3468;background:#1E2450"></div>
+          <div style="position:absolute;left:0;right:0;top:0;bottom:0;padding:0 0 14px">
+            <div style="position:absolute;inset:0;bottom:14px;background:#1E2450;border:1px solid #2C3468;display:flex;flex-direction:column;justify-content:center;padding:0 22px">
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3px;color:#C8A24A">WRITING TO LEDGER</div>
+              <div style="font:400 11px/1.8 'JetBrains Mono',monospace;color:#8E97C8;margin-top:10px">STAKE&nbsp;&nbsp;&nbsp;&nbsp;25.00 tCTC<br>SHARES&nbsp;&nbsp;&nbsp;40.32 @ 0.62<br>MAX PAYOUT 40.32 tCTC</div>
+            </div>
+          </div>
+          <div onPointerDown="{{ onDown }}" onPointerMove="{{ onMove }}" onPointerUp="{{ onUp }}" style="position:absolute;inset:0;bottom:14px;background:#EDEFE3;border:1px solid #101425;overflow:hidden;cursor:grab;transform:{{ cardT }};box-shadow:0 18px 40px rgba(0,0,0,.45)">
+            <svg viewBox="0 0 200 200" width="420" height="420" style="position:absolute;left:-20px;top:60px;opacity:.11;pointer-events:none"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="position:relative;height:100%;display:flex;flex-direction:column;padding:20px 20px 0">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425">N° CRUX-000004</div>
+                  <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180;margin-top:6px">SERIES 2026 · BEARER</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid #101425;padding:5px 8px">
+                  <svg viewBox="0 0 100 100" width="14" height="14"><path d="{{ mark }}" fill="none" stroke="#101425" stroke-width="1.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.45"></path></svg>
+                  <span style="font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#101425">PROOF-RESOLVED</span>
+                </div>
+              </div>
+
+              <div style="font:500 33px/1.1 'Bodoni Moda',serif;color:#101425;margin-top:26px;text-wrap:pretty">Will ETH trade above $1,903 before block 25,895,445?</div>
+
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:16px">ETHEREUM MAINNET · CHAINLINK ETH/USD<br>AGGREGATOR 0x7d4E…6Fb5 · AnswerUpdated</div>
+
+              <div style="height:9px;margin:22px -20px 0;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px"></div>
+
+              <div style="margin-top:22px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180">IMPLIED PROBABILITY</div>
+                  <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#5A6180">LMSR · b=4000</div>
+                </div>
+                <div style="display:flex;height:52px;border:1px solid #101425;margin-top:10px">
+                  <div style="flex:0 0 62%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px);display:flex;align-items:flex-end;padding:0 0 6px 8px">
+                    <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:1.6px;color:#EDEFE3;background:#101425;padding:3px 5px">YES 62%</span>
+                  </div>
+                  <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 7px);display:flex;align-items:flex-end;justify-content:flex-end;padding:0 8px 6px 0">
+                    <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:1.6px;color:#101425">NO 38%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;margin-top:20px;border-top:1px solid #101425;padding-top:12px">
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">OBSERVATION WINDOW</div><div style="font:400 10px/1.4 'JetBrains Mono',monospace;color:#101425;margin-top:5px">25,894,845 – 25,895,445</div></div>
+                <div style="text-align:right"><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">CLOSES IN</div><div style="font:400 10px/1.4 'JetBrains Mono',monospace;color:#101425;margin-top:5px">04h 12m</div></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:10px">
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">OPEN INTEREST</div><div style="font:400 10px/1.4 'JetBrains Mono',monospace;color:#101425;margin-top:5px">18,420 tCTC</div></div>
+                <div style="text-align:right"><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">COLLATERAL</div><div style="font:400 10px/1.4 'JetBrains Mono',monospace;color:#101425;margin-top:5px">tCTC (NATIVE)</div></div>
+              </div>
+
+              <div style="margin-top:auto;padding-bottom:10px">
+                <div style="font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#101425;opacity:.5;white-space:nowrap;overflow:hidden">TOPIC0·0x0559884f…fc5f·SERIAL·CRUX-000004·TOPIC0·0x0559884f…fc5f·SERIAL·CRUX-000004·TOPIC0·0x0559884f…fc5f·SERIAL·CRUX-000004·TOPIC0·0x0559884f…fc5f·SERIAL·CRUX-000004·TOPIC0·0x0559884f…fc5f·SERIAL·CRUX-000004</div>
+              </div>
+            </div>
+            <div style="position:absolute;left:22px;top:190px;opacity:{{ yesOp }};border:2px solid #101425;padding:8px 16px;transform:rotate(-11deg);background:rgba(237,239,227,.86)">
+              <div style="font:700 30px/1 Archivo,sans-serif;letter-spacing:5px;color:#101425">YES</div>
+              <div style="font:400 8px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425;margin-top:4px">25 tCTC · 0.62</div>
+            </div>
+            <div style="position:absolute;right:22px;top:190px;opacity:{{ noOp }};border:2px solid #101425;padding:8px 16px;transform:rotate(9deg);background:rgba(237,239,227,.86)">
+              <div style="font:700 30px/1 Archivo,sans-serif;letter-spacing:5px;color:#101425;text-decoration:line-through;text-decoration-thickness:2px">NO</div>
+              <div style="font:400 8px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425;margin-top:4px">25 tCTC · 0.38</div>
+            </div>
+          </div>
+          <sc-if value="{{ confirmed }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;bottom:14px;background:rgba(11,15,38,.92);border:1px solid #C8A24A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;color:#C8A24A">POSITION WRITTEN · AWAITING PROOF</div>
+              <div style="border:1.5px solid #C8A24A;padding:14px 26px;font:700 34px/1 Archivo,sans-serif;letter-spacing:6px;color:#C8A24A">{{ confirmLabel }}</div>
+              <div style="font:400 10px/1.8 'JetBrains Mono',monospace;color:#8E97C8;text-align:center">N° POS-004-1187 · 40.32 SHARES<br>CC3 BLOCK 5,441,904 · 15s FINALITY</div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="padding:0 16px 6px;display:flex;gap:8px;align-items:center">
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5C67A8">STAKE</div>
+          <div style="display:flex;gap:6px;flex:1">
+            <div style="flex:1;border:1px solid #2C3468;padding:9px 0;text-align:center;font:400 11px/1 'JetBrains Mono',monospace;color:#8E97C8">5</div>
+            <div style="flex:1;border:1px solid #C8A24A;padding:9px 0;text-align:center;font:500 11px/1 'JetBrains Mono',monospace;color:#C8A24A">25</div>
+            <div style="flex:1;border:1px solid #2C3468;padding:9px 0;text-align:center;font:400 11px/1 'JetBrains Mono',monospace;color:#8E97C8">100</div>
+            <div style="flex:1;border:1px solid #2C3468;padding:9px 0;text-align:center;font:400 11px/1 'JetBrains Mono',monospace;color:#8E97C8">tCTC</div>
+          </div>
+        </div>
+        <div style="padding:8px 16px 10px;display:flex;justify-content:space-between;font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">
+          <span>← NO</span><span>↑ SKIP</span><span>TAP FOR DETAIL</span><span>YES →</span>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3;border-bottom:2px solid #EDEFE3;height:100%;display:flex;align-items:center;justify-content:center">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1c" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1C</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Mid-drag — YES intent</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px">
+          <div style="font:600 17px/1 'Bodoni Moda',serif;letter-spacing:3.4px;color:#EDEFE3">CRUX</div>
+          <div style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">1,284.50 tCTC</div>
+        </div>
+        <div style="flex:1;position:relative;margin:8px 14px 0">
+          <div style="position:absolute;inset:0;bottom:14px;background:#1E2450;border:1px solid #C8A24A;display:flex;flex-direction:column;justify-content:center;padding:0 24px">
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3px;color:#C8A24A">LEDGER PLATE · WILL BE STRUCK ON RELEASE</div>
+            <div style="font:400 12px/2 'JetBrains Mono',monospace;color:#8E97C8;margin-top:14px">SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YES<br>STAKE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25.00 tCTC<br>PRICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.62 → 0.634<br>SHARES&nbsp;&nbsp;&nbsp;&nbsp;40.32<br>MAX PAYOUT 40.32 tCTC</div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:16px;border-top:1px solid #2C3468;padding-top:12px">CREDITCOIN CC3 · 15s BLOCKS<br>NO SIGNATURE PROMPT · SESSION KEY</div>
+          </div>
+          <div style="position:absolute;inset:0;bottom:14px;background:#EDEFE3;border:1px solid #101425;overflow:hidden;transform:translateX(96px) rotate(3.4deg);box-shadow:-14px 18px 44px rgba(0,0,0,.5)">
+            <svg viewBox="0 0 200 200" width="420" height="420" style="position:absolute;left:-20px;top:60px;opacity:.11"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="position:relative;padding:20px">
+              <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425">N° CRUX-000004</div>
+              <div style="font:500 33px/1.1 'Bodoni Moda',serif;color:#101425;margin-top:26px;text-wrap:pretty">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:16px">ETHEREUM MAINNET · CHAINLINK ETH/USD</div>
+              <div style="display:flex;height:52px;border:1px solid #101425;margin-top:26px">
+                <div style="flex:0 0 62%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px)"></div>
+                <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 7px)"></div>
+              </div>
+            </div>
+            <div style="position:absolute;left:26px;top:214px;border:2px solid #101425;padding:10px 20px;transform:rotate(-11deg);background:rgba(237,239,227,.9)">
+              <div style="font:700 34px/1 Archivo,sans-serif;letter-spacing:6px;color:#101425">YES</div>
+              <div style="font:400 8px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425;margin-top:5px">25 tCTC · 0.62</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;font:400 9px/1 'JetBrains Mono',monospace;color:#C8A24A;display:flex;justify-content:space-between"><span>RELEASE TO COMMIT</span><span>DRAG BACK TO CANCEL</span></div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center;opacity:.5">
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1d" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1D</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Mid-drag — NO intent</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px">
+          <div style="font:600 17px/1 'Bodoni Moda',serif;letter-spacing:3.4px;color:#EDEFE3">CRUX</div>
+          <div style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">1,284.50 tCTC</div>
+        </div>
+        <div style="flex:1;position:relative;margin:8px 14px 0">
+          <div style="position:absolute;inset:0;bottom:14px;background:#1E2450;border:1px solid #C8A24A;display:flex;flex-direction:column;justify-content:center;padding:0 24px;align-items:flex-end;text-align:right">
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3px;color:#C8A24A">LEDGER PLATE · WILL BE STRUCK ON RELEASE</div>
+            <div style="font:400 12px/2 'JetBrains Mono',monospace;color:#8E97C8;margin-top:14px">NO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE<br>25.00 tCTC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STAKE<br>0.38 → 0.366&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE<br>65.79&nbsp;&nbsp;&nbsp;&nbsp;SHARES<br>65.79 tCTC MAX PAYOUT</div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:16px;border-top:1px solid #2C3468;padding-top:12px;width:100%">ABSENCE IS ALSO PROVABLE:<br>NO SETTLES WHEN THE WINDOW IS FULLY ATTESTED</div>
+          </div>
+          <div style="position:absolute;inset:0;bottom:14px;background:#EDEFE3;border:1px solid #101425;overflow:hidden;transform:translateX(-96px) rotate(-3.4deg);box-shadow:14px 18px 44px rgba(0,0,0,.5)">
+            <svg viewBox="0 0 200 200" width="420" height="420" style="position:absolute;left:-20px;top:60px;opacity:.11"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="position:relative;padding:20px">
+              <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425">N° CRUX-000004</div>
+              <div style="font:500 33px/1.1 'Bodoni Moda',serif;color:#101425;margin-top:26px;text-wrap:pretty">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:16px">ETHEREUM MAINNET · CHAINLINK ETH/USD</div>
+              <div style="display:flex;height:52px;border:1px solid #101425;margin-top:26px">
+                <div style="flex:0 0 62%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px)"></div>
+                <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 7px)"></div>
+              </div>
+            </div>
+            <div style="position:absolute;right:26px;top:214px;border:2px solid #101425;padding:10px 20px;transform:rotate(9deg);background:rgba(237,239,227,.9)">
+              <div style="font:700 34px/1 Archivo,sans-serif;letter-spacing:6px;color:#101425;text-decoration:line-through;text-decoration-thickness:3px">NO</div>
+              <div style="font:400 8px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425;margin-top:5px">25 tCTC · 0.38</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;font:400 9px/1 'JetBrains Mono',monospace;color:#C8A24A;display:flex;justify-content:space-between"><span>DRAG BACK TO CANCEL</span><span>RELEASE TO COMMIT</span></div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center;opacity:.5">
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1e" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1E</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Released → confirmed · counterfoil</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px">
+          <div style="font:600 17px/1 'Bodoni Moda',serif;letter-spacing:3.4px;color:#EDEFE3">CRUX</div>
+          <div style="font:400 10px/1 'JetBrains Mono',monospace;color:#C8A24A">1,259.50 tCTC&nbsp;&nbsp;−25.00</div>
+        </div>
+        <div style="flex:1;position:relative;margin:8px 14px 0">
+          <div style="position:absolute;left:0;right:0;top:0;bottom:14px;background:#EDEFE3;border:1px solid #101425;overflow:hidden;opacity:.32;transform:scale(.96) translateY(-8px)">
+            <div style="padding:20px;font:500 26px/1.1 'Bodoni Moda',serif;color:#101425">Will a single address move more than 10,000 ETH?</div>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:118px;background:#DFE2D2;border:1px solid #101425">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="padding:22px 20px 16px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">COUNTERFOIL · POSITION</div>
+                  <div style="font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#101425;margin-top:7px">N° POS-004-1187</div>
+                </div>
+                <div style="width:56px;height:56px;border:1px solid #C8A24A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+                  <svg viewBox="0 0 100 100" width="26" height="26"><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="1.1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path></svg>
+                  <span style="font:600 6px/1 Archivo,sans-serif;letter-spacing:.8px;color:#C8A24A">UNPROVEN</span>
+                </div>
+              </div>
+              <div style="font:500 27px/1.15 'Bodoni Moda',serif;color:#101425;margin-top:18px">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="display:flex;align-items:center;gap:12px;margin-top:20px">
+                <div style="border:2px solid #101425;padding:6px 14px;transform:rotate(-4deg)"><span style="font:700 22px/1 Archivo,sans-serif;letter-spacing:4px;color:#101425">YES</span></div>
+                <div style="font:400 11px/1.7 'JetBrains Mono',monospace;color:#101425">40.32 SHARES @ 0.620<br>STAKE 25.00 tCTC</div>
+              </div>
+              <div style="height:9px;margin:20px -20px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px"></div>
+              <div style="display:flex;justify-content:space-between">
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">WRITTEN AT</div><div style="font:400 10px/1.5 'JetBrains Mono',monospace;color:#101425;margin-top:5px">CC3 BLOCK 5,441,904<br>0x9c11f0a2…3be4</div></div>
+                <div style="text-align:right"><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">STATUS</div><div style="font:400 10px/1.5 'JetBrains Mono',monospace;color:#C8A24A;margin-top:5px">AWAITING<br>ATTESTATION</div></div>
+              </div>
+              <div style="font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#101425;opacity:.5;white-space:nowrap;overflow:hidden;margin-top:18px">BEARER·POS-004-1187·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·BEARER·POS-004-1187·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·BEARER·POS-004-1187</div>
+            </div>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:34px;display:flex;gap:10px">
+            <div style="flex:1;border:1px solid #2C3468;padding:14px 0;text-align:center;font:500 10px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#8E97C8">VIEW MARKET</div>
+            <div style="flex:1;border:1px solid #EDEFE3;background:#EDEFE3;padding:14px 0;text-align:center;font:600 10px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#101425">NEXT MARKET</div>
+          </div>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1f" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1F</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Market detail — full scroll</span>
+      </div>
+      <div style="width:390px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #2C3468">
+          <span style="font:400 11px/1 Archivo,sans-serif;color:#8E97C8">← Feed</span>
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000004</span>
+          <span style="font:400 11px/1 Archivo,sans-serif;color:#8E97C8">Share</span>
+        </div>
+
+        <div style="margin:14px;background:#EDEFE3;border:1px solid #101425;position:relative;overflow:hidden">
+          <svg viewBox="0 0 200 200" width="360" height="360" style="position:absolute;right:-90px;top:-40px;opacity:.09"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+          <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+          <div style="position:relative;padding:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center;gap:7px;border:1px solid #101425;padding:5px 8px">
+                <svg viewBox="0 0 100 100" width="14" height="14"><path d="{{ mark }}" fill="none" stroke="#101425" stroke-width="1.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.45"></path></svg>
+                <span style="font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#101425">PROOF-RESOLVED</span>
+              </div>
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">CLOSES 04h 12m</div>
+            </div>
+            <div style="font:500 30px/1.12 'Bodoni Moda',serif;color:#101425;margin-top:18px;text-wrap:pretty">Will ETH trade above $1,903 before block 25,895,445?</div>
+            <div style="display:flex;height:46px;border:1px solid #101425;margin-top:20px">
+              <div style="flex:0 0 62%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px);display:flex;align-items:flex-end;padding:0 0 5px 7px"><span style="font:600 10px/1 Archivo,sans-serif;letter-spacing:1.4px;color:#EDEFE3;background:#101425;padding:3px 5px">YES 62%</span></div>
+              <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 7px);display:flex;align-items:flex-end;justify-content:flex-end;padding:0 7px 5px 0"><span style="font:600 10px/1 Archivo,sans-serif;letter-spacing:1.4px;color:#101425">NO 38%</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:9px;font:400 9px/1 'JetBrains Mono',monospace;color:#3D4460"><span>0.620 tCTC / SHARE</span><span>0.380 tCTC / SHARE</span></div>
+          </div>
+        </div>
+
+        <div style="margin:0 14px 14px;background:#DFE2D2;border:1px solid #101425;padding:18px 20px 14px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">PRICE HISTORY · YES</div>
+            <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#3D4460">48h · 11,520 CC3 BLOCKS</div>
+          </div>
+          <svg viewBox="0 0 300 92" width="310" height="96" style="margin-top:12px;display:block">
+            <defs>
+              <pattern id="cruxhatch" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M0 0 V3" stroke="#101425" stroke-width="0.55"></path></pattern>
+            </defs>
+            <path d="{{ priceArea }}" fill="url(#cruxhatch)" opacity="0.5"></path>
+            <polyline points="{{ priceLine }}" fill="none" stroke="#101425" stroke-width="1.1"></polyline>
+            <line x1="0" y1="35" x2="300" y2="35" stroke="#101425" stroke-width="0.4" stroke-dasharray="2 3"></line>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;margin-top:6px"><span>0.31 LOW</span><span>0.62 NOW</span><span>0.74 HIGH</span></div>
+        </div>
+
+        <div style="margin:0 14px 14px;background:#EDEFE3;border:1px solid #101425;padding:20px">
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">RESOLUTION RULE</div>
+          <div style="font:400 15px/1.55 Archivo,sans-serif;color:#101425;margin-top:12px;text-wrap:pretty">Settles <strong style="font-weight:700">YES</strong> if Chainlink's ETH/USD aggregator at <span style="font:400 13px/1 'JetBrains Mono',monospace">0x7d4E…6Fb5</span> emits <span style="font:400 13px/1 'JetBrains Mono',monospace">AnswerUpdated</span> with a price above <strong style="font-weight:700">$1,903</strong> in Ethereum blocks <span style="font:400 13px/1 'JetBrains Mono',monospace">25,894,845 – 25,895,445</span>.</div>
+          <div style="font:400 12px/1.55 Archivo,sans-serif;color:#3D4460;margin-top:12px">Otherwise settles <strong style="font-weight:700">NO</strong> once every block in that window has been attested and no qualifying event exists. There is no committee, no admin key and no dispute window — the answer is a proof, and you cannot dispute mathematics.</div>
+          <div style="height:9px;margin:18px -20px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">THE SPEC AS ISSUED — DATA, NOT CODE</div>
+            <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#5A6180">▾</div>
+          </div>
+          <div style="font:400 9.5px/1.85 'JetBrains Mono',monospace;color:#3D4460;margin-top:10px;border-left:1px solid #101425;padding-left:10px">chain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 (ethereum mainnet)<br>address&nbsp;&nbsp;&nbsp;&nbsp;0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5<br>topic0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0559884f…fc5f  AnswerUpdated<br>field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topics[1]  int256 current<br>decimals&nbsp;&nbsp;&nbsp;8<br>predicate&nbsp;GT 190300000000<br>fromBlock&nbsp;25894845<br>toBlock&nbsp;&nbsp;&nbsp;25895445<br>resolver&nbsp;&nbsp;0x3a2153c98B967578F764c5Df340dc7c5E99B8757<br>collateral tCTC (native)</div>
+          <div style="font:400 10px/1.5 Archivo,sans-serif;color:#5A6180;margin-top:12px;font-style:italic">Ten fields. No custom code was deployed for this market — the resolver reads the spec and demands a proof that matches it.</div>
+        </div>
+
+        <div style="margin:0 14px 14px;background:#151A3D;border:1px solid #C8A24A;padding:18px 20px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#C8A24A">YOUR POSITION · N° POS-004-1187</div>
+            <svg viewBox="0 0 100 100" width="22" height="22"><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="1.1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path></svg>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:14px">
+            <div style="border:1.5px solid #EDEFE3;padding:5px 12px"><span style="font:700 18px/1 Archivo,sans-serif;letter-spacing:3px;color:#EDEFE3">YES</span></div>
+            <div style="font:400 11px/1.7 'JetBrains Mono',monospace;color:#8E97C8">40.32 SHARES @ 0.620<br>MARK 0.620 · P&amp;L +0.00 tCTC</div>
+          </div>
+        </div>
+
+        <div style="margin:0 14px 14px;display:flex;gap:10px">
+          <div style="flex:1;border:1px solid #EDEFE3;background:#EDEFE3;padding:16px 0;text-align:center;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#101425">BUY YES 0.620</div>
+          <div style="flex:1;border:1px solid #8E97C8;padding:16px 0;text-align:center;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#EDEFE3">BUY NO 0.380</div>
+        </div>
+        <div style="padding:0 14px 20px;font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#2C3468;white-space:nowrap;overflow:hidden">TOPIC0·0x0559884f…fc5f·CRUXATTESTEDRESOLVER·0x3a2153c98B967578F764c5Df340dc7c5E99B8757·TOPIC0·0x0559884f…fc5f·CRUXATTESTEDRESOLVER·0x3a2153c98B967578F764c5Df340dc7c5E99B8757·TOPIC0·0x0559884f</div>
+      </div>
+    </div>
+
+    <div id="1g" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1G</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Trade sheet — LMSR, honestly</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden">
+        <div style="opacity:.22;padding:14px">
+          <div style="font:500 26px/1.12 'Bodoni Moda',serif;color:#EDEFE3">Will ETH trade above $1,903 before block 25,895,445?</div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:#EDEFE3;border-top:1px solid #101425">
+          <div style="height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+          <div style="padding:18px 20px 22px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">ORDER · N° CRUX-000004</div>
+              <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#3D4460">BAL 1,259.50 tCTC</div>
+            </div>
+            <div style="display:flex;margin-top:14px;border:1px solid #101425">
+              <div style="flex:1;padding:11px 0;text-align:center;background:#101425;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#EDEFE3">BUY YES</div>
+              <div style="flex:1;padding:11px 0;text-align:center;font:500 11px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#101425">BUY NO</div>
+              <div style="flex:1;padding:11px 0;text-align:center;font:500 11px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#101425">SELL</div>
+            </div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:22px;border-bottom:1px solid #101425;padding-bottom:10px">
+              <div style="font:500 44px/1 'JetBrains Mono',monospace;color:#101425">120<span style="font:400 14px/1 'JetBrains Mono',monospace;color:#5A6180">.00 tCTC</span></div>
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#5A6180;padding-bottom:6px">MAX 1,259.50</div>
+            </div>
+            <div style="display:flex;gap:7px;margin-top:12px">
+              <div style="flex:1;border:1px solid #101425;padding:9px 0;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#101425">5</div>
+              <div style="flex:1;border:1px solid #101425;padding:9px 0;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#101425">25</div>
+              <div style="flex:1;border:1px solid #101425;background:#101425;padding:9px 0;text-align:center;font:500 10px/1 'JetBrains Mono',monospace;color:#EDEFE3">100</div>
+              <div style="flex:1;border:1px solid #101425;padding:9px 0;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#101425">MAX</div>
+            </div>
+
+            <div style="margin-top:22px">
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">YOUR TRADE MOVES THE PRICE</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+                <div style="flex:1">
+                  <div style="display:flex;height:30px;border:1px solid #101425;opacity:.45">
+                    <div style="flex:0 0 62%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px)"></div>
+                    <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 7px)"></div>
+                  </div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;margin-top:5px">BEFORE 0.620 / 0.380</div>
+                </div>
+                <div style="font:400 14px/1 'JetBrains Mono',monospace;color:#101425">→</div>
+                <div style="flex:1">
+                  <div style="display:flex;height:30px;border:1px solid #101425">
+                    <div style="flex:0 0 68.4%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.4px)"></div>
+                    <div style="flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 9px)"></div>
+                  </div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#101425;margin-top:5px">AFTER 0.684 / 0.316</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font:400 10px/2 'JetBrains Mono',monospace;color:#3D4460;margin-top:20px;border-top:1px solid #101425;padding-top:12px">
+              <div style="display:flex;justify-content:space-between"><span>SHARES</span><span style="color:#101425">184.62 YES</span></div>
+              <div style="display:flex;justify-content:space-between"><span>AVERAGE PRICE</span><span style="color:#101425">0.650</span></div>
+              <div style="display:flex;justify-content:space-between"><span>SLIPPAGE (VS 0.620)</span><span style="color:#101425">4.84%</span></div>
+              <div style="display:flex;justify-content:space-between"><span>SLIPPAGE GUARD</span><span style="color:#101425">REJECT ABOVE 0.670</span></div>
+              <div style="display:flex;justify-content:space-between"><span>FEE 1.00% · CREATOR 0.30%</span><span style="color:#101425">1.20 tCTC</span></div>
+              <div style="display:flex;justify-content:space-between;border-top:1px solid #101425;margin-top:6px;padding-top:6px"><span>MAX PAYOUT IF YES</span><span style="color:#101425">184.62 tCTC</span></div>
+            </div>
+            <div style="border:1px solid #101425;background:#101425;margin-top:18px;padding:17px 0;text-align:center;font:600 12px/1 Archivo,sans-serif;letter-spacing:3px;color:#EDEFE3">BUY 184.62 YES · 121.20 tCTC</div>
+            <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#5A6180;margin-top:10px;text-align:center">SETTLES ONLY ON PROOF · NO ADMIN KEY EXISTS<br>CONFIRMS IN ONE CC3 BLOCK (~15s)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1h" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1H</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Proof drop 1 / 4 — watching</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468">
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000004</span>
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8A24A">STATE 1 · WATCHING</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:34px 22px 0">
+          <div style="position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 100 100" width="200" height="200"><circle cx="50" cy="50" r="48" fill="none" stroke="#2C3468" stroke-width="0.5"></circle><circle cx="50" cy="50" r="43" fill="none" stroke="#2C3468" stroke-width="0.3" stroke-dasharray="1 3"></circle><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path></svg>
+            <div style="position:absolute;text-align:center">
+              <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3px;color:#C8A24A">PLATE BLANK</div>
+              <div style="font:400 8px/1.6 'JetBrains Mono',monospace;color:#5C67A8;margin-top:8px">NO ANSWER<br>EXISTS YET</div>
+            </div>
+          </div>
+          <div style="font:500 24px/1.25 'Bodoni Moda',serif;color:#EDEFE3;text-align:center;margin-top:26px;text-wrap:pretty">The window is open. Ethereum has not yet said anything that settles this.</div>
+          <div style="width:100%;margin-top:30px;border:1px solid #2C3468;background:#151A3D;padding:16px">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">OBSERVATION WINDOW · ETHEREUM MAINNET</div>
+            <div style="position:relative;height:26px;margin-top:14px;border-left:1px solid #C8A24A;border-right:1px solid #C8A24A">
+              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#2C3468 0 0.8px,transparent 0.8px 5px)"></div>
+              <div style="position:absolute;left:0;top:0;bottom:0;width:9.5%;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 3px)"></div>
+              <div style="position:absolute;left:9.5%;top:-5px;bottom:-5px;width:1px;background:#C8A24A"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font:400 8.5px/1.5 'JetBrains Mono',monospace;color:#8E97C8;margin-top:8px"><span>25,894,845<br>OPEN</span><span style="color:#C8A24A;text-align:center">25,894,902<br>ETH HEAD</span><span style="text-align:right">25,895,445<br>CLOSE</span></div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:14px;border-top:1px solid #2C3468;padding-top:12px">57 / 601 BLOCKS ELAPSED · ~1h 49m LEFT<br>WATCHING topic0 0x0559884f…fc5f<br>ON 0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5</div>
+          </div>
+          <div style="width:100%;margin-top:14px;display:flex;gap:10px">
+            <div style="flex:1;border:1px solid #2C3468;padding:13px;font:400 9px/1.6 'JetBrains Mono',monospace;color:#8E97C8"><span style="color:#5C67A8">GAME LOOP</span><br>CREDITCOIN · 15s<br>TRADING OPEN</div>
+            <div style="flex:1;border:1px solid #C8A24A;padding:13px;font:400 9px/1.6 'JetBrains Mono',monospace;color:#C8A24A"><span style="color:#5C67A8">TRUTH LOOP</span><br>ATTESTCOIN · 8–40m<br>IDLE</div>
+          </div>
+        </div>
+        <div style="padding:16px;font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#2C3468;white-space:nowrap;overflow:hidden">WATCHING·0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5·WATCHING·0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5·WATCHING·0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5·WATCHING·0x7d4E7420</div>
+      </div>
+    </div>
+
+    <div id="1i" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1I</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Proof drop 2 / 4 — attesting</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468">
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000004</span>
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8A24A">STATE 2 · ATTESTING</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:30px 22px 0">
+          <div style="position:relative;width:176px;height:176px;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 100 100" width="176" height="176"><circle cx="50" cy="50" r="48" fill="none" stroke="#2C3468" stroke-width="0.5"></circle><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.72"></path></svg>
+            <div style="position:absolute;text-align:center">
+              <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#C8A24A">EVENT SIGHTED<br>NOT YET ATTESTED</div>
+            </div>
+          </div>
+          <div style="font:500 23px/1.25 'Bodoni Moda',serif;color:#EDEFE3;text-align:center;margin-top:22px;text-wrap:pretty">It happened on Ethereum. Creditcoin has not attested the block yet.</div>
+          <div style="font:400 10px/1.6 Archivo,sans-serif;color:#8E97C8;text-align:center;margin-top:12px;max-width:300px">This is <em>pending</em>, not unknown. The answer is fixed; the proof is in flight.</div>
+          <div style="width:100%;margin-top:22px;background:#DFE2D2;border:1px solid #101425;padding:15px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">SIGHTED EVENT · UNVERIFIED</div>
+              <div style="border:1px solid #C8A24A;padding:2px 5px;font:600 7px/1 Archivo,sans-serif;letter-spacing:1.2px;color:#8A6A18;background:#C8A24A">PENDING</div>
+            </div>
+            <div style="font:500 27px/1 'JetBrains Mono',monospace;color:#101425;margin-top:12px">$2,407.57</div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">ETH BLOCK 25,895,136 · AnswerUpdated<br>TX 0xbc38ccea…7777</div>
+            <div style="font:400 9px/1.5 Archivo,sans-serif;color:#5A6180;margin-top:10px;border-top:1px solid #101425;padding-top:9px">Shown in vellum ink, not lime. Nothing is proven until the precompile says so.</div>
+          </div>
+          <div style="width:100%;margin-top:14px;border:1px solid #2C3468;background:#151A3D;padding:15px 16px">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">TRUTH LOOP · ATTESTATION QUEUE</div>
+            <div style="display:flex;gap:6px;margin-top:12px">
+              <div style="flex:1;height:8px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 2.6px)"></div>
+              <div style="flex:1;height:8px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 2.6px)"></div>
+              <div style="flex:1;height:8px;border:1px solid #2C3468;box-sizing:border-box"></div>
+              <div style="flex:1;height:8px;border:1px solid #2C3468;box-sizing:border-box"></div>
+              <div style="flex:1;height:8px;border:1px solid #2C3468;box-sizing:border-box"></div>
+            </div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#8E97C8;margin-top:10px">CONTINUITY ROOTS 2 / 5 COMMITTED<br>NEXT COMMITMENT ~6m 20s<br>ESTIMATED SEAL 14–22 MIN</div>
+            <div style="font:400 9.5px/1.6 Archivo,sans-serif;color:#5C67A8;margin-top:11px;border-top:1px solid #2C3468;padding-top:10px">Latency is the price of having no oracle. Nobody is deciding anything — we are waiting for arithmetic.</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px 16px"><div style="border:1px solid #2C3468;padding:13px 0;text-align:center;font:500 10px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#8E97C8">NOTIFY ME WHEN SEALED</div></div>
+      </div>
+    </div>
+
+    <div id="1j" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1J</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Proof drop 3 / 4 — proving</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468">
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000004</span>
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8A24A">STATE 3 · PROVING</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;padding:20px 22px 0">
+          <div style="display:flex;align-items:center;gap:16px">
+            <svg viewBox="0 0 100 100" width="92" height="92"><circle cx="50" cy="50" r="48" fill="none" stroke="#2C3468" stroke-width="0.5"></circle><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.16"></path></svg>
+            <div>
+              <div style="font:500 20px/1.2 'Bodoni Moda',serif;color:#EDEFE3">The path is drawing.</div>
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#C8A24A;margin-top:7px">8 MERKLE SIBLINGS · 5 CONTINUITY ROOTS<br>5,824 BYTES · GEN 914 ms</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;background:#DFE2D2;border:1px solid #101425;padding:15px 16px 14px;position:relative;overflow:hidden">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">MERKLE PATH · TRANSACTION → BLOCK ROOT</div>
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:0">
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">TX</span><span style="flex:1;height:1px;background:#101425"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0xbc38ccea…7777</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D0</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x4f1c9a02…8d31</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D1</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0xa77b0e51…c204</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D2</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x1d90f4ab…7e6a</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D3</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x63c2ee78…0b95</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D4</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x0e5581cd…4412</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0;opacity:.4"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D5</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0xf218a9b6…dd07</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0;opacity:.22"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D6</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x8a34c70f…91be</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:4px 0;opacity:.22"><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180;width:34px">D7</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#101425 0 2px,transparent 2px 4px)"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x2bb6d84e…5f30</span></div>
+              <div style="display:flex;align-items:center;gap:9px;padding:8px 0 2px;border-top:1px solid #101425;margin-top:4px"><span style="font:500 8px/1 Archivo,sans-serif;letter-spacing:1.4px;color:#101425;width:58px">RECEIPTS<br>ROOT</span><span style="flex:1;height:1px;background:#101425"></span><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425">0x7ae4b1d9…c60f</span></div>
+            </div>
+          </div>
+          <div style="margin-top:12px;border:1px solid #2C3468;background:#151A3D;padding:14px 16px">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">CONTINUITY CHAIN → COMMITTED ATTESTATION</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-top:12px">
+              <span style="width:11px;height:11px;border:1px solid #C8A24A;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+              <span style="width:11px;height:11px;border:1px solid #C8A24A;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+              <span style="width:11px;height:11px;border:1px solid #C8A24A;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+              <span style="width:11px;height:11px;border:1px solid #C8A24A;background:#C8A24A"></span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 2px,transparent 2px 4px)"></span>
+              <span style="width:11px;height:11px;border:1px solid #C8A24A"></span>
+            </div>
+            <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#8E97C8;margin-top:11px">ROOT 5 OF 5 · ANCHOR 0x5b7e2c14…a0d8<br>SUBMITTING TO PRECOMPILE 0x…0FD2<br>VERIFY BUDGET 536 ms</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px 16px;font:400 9px/1.6 'JetBrains Mono',monospace;color:#5C67A8;text-align:center">NO COMMITTEE · NO BOND · NO DISPUTE WINDOW<br>ONE CC3 BLOCK DECIDES THIS</div>
+      </div>
+    </div>
+
+    <div id="1k" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#C8FF3D;padding:3px 6px">1K</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#C8FF3D">Proof drop 4 / 4 — the seal strikes</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #93C412;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <svg viewBox="0 0 200 200" width="620" height="620" style="position:absolute;left:-115px;top:60px;opacity:.06;pointer-events:none"><path d="{{ tintCrux4 }}" fill="none" stroke="#C8FF3D" stroke-width="0.3"></path></svg>
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468;position:relative">
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000004</span>
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8FF3D">STATE 4 · SETTLED YES</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:26px 22px 0;position:relative">
+          <div style="position:relative;width:206px;height:206px;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 100 100" width="206" height="206"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="0.45" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+            <div style="position:absolute;width:150px;height:150px;border-radius:50%;border:2px solid #C8FF3D;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;inset:6px;border-radius:50%;border:.5px solid #93C412"></div>
+              <div style="position:absolute;inset:11px;border-radius:50%;border:.5px solid #93C412;opacity:.5"></div>
+              <div style="text-align:center;position:relative">
+                <div style="font:400 10px/1 Archivo,sans-serif;letter-spacing:2px;color:#C8FF3D">✦</div>
+                <div style="font:600 21px/1 Archivo,sans-serif;letter-spacing:3.4px;color:#C8FF3D;margin-top:6px">PROVEN</div>
+                <div style="font:400 7px/1.5 'JetBrains Mono',monospace;color:#93C412;margin-top:7px">PRECOMPILE 0x…0FD2<br>TRUE · 536 ms</div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:16px">
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.4px;color:#93C412">ETHEREUM MAINNET · BLOCK 25,895,136</div>
+            <div style="font:500 52px/1 'JetBrains Mono',monospace;color:#C8FF3D;margin-top:12px">$2,407.57</div>
+            <div style="font:500 24px/1.25 'Bodoni Moda',serif;color:#EDEFE3;margin-top:16px;text-wrap:pretty">Above $1,903. The market settled itself.</div>
+          </div>
+          <div style="width:100%;margin-top:20px;border:1px solid #C8FF3D;padding:14px 15px;display:flex;gap:12px;align-items:flex-start">
+            <svg viewBox="0 0 100 100" width="30" height="30" style="flex:0 0 30px;margin-top:2px"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+            <div>
+              <div style="font:500 13px/1.45 Archivo,sans-serif;color:#C8FF3D">Re-verified in your browser — trusting neither our servers nor us.</div>
+              <div style="font:400 8.5px/1.6 'JetBrains Mono',monospace;color:#8E97C8;margin-top:7px">eth_call → 0x…0FD2 · 5,824 BYTES · RETURNED 0x01<br>FREE STATICCALL · RUN IT YOURSELF ↗</div>
+            </div>
+          </div>
+          <div style="width:100%;margin-top:12px;font:400 9px/1.9 'JetBrains Mono',monospace;color:#8E97C8;border-top:1px solid #2C3468;padding-top:12px">
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">RESOLVING TX</span><span>0xbc38ccea…7777</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">SETTLED ON</span><span>CC3 BLOCK 5,441,970</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">PROOF</span><span>8 SIBLINGS · 5 ROOTS</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">HUMANS IN THE LOOP</span><span style="color:#C8FF3D">0</span></div>
+          </div>
+        </div>
+        <div style="padding:14px 16px 16px;position:relative"><div style="border:1px solid #C8FF3D;background:#C8FF3D;padding:16px 0;text-align:center;font:600 12px/1 Archivo,sans-serif;letter-spacing:3px;color:#0B0F26">CLAIM 40.32 tCTC</div></div>
+      </div>
+    </div>
+
+    <div id="1l" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#C8FF3D;padding:3px 6px">1L</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#C8FF3D">Proof drop — desktop moment · <span style="color:#C8A24A">click the four states</span></span>
+      </div>
+      <div style="width:1440px;height:900px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 34px;border-bottom:1px solid #2C3468">
+          <div style="display:flex;align-items:baseline;gap:16px">
+            <div style="font:600 22px/1 'Bodoni Moda',serif;letter-spacing:4.4px;color:#EDEFE3">CRUX</div>
+            <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3px;color:#5C67A8">N° CRUX-000004 · SERIES 2026</div>
+          </div>
+          <div style="font:400 9.5px/1 'JetBrains Mono',monospace;color:#5C67A8">CREDITCOIN CC3 · CruxMarket 0x34a712c4…3dA3C · CruxAttestedResolver 0x3a2153c9…B8757</div>
+        </div>
+
+        <div style="flex:1;display:flex;min-height:0">
+          <div style="flex:0 0 640px;border-right:1px solid #2C3468;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:0 50px">
+            <svg viewBox="0 0 200 200" width="720" height="720" style="position:absolute;opacity:.05;pointer-events:none"><path d="{{ tintCrux4 }}" fill="none" stroke="#8E97C8" stroke-width="0.3"></path></svg>
+            <div style="position:relative;width:380px;height:380px;display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ notProven }}" hint-placeholder-val="{{ true }}">
+                <svg viewBox="0 0 100 100" width="380" height="380" style="position:absolute"><circle cx="50" cy="50" r="48.5" fill="none" stroke="#2C3468" stroke-width="0.35"></circle><circle cx="50" cy="50" r="44" fill="none" stroke="#2C3468" stroke-width="0.25" stroke-dasharray="0.8 3"></circle><path d="{{ mark }}" fill="none" stroke="#C8A24A" stroke-width="0.4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="{{ markOffset }}" style="transition:stroke-dashoffset 1.4s ease-out"></path></svg>
+              </sc-if>
+              <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+                <svg viewBox="0 0 100 100" width="380" height="380" style="position:absolute"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="0.4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+                <div style="position:absolute;width:250px;height:250px;border-radius:50%;border:2.5px solid #C8FF3D;display:flex;align-items:center;justify-content:center;animation:crux-strike .5s cubic-bezier(.2,.9,.2,1) both">
+                  <div style="position:absolute;inset:9px;border-radius:50%;border:.6px solid #93C412"></div>
+                  <div style="position:absolute;inset:16px;border-radius:50%;border:.6px solid #93C412;opacity:.45"></div>
+                  <div style="text-align:center;position:relative">
+                    <div style="font:400 14px/1 Archivo,sans-serif;letter-spacing:3px;color:#C8FF3D">✦</div>
+                    <div style="font:600 34px/1 Archivo,sans-serif;letter-spacing:5px;color:#C8FF3D;margin-top:10px">PROVEN</div>
+                    <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#93C412;margin-top:12px">PRECOMPILE 0x…0FD2<br>RETURNED TRUE · 536 ms</div>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ s0 }}" hint-placeholder-val="{{ false }}">
+                <div style="position:relative;text-align:center"><div style="font:500 10px/1 Archivo,sans-serif;letter-spacing:3.6px;color:#C8A24A">PLATE BLANK</div><div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:9px">NO ANSWER EXISTS YET</div></div>
+              </sc-if>
+              <sc-if value="{{ s1 }}" hint-placeholder-val="{{ false }}">
+                <div style="position:relative;text-align:center"><div style="font:500 10px/1 Archivo,sans-serif;letter-spacing:3.6px;color:#C8A24A">EVENT SIGHTED</div><div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:9px">2 / 5 CONTINUITY ROOTS<br>ESTIMATED SEAL 14–22 MIN</div></div>
+              </sc-if>
+              <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+                <div style="position:relative;text-align:center"><div style="font:500 10px/1 Archivo,sans-serif;letter-spacing:3.6px;color:#C8A24A">PATH DRAWING</div><div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:9px">5,824 BYTES · 914 ms<br>SUBMITTING TO PRECOMPILE</div></div>
+              </sc-if>
+            </div>
+            <div style="position:relative;text-align:center;margin-top:34px;width:440px">
+              <sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+                <div><div style="font:500 34px/1.2 'Bodoni Moda',serif;color:#EDEFE3;text-wrap:pretty">The window is open. Nothing has been said yet.</div><div style="font:400 13px/1.6 Archivo,sans-serif;color:#8E97C8;margin-top:14px">Blocks 25,894,845 – 25,895,445 on Ethereum mainnet. 57 elapsed. The plate is blank because there is no answer to prove.</div></div>
+              </sc-if>
+              <sc-if value="{{ s1 }}" hint-placeholder-val="{{ false }}">
+                <div><div style="font:500 34px/1.2 'Bodoni Moda',serif;color:#EDEFE3;text-wrap:pretty">It happened. The proof is in flight.</div><div style="font:400 13px/1.6 Archivo,sans-serif;color:#8E97C8;margin-top:14px">Pending, not unknown — a state no oracle-based market can show you, because none of them have a proof in flight. Latency is the price of having no oracle.</div></div>
+              </sc-if>
+              <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+                <div><div style="font:500 34px/1.2 'Bodoni Moda',serif;color:#EDEFE3;text-wrap:pretty">Eight siblings, five roots, one anchor.</div><div style="font:400 13px/1.6 Archivo,sans-serif;color:#8E97C8;margin-top:14px">From the resolving transaction up to Ethereum's receipts root, then along the continuity chain to a committed Creditcoin attestation.</div></div>
+              </sc-if>
+              <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+                <div><div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:4px;color:#93C412">ETHEREUM MAINNET · BLOCK 25,895,136</div><div style="font:500 76px/1 'JetBrains Mono',monospace;color:#C8FF3D;margin-top:16px">$2,407.57</div><div style="font:500 30px/1.2 'Bodoni Moda',serif;color:#EDEFE3;margin-top:18px">Above $1,903. No human was anywhere in the loop.</div></div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+            <div style="flex:1;display:flex;min-height:0">
+              <div style="flex:1;padding:30px 32px;border-right:1px solid #2C3468;overflow:hidden">
+                <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.2px;color:#5C67A8">MERKLE PATH · TRANSACTION → RECEIPTS ROOT</div>
+                <div style="margin-top:16px;display:flex;flex-direction:column">
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">TX</span><span style="flex:1;height:1px;background:#8E97C8"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#EDEFE3">0xbc38ccea…7777</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D0</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x4f1c9a02…8d31</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D1</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0xa77b0e51…c204</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D2</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x1d90f4ab…7e6a</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D3</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x63c2ee78…0b95</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D4</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x0e5581cd…4412</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D5</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0xf218a9b6…dd07</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D6</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x8a34c70f…91be</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;width:28px">D7</span><span style="flex:1;height:1px;background-image:repeating-linear-gradient(90deg,#5C67A8 0 2px,transparent 2px 4px)"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0x2bb6d84e…5f30</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px;border-top:1px solid #2C3468;margin-top:6px"><span style="font:500 9px/1.3 Archivo,sans-serif;letter-spacing:1.4px;color:#8E97C8;width:64px">RECEIPTS<br>ROOT</span><span style="flex:1;height:1px;background:#8E97C8"></span><span style="font:400 10px/1 'JetBrains Mono',monospace;color:#EDEFE3">0x7ae4b1d9…c60f</span></div>
+                </div>
+                <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.2px;color:#5C67A8;margin-top:26px">CONTINUITY CHAIN → COMMITTED ATTESTATION</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:16px">
+                  <span style="width:13px;height:13px;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+                  <span style="width:13px;height:13px;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+                  <span style="width:13px;height:13px;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+                  <span style="width:13px;height:13px;background:#C8A24A"></span><span style="flex:1;height:1px;background:#C8A24A"></span>
+                  <span style="width:13px;height:13px;background:#C8A24A"></span>
+                </div>
+                <div style="font:400 9.5px/1.8 'JetBrains Mono',monospace;color:#8E97C8;margin-top:14px">ANCHOR 0x5b7e2c14…a0d8<br>PROOF 5,824 BYTES · 8 SIBLINGS · 5 ROOTS<br>GENERATION 914 ms · VERIFICATION 536 ms</div>
+              </div>
+
+              <div style="flex:0 0 320px;padding:30px 30px;display:flex;flex-direction:column">
+                <div style="font:500 9px/1 Archivo,sans-serif;letter-spacing:3.2px;color:#5C67A8">THE TWO CLOCKS</div>
+                <div style="border:1px solid #2C3468;padding:15px;margin-top:14px;font:400 9.5px/1.7 'JetBrains Mono',monospace;color:#8E97C8"><span style="color:#5C67A8">GAME LOOP · CREDITCOIN</span><br>15s BLOCKS · INSTANT<br>SWIPE · STAKE · ODDS MOVE</div>
+                <div style="border:1px solid #C8A24A;padding:15px;margin-top:10px;font:400 9.5px/1.7 'JetBrains Mono',monospace;color:#C8A24A"><span style="color:#5C67A8">TRUTH LOOP · ATTESTCOIN</span><br>8–40 MIN · CEREMONIAL<br>THE SEAL IS STRUCK ONCE</div>
+                <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+                  <div style="border:1px solid #C8FF3D;padding:16px;margin-top:22px">
+                    <div style="font:500 12.5px/1.5 Archivo,sans-serif;color:#C8FF3D">Verified in your browser — trusting neither our servers nor us.</div>
+                    <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#8E97C8;margin-top:9px">eth_call 0x…0FD2 → 0x01<br>FREE STATICCALL · 5,824 BYTES<br>RE-RAN LOCALLY 536 ms AGO</div>
+                    <div style="border-top:1px solid #93C412;margin-top:11px;padding-top:10px;font:400 9px/1.6 'JetBrains Mono',monospace;color:#93C412">COPY CALLDATA ↗ &nbsp; OPEN IN EXPLORER ↗</div>
+                  </div>
+                  <div style="margin-top:auto;font:400 9.5px/1.8 'JetBrains Mono',monospace;color:#8E97C8;border-top:1px solid #2C3468;padding-top:14px">
+                    <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">SETTLED ON</span><span>CC3 5,441,970</span></div>
+                    <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">DISPUTE WINDOW</span><span>NONE</span></div>
+                    <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">ADMIN KEY</span><span>DOES NOT EXIST</span></div>
+                    <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">HUMANS IN THE LOOP</span><span style="color:#C8FF3D">0</span></div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ notProven }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:22px;border:1px solid #2C3468;padding:16px;font:400 11px/1.6 Archivo,sans-serif;color:#5C67A8">Polymarket waits on UMA's bonded voters. Kalshi waits on a review committee. This market waits on Ethereum block 25,895,136 becoming attested — and then on nothing at all.</div>
+                  <div style="margin-top:auto;font:400 9.5px/1.8 'JetBrains Mono',monospace;color:#5C67A8;border-top:1px solid #2C3468;padding-top:14px">AWAITING PROOF<br>NO COMMITTEE · NO BOND · NO VOTE</div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #2C3468;padding:0 34px;display:flex;align-items:stretch;height:78px">
+          <div onClick="{{ go0 }}" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;border-right:1px solid #2C3468;padding-right:24px" style-hover="background:#151A3D">
+            <div style="display:flex;align-items:center;gap:9px"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">01</span><span style="font:500 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#EDEFE3">WATCHING</span></div>
+            <div style="height:3px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 3px)"></div>
+          </div>
+          <div onClick="{{ go1 }}" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;border-right:1px solid #2C3468;padding:0 24px" style-hover="background:#151A3D">
+            <div style="display:flex;align-items:center;gap:9px"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">02</span><span style="font:500 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#EDEFE3">ATTESTING</span></div>
+            <div style="height:3px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 3px)"></div>
+          </div>
+          <div onClick="{{ go2 }}" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;border-right:1px solid #2C3468;padding:0 24px" style-hover="background:#151A3D">
+            <div style="display:flex;align-items:center;gap:9px"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">03</span><span style="font:500 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#EDEFE3">PROVING</span></div>
+            <div style="height:3px;background-image:repeating-linear-gradient(90deg,#C8A24A 0 0.8px,transparent 0.8px 3px)"></div>
+          </div>
+          <div onClick="{{ go3 }}" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;padding-left:24px" style-hover="background:#151A3D">
+            <div style="display:flex;align-items:center;gap:9px"><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#93C412">04</span><span style="font:500 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8FF3D">PROVEN</span></div>
+            <div style="height:3px;background-image:repeating-linear-gradient(90deg,#C8FF3D 0 0.8px,transparent 0.8px 3px)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1m" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1M</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Settled NO — absence established by time</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468">
+          <span style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#8E97C8">N° CRUX-000011</span>
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#8E97C8">SETTLED NO · VOID</span>
+        </div>
+        <div style="flex:1;padding:22px 16px 0">
+          <div style="background:#DFE2D2;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:-60px;right:-60px;top:184px;height:9px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px;transform:rotate(-13deg)"></div>
+            <div style="padding:20px 20px 26px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;color:#101425">N° CRUX-000011</div>
+                  <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180;margin-top:6px">SERIES 2026 · EXPIRED</div>
+                </div>
+                <div style="position:relative;width:62px;height:62px;display:flex;align-items:center;justify-content:center">
+                  <svg viewBox="0 0 100 100" width="62" height="62"><path d="{{ tintCrux6 }}" fill="none" stroke="#101425" stroke-width="1" opacity="0.32"></path><line x1="10" y1="90" x2="90" y2="10" stroke="#101425" stroke-width="2.2"></line></svg>
+                </div>
+              </div>
+              <div style="font:500 29px/1.12 'Bodoni Moda',serif;color:#101425;margin-top:20px;text-wrap:pretty;opacity:.82">Will a single address move more than 10,000 ETH before block 25,895,445?</div>
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:14px">ETHEREUM MAINNET · WETH Transfer<br>topic0 0xddf252ad…3ef5 · value GT 1e22</div>
+              <div style="margin-top:26px;border-top:1px solid #101425;border-bottom:1px solid #101425;padding:16px 0">
+                <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">NO QUALIFYING EVENT EXISTS</div>
+                <div style="font:500 31px/1.15 'Bodoni Moda',serif;color:#101425;margin-top:10px">Absence, established by time.</div>
+                <div style="font:400 11px/1.55 Archivo,sans-serif;color:#3D4460;margin-top:10px">NO does not need a proof of something happening. It needs every block in the window to be attested — and then the absence itself is checkable. 601 blocks, all attested, nothing matching the spec.</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:16px">
+                <div style="height:14px;flex:1;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 2px)"></div>
+                <div style="font:500 9px/1 'JetBrains Mono',monospace;color:#5F7C0A">601 / 601 ATTESTED</div>
+              </div>
+              <div style="font:400 9px/1.9 'JetBrains Mono',monospace;color:#3D4460;margin-top:18px">
+                <div style="display:flex;justify-content:space-between"><span style="color:#5A6180">WINDOW</span><span>25,894,845 – 25,895,445</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#5A6180">MATCHING EVENTS</span><span>0</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#5A6180">ATTESTATION ANCHOR</span><span>0x5b7e2c14…a0d8</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:#5A6180">SETTLED ON</span><span>CC3 BLOCK 5,442,318</span></div>
+              </div>
+              <div style="position:absolute;right:18px;bottom:16px;border:2px solid #101425;padding:7px 14px;transform:rotate(-9deg);opacity:.55">
+                <div style="font:700 22px/1 Archivo,sans-serif;letter-spacing:5px;color:#101425">VOID</div>
+                <div style="font:400 7px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;margin-top:4px">NO · EXPIRED UNSTRUCK</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:16px;border:1px solid #2C3468;background:#151A3D;padding:16px">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">YOUR POSITION · N° POS-011-0442</div>
+            <div style="display:flex;align-items:center;gap:14px;margin-top:13px">
+              <div style="border:1.5px solid #EDEFE3;padding:5px 12px"><span style="font:700 17px/1 Archivo,sans-serif;letter-spacing:3px;color:#EDEFE3;text-decoration:line-through;text-decoration-thickness:2px">NO</span></div>
+              <div style="font:400 11px/1.7 'JetBrains Mono',monospace;color:#8E97C8">131.58 SHARES @ 0.380<br>REDEEMS 131.58 tCTC · 1:1</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px">
+            <div style="flex:1;border:1px solid #EDEFE3;background:#EDEFE3;padding:16px 0;text-align:center;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#101425">CLAIM 131.58 tCTC</div>
+          </div>
+          <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-top:14px;text-align:center">NO SEAL IS STRUCK FOR AN ABSENCE.<br>THE PLATE IS CANCELLED INSTEAD.</div>
+        </div>
+        <div style="padding:14px 16px;font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#2C3468;white-space:nowrap;overflow:hidden">VOID·CRUX-000011·NO QUALIFYING EVENT·601 BLOCKS ATTESTED·VOID·CRUX-000011·NO QUALIFYING EVENT·601 BLOCKS ATTESTED·VOID·CRUX-000011·NO QUALIFYING EVENT·601 BLOCKS ATTESTED</div>
+      </div>
+    </div>
+
+    <div id="1n" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1N</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Portfolio — certificates you hold</span>
+      </div>
+      <div style="width:390px;background:#0B0F26;border:1px solid #2C3468;position:relative;overflow:hidden">
+        <div style="padding:16px 16px 0">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end">
+            <div>
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">BEARER · 0x9f21…4c0e</div>
+              <div style="font:500 34px/1 'JetBrains Mono',monospace;color:#EDEFE3;margin-top:10px">1,532.08</div>
+              <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#8E97C8;margin-top:6px">tCTC · PORTFOLIO VALUE</div>
+            </div>
+            <div style="text-align:right;font:400 9px/1.8 'JetBrains Mono',monospace;color:#8E97C8"><span style="color:#5C67A8">FREE</span> 1,259.50<br><span style="color:#5C67A8">AT RISK</span> 141.00<br><span style="color:#5C67A8">CLAIMABLE</span> <span style="color:#C8FF3D">171.90</span></div>
+          </div>
+          <div style="display:flex;gap:0;margin-top:20px;border-bottom:1px solid #2C3468">
+            <div style="padding:11px 14px;font:600 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#EDEFE3;border-bottom:2px solid #EDEFE3;margin-bottom:-1px">OPEN 3</div>
+            <div style="padding:11px 14px;font:400 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#5C67A8">SETTLED 2</div>
+            <div style="padding:11px 14px;font:400 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#5C67A8">CLAIMED 14</div>
+          </div>
+        </div>
+
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#EDEFE3;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <svg viewBox="0 0 200 200" width="200" height="200" style="position:absolute;right:-50px;bottom:-60px;opacity:.08"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.4"></path></svg>
+            <div style="padding:17px 18px 16px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#101425">N° POS-004-1187</div>
+                <div style="display:flex;align-items:center;gap:6px;border:1px solid #C8A24A;padding:3px 6px"><svg viewBox="0 0 100 100" width="11" height="11"><path d="{{ mark }}" fill="none" stroke="#8A6A18" stroke-width="1.4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0.72"></path></svg><span style="font:600 7px/1 Archivo,sans-serif;letter-spacing:1.2px;color:#8A6A18">UNSETTLED · ATTESTING</span></div>
+              </div>
+              <div style="font:500 21px/1.2 'Bodoni Moda',serif;color:#101425;margin-top:12px">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:14px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="border:1.5px solid #101425;padding:3px 9px"><span style="font:700 13px/1 Archivo,sans-serif;letter-spacing:2px;color:#101425">YES</span></div>
+                  <div style="font:400 9.5px/1.6 'JetBrains Mono',monospace;color:#3D4460">224.94 SHARES<br>AVG 0.645</div>
+                </div>
+                <div style="text-align:right"><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2px;color:#5A6180">MARK 0.684</div><div style="font:500 15px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">153.86 tCTC</div><div style="font:400 9px/1 'JetBrains Mono',monospace;color:#5F7C0A;margin-top:4px">+8.77 (+6.0%)</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#EDEFE3;border:1.5px solid #93C412;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#93C412 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="padding:17px 18px 16px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#101425">N° POS-002-0913</div>
+                <div style="display:flex;align-items:center;gap:6px;background:#0B0F26;padding:4px 7px"><svg viewBox="0 0 100 100" width="12" height="12"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="1.4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg><span style="font:600 7px/1 Archivo,sans-serif;letter-spacing:1.2px;color:#C8FF3D">✦ PROVEN · YOU WON</span></div>
+              </div>
+              <div style="font:500 21px/1.2 'Bodoni Moda',serif;color:#101425;margin-top:12px">Did the Lido withdrawal queue exceed 40,000 stETH?</div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:14px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="border:1.5px solid #101425;padding:3px 9px"><span style="font:700 13px/1 Archivo,sans-serif;letter-spacing:2px;color:#101425">YES</span></div>
+                  <div style="font:400 9.5px/1.6 'JetBrains Mono',monospace;color:#3D4460">171.90 SHARES<br>ETH BLOCK 25,881,402</div>
+                </div>
+                <div style="text-align:right"><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2px;color:#5A6180">REDEEMS 1:1</div><div style="font:500 15px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">171.90 tCTC</div></div>
+              </div>
+              <div style="border:1px solid #0B0F26;background:#0B0F26;margin-top:14px;padding:13px 0;text-align:center;font:600 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#C8FF3D">CLAIM 171.90 tCTC</div>
+            </div>
+          </div>
+
+          <div style="background:#DFE2D2;border:1px solid #5A6180;position:relative;overflow:hidden;opacity:.86">
+            <div style="position:absolute;left:-40px;right:-40px;top:66px;height:9px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px;transform:rotate(-7deg);opacity:.5"></div>
+            <div style="padding:17px 18px 16px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#5A6180">N° POS-001-0208</div>
+                <div style="border:1.5px solid #5A6180;padding:3px 7px;transform:rotate(-3deg)"><span style="font:700 7px/1 Archivo,sans-serif;letter-spacing:1.4px;color:#5A6180">CLAIMED · CANCELLED</span></div>
+              </div>
+              <div style="font:500 19px/1.2 'Bodoni Moda',serif;color:#3D4460;margin-top:12px">Was a Uniswap v4 hook deployed before block 25,700,000?</div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:12px">
+                <div style="font:400 9.5px/1.6 'JetBrains Mono',monospace;color:#5A6180">NO · 96.00 SHARES<br>REDEEMED 0x41a0c7e2…9db1</div>
+                <div style="font:500 14px/1 'JetBrains Mono',monospace;color:#5A6180">+96.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3;height:100%;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #EDEFE3">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1o" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1O</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Profile — certificate of standing</span>
+      </div>
+      <div style="width:390px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2C3468">
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#8E97C8">REPUTATION · SOULBOUND</span>
+          <span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">NON-TRANSFERABLE</span>
+        </div>
+        <div style="padding:16px">
+          <div style="background:#EDEFE3;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <svg viewBox="0 0 200 200" width="330" height="330" style="position:absolute;right:-95px;top:-30px;opacity:.09"><path d="{{ tintCrux7 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+            <div style="padding:22px 20px 20px;position:relative">
+              <div style="text-align:center;border-bottom:1px solid #101425;padding-bottom:14px">
+                <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:3.4px;color:#5A6180">CRUX · CERTIFICATE OF STANDING</div>
+                <div style="font:500 27px/1.15 'Bodoni Moda',serif;color:#101425;margin-top:10px">Yashvardhan</div>
+                <div style="font:400 9.5px/1 'JetBrains Mono',monospace;color:#3D4460;margin-top:8px">BEARER 0x9f21…4c0e · N° REP-000318</div>
+                <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180;margin-top:8px">SEASON 3 · ISSUED CC3 BLOCK 5,118,204</div>
+              </div>
+
+              <div style="margin-top:18px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">CALIBRATION · BRIER SCORE</div>
+                  <div style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180">LOWER IS BETTER</div>
+                </div>
+                <div style="display:flex;align-items:flex-end;gap:12px;margin-top:10px">
+                  <div style="font:500 46px/1 'JetBrains Mono',monospace;color:#101425">0.148</div>
+                  <div style="font:400 10px/1.5 Archivo,sans-serif;color:#3D4460;padding-bottom:5px">Better than<br>91% of Season 3</div>
+                </div>
+                <div style="position:relative;height:22px;margin-top:14px;border:1px solid #101425">
+                  <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 4px);opacity:.35"></div>
+                  <div style="position:absolute;left:0;top:0;bottom:0;width:59.2%;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.7px)"></div>
+                  <div style="position:absolute;left:59.2%;top:-6px;bottom:-6px;width:1.5px;background:#101425"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font:400 8px/1.4 'JetBrains Mono',monospace;color:#5A6180;margin-top:7px"><span>0.000<br>PERFECT ORACLE</span><span style="text-align:center;color:#101425">0.148<br>YOU</span><span style="text-align:right">0.250<br>A COIN FLIP</span></div>
+                <div style="font:400 11px/1.55 Archivo,sans-serif;color:#3D4460;margin-top:14px;border-top:1px solid #101425;padding-top:12px">Brier measures whether your confidence is honest, not whether you were lucky. Say 80% and be right 80% of the time and you score well. Say 99% and be wrong once and it costs you dearly.</div>
+              </div>
+
+              <div style="margin-top:20px">
+                <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">WHEN YOU SAID… IT HAPPENED…</div>
+                <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+                  <div style="display:flex;align-items:center;gap:9px"><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#3D4460;width:46px">50–60%</span><div style="flex:1;height:11px;position:relative"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 5px);width:55%"></div><div style="position:absolute;left:52%;top:-3px;bottom:-3px;width:1.5px;background:#101425"></div></div><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425;width:32px;text-align:right">52%</span></div>
+                  <div style="display:flex;align-items:center;gap:9px"><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#3D4460;width:46px">60–70%</span><div style="flex:1;height:11px;position:relative"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 4px);width:65%"></div><div style="position:absolute;left:67%;top:-3px;bottom:-3px;width:1.5px;background:#101425"></div></div><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425;width:32px;text-align:right">67%</span></div>
+                  <div style="display:flex;align-items:center;gap:9px"><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#3D4460;width:46px">70–80%</span><div style="flex:1;height:11px;position:relative"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 3px);width:75%"></div><div style="position:absolute;left:73%;top:-3px;bottom:-3px;width:1.5px;background:#101425"></div></div><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425;width:32px;text-align:right">73%</span></div>
+                  <div style="display:flex;align-items:center;gap:9px"><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#3D4460;width:46px">80–90%</span><div style="flex:1;height:11px;position:relative"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 2.2px);width:85%"></div><div style="position:absolute;left:88%;top:-3px;bottom:-3px;width:1.5px;background:#101425"></div></div><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425;width:32px;text-align:right">88%</span></div>
+                  <div style="display:flex;align-items:center;gap:9px"><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#3D4460;width:46px">90–99%</span><div style="flex:1;height:11px;position:relative"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,#101425 0 0.7px,transparent 0.7px 1.5px);width:95%"></div><div style="position:absolute;left:92%;top:-3px;bottom:-3px;width:1.5px;background:#101425"></div></div><span style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#101425;width:32px;text-align:right">92%</span></div>
+                </div>
+                <div style="font:400 9px/1.5 'JetBrains Mono',monospace;color:#5A6180;margin-top:10px">HATCHING = WHAT YOU CLAIMED · RULE = WHAT HAPPENED</div>
+              </div>
+
+              <div style="height:9px;margin:20px -20px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px"></div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 16px">
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">CURRENT STREAK</div><div style="font:500 22px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">7</div></div>
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">BEST STREAK</div><div style="font:500 22px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">14</div></div>
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">MARKETS RESOLVED</div><div style="font:500 22px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">318</div></div>
+                <div><div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.4px;color:#5A6180">SEASON XP</div><div style="font:500 22px/1 'JetBrains Mono',monospace;color:#101425;margin-top:6px">24,180</div></div>
+              </div>
+              <div style="font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#101425;opacity:.5;white-space:nowrap;overflow:hidden;margin-top:20px">REP-000318·SOULBOUND·0x9f21…4c0e·SEASON 3·REP-000318·SOULBOUND·0x9f21…4c0e·SEASON 3·REP-000318·SOULBOUND·0x9f21…4c0e·SEASON 3·REP-000318·SOULBOUND·0x9f21…4c0e·SEASON 3</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;border:1px solid #93C412;padding:16px;display:flex;gap:12px;align-items:flex-start">
+            <svg viewBox="0 0 100 100" width="28" height="28" style="flex:0 0 28px;margin-top:2px"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+            <div>
+              <div style="font:500 13px/1.45 Archivo,sans-serif;color:#C8FF3D">Every one of these 318 resolutions was decided by a proof.</div>
+              <div style="font:400 10.5px/1.6 Archivo,sans-serif;color:#8E97C8;margin-top:7px">No oracle voted, no committee reviewed, no admin key intervened. This score is provably untainted by oracle manipulation — a claim no other prediction market can make about its own leaderboard.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3;height:100%;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #EDEFE3">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1p" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1P</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Leaderboard — right, not rich</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:18px 16px 14px;border-bottom:1px solid #2C3468">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:3px;color:#5C67A8">SEASON 3 · REGISTER OF CALIBRATION</div>
+            <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#8E97C8">18d 04h LEFT</div>
+          </div>
+          <div style="font:500 25px/1.2 'Bodoni Moda',serif;color:#EDEFE3;margin-top:12px">Ranked by being right, not by being rich.</div>
+          <div style="font:400 10px/1.5 Archivo,sans-serif;color:#8E97C8;margin-top:9px">Standing is Brier calibration over resolved markets. A whale who guesses cannot buy a place here.</div>
+        </div>
+        <div style="display:flex;padding:11px 16px;border-bottom:1px solid #2C3468;font:500 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">
+          <span style="width:30px">#</span><span style="flex:1">BEARER</span><span style="width:54px;text-align:right">BRIER</span><span style="width:44px;text-align:right">RESOLVED</span><span style="width:36px;text-align:right">STREAK</span>
+        </div>
+        <div style="flex:1;overflow:hidden">
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center;background:#151A3D"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">1</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">calder<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000042</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.091</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">1,204</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">22</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">2</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">plate.eth<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000117</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.104</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">862</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">9</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">3</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">intaglio<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000009</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.112</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">2,051</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">4</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">4</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">nonzero<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000255</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.129</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">402</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">11</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">5</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">sibling7<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000188</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.141</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">648</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">3</span></div>
+          <div style="display:flex;padding:15px 16px;align-items:center;background:#EDEFE3;border-top:1px solid #101425;border-bottom:1px solid #101425"><span style="width:30px;font:500 13px/1 'JetBrains Mono',monospace;color:#101425">6</span><span style="flex:1;font:500 12px/1.4 Archivo,sans-serif;color:#101425">Yashvardhan · YOU<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5A6180">N° REP-000318</span></span><span style="width:54px;text-align:right;font:500 13px/1 'JetBrains Mono',monospace;color:#101425">0.148</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#3D4460">318</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#3D4460">7</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">7</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">rosette<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000501</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.152</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">231</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">2</span></div>
+          <div style="display:flex;padding:13px 16px;border-bottom:1px solid #151A3D;align-items:center"><span style="width:30px;font:500 12px/1 'JetBrains Mono',monospace;color:#8E97C8">8</span><span style="flex:1;font:400 12px/1.4 Archivo,sans-serif;color:#EDEFE3">deep-lime<br><span style="font:400 8px/1 'JetBrains Mono',monospace;color:#5C67A8">N° REP-000073</span></span><span style="width:54px;text-align:right;font:500 12px/1 'JetBrains Mono',monospace;color:#EDEFE3">0.160</span><span style="width:44px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">1,455</span><span style="width:36px;text-align:right;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">0</span></div>
+          <div style="padding:16px;font:400 9.5px/1.7 'JetBrains Mono',monospace;color:#5C67A8;border-top:1px solid #2C3468">SEASON 3 · 8,412 BEARERS · 41,208 RESOLUTIONS<br>ALL DECIDED ON PRECOMPILE 0x…0FD2<br>ZERO ORACLE VOTES CAST, EVER</div>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">FEED</div>
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3;height:100%;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #EDEFE3">MARKETS</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1q" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1Q</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Create market — composing</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;border-bottom:1px solid #2C3468">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#8E97C8">ISSUE AN INSTRUMENT</span>
+            <span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">STEP 2 / 4</span>
+          </div>
+          <div style="display:flex;gap:5px;margin-top:12px">
+            <div style="flex:1;height:3px;background:#EDEFE3"></div>
+            <div style="flex:1;height:3px;background:#EDEFE3"></div>
+            <div style="flex:1;height:3px;background:#2C3468"></div>
+            <div style="flex:1;height:3px;background:#2C3468"></div>
+          </div>
+        </div>
+        <div style="flex:1;padding:16px;overflow:hidden">
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">1 · WHAT SHOULD DECIDE IT</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:11px">
+            <div style="border:1px solid #EDEFE3;background:#EDEFE3;padding:11px 13px;display:flex;justify-content:space-between;align-items:center"><span style="font:500 12px/1 Archivo,sans-serif;color:#101425">A price crossing a level</span><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#3D4460">CHAINLINK</span></div>
+            <div style="border:1px solid #2C3468;padding:11px 13px;display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 Archivo,sans-serif;color:#8E97C8">A very large transfer</span><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">ERC-20 LOG</span></div>
+            <div style="border:1px solid #2C3468;padding:11px 13px;display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 Archivo,sans-serif;color:#8E97C8">A DAO proposal executing</span><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">GOVERNOR</span></div>
+            <div style="border:1px solid #2C3468;padding:11px 13px;display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 Archivo,sans-serif;color:#8E97C8">A contract's stored value</span><span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">BEACON STATE</span></div>
+          </div>
+
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8;margin-top:20px">2 · THE LEVEL AND THE WINDOW</div>
+          <div style="display:flex;gap:8px;margin-top:11px">
+            <div style="flex:1;border:1px solid #2C3468;padding:10px 12px"><div style="font:500 7px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ASSET</div><div style="font:500 15px/1 'JetBrains Mono',monospace;color:#EDEFE3;margin-top:7px">ETH / USD</div></div>
+            <div style="flex:1;border:1px solid #2C3468;padding:10px 12px"><div style="font:500 7px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">DIRECTION</div><div style="font:500 15px/1 'JetBrains Mono',monospace;color:#EDEFE3;margin-top:7px">ABOVE</div></div>
+          </div>
+          <div style="border:1px solid #EDEFE3;padding:12px 14px;margin-top:8px;display:flex;align-items:baseline;justify-content:space-between"><span style="font:500 7px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#8E97C8">THRESHOLD</span><span style="font:500 26px/1 'JetBrains Mono',monospace;color:#EDEFE3">$1,903<span style="opacity:.4">|</span></span></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <div style="flex:1;border:1px solid #2C3468;padding:10px 12px;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">1h</div>
+            <div style="flex:1;border:1px solid #C8A24A;padding:10px 12px;text-align:center;font:500 10px/1 'JetBrains Mono',monospace;color:#C8A24A">2h</div>
+            <div style="flex:1;border:1px solid #2C3468;padding:10px 12px;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">24h</div>
+            <div style="flex:1;border:1px solid #2C3468;padding:10px 12px;text-align:center;font:400 10px/1 'JetBrains Mono',monospace;color:#8E97C8">7d</div>
+          </div>
+
+          <div style="margin-top:18px;background:#DFE2D2;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="padding:16px 16px 15px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180">ASSEMBLING · PREVIEW</div>
+                <div style="font:400 8.5px/1 'JetBrains Mono',monospace;color:#5A6180;border-bottom:1px dashed #5A6180">N° CRUX-0000__</div>
+              </div>
+              <div style="font:500 22px/1.18 'Bodoni Moda',serif;color:#101425;margin-top:12px">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460;margin-top:11px;border-top:1px solid #101425;padding-top:10px">RESOLVED FOR YOU ▾<br>AGGREGATOR 0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5<br>topic0 0x0559884f…fc5f · AnswerUpdated<br>WINDOW 25,894,845 – 25,895,445 (601 BLOCKS)</div>
+              <div style="font:400 10px/1.5 Archivo,sans-serif;color:#5A6180;margin-top:10px;font-style:italic">You never had to know any of that. You said “ETH above $1,903 in the next two hours”.</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:14px 16px">
+          <div style="display:flex;justify-content:space-between;font:400 9px/1.7 'JetBrains Mono',monospace;color:#5C67A8;margin-bottom:11px"><span>SEED LIQUIDITY 200 tCTC</span><span>YOUR FEE SHARE 0.30%</span></div>
+          <div style="border:1px solid #EDEFE3;background:#EDEFE3;padding:16px 0;text-align:center;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#101425">REVIEW &amp; ISSUE →</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1r" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1R</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Create market — issued, serial assigned</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px;border-bottom:1px solid #2C3468;display:flex;justify-content:space-between;align-items:center">
+          <span style="font:500 9px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#C8A24A">INSTRUMENT ISSUED</span>
+          <span style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8">STEP 4 / 4</span>
+        </div>
+        <div style="flex:1;padding:20px 16px 0">
+          <div style="background:#EDEFE3;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <svg viewBox="0 0 200 200" width="300" height="300" style="position:absolute;right:-80px;bottom:-70px;opacity:.1"><path d="{{ tintCrux4 }}" fill="none" stroke="#101425" stroke-width="0.35"></path></svg>
+            <div style="padding:20px;position:relative">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font:500 13px/1 'JetBrains Mono',monospace;letter-spacing:1.6px;color:#101425">N° CRUX-000004</div>
+                  <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5A6180;margin-top:7px">SERIES 2026 · ISSUED BY REP-000318</div>
+                </div>
+                <div style="width:54px;height:54px;border:1px solid #C8A24A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+                  <svg viewBox="0 0 100 100" width="24" height="24"><path d="{{ mark }}" fill="none" stroke="#8A6A18" stroke-width="1.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path></svg>
+                  <span style="font:600 6px/1 Archivo,sans-serif;letter-spacing:.8px;color:#8A6A18">UNPROVEN</span>
+                </div>
+              </div>
+              <div style="font:500 27px/1.14 'Bodoni Moda',serif;color:#101425;margin-top:20px;text-wrap:pretty">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="height:9px;margin:20px -20px;background-image:radial-gradient(circle at 5.5px 4.5px,#0B0F26 0 2.3px,transparent 2.5px);background-size:11px 9px"></div>
+              <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5A6180">EXACTLY WHAT WAS ISSUED</div>
+              <div style="font:400 9px/1.85 'JetBrains Mono',monospace;color:#3D4460;margin-top:9px;border-left:1px solid #101425;padding-left:9px">chain&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1<br>address&nbsp;&nbsp;&nbsp;&nbsp;0x7d4E7420…de6Fb5<br>topic0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0559884f…fc5f<br>field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topics[1] int256<br>decimals&nbsp;&nbsp;8<br>predicate&nbsp;GT 190300000000<br>fromBlock&nbsp;25894845<br>toBlock&nbsp;&nbsp;&nbsp;25895445<br>resolver&nbsp;&nbsp;0x3a2153c9…9B8757<br>collateral tCTC</div>
+              <div style="display:flex;justify-content:space-between;margin-top:16px;border-top:1px solid #101425;padding-top:12px;font:400 9px/1.7 'JetBrains Mono',monospace;color:#3D4460">
+                <span style="color:#5A6180">SPEC HASH</span><span>0x9d47bb18…31af</span>
+              </div>
+              <div style="font:400 10px/1.5 Archivo,sans-serif;color:#5A6180;margin-top:10px">This hash seeds the market's rosette. No two instruments carry the same engraving.</div>
+              <div style="font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#101425;opacity:.5;white-space:nowrap;overflow:hidden;margin-top:16px">ISSUED·CRUX-000004·SPEC 0x9d47bb18…31af·ISSUED·CRUX-000004·SPEC 0x9d47bb18…31af·ISSUED·CRUX-000004·SPEC 0x9d47bb18…31af·ISSUED·CRUX-000004·SPEC 0x9d47bb18…31af</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;border:1px solid #2C3468;background:#151A3D;padding:15px;font:400 9.5px/1.8 'JetBrains Mono',monospace;color:#8E97C8">
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">ISSUED ON</span><span>CC3 BLOCK 5,441,881</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">SEED LIQUIDITY</span><span>200.00 tCTC</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">CREATOR FEE SHARE</span><span>0.30% OF VOLUME</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#5C67A8">CODE DEPLOYED</span><span>NONE — SPEC ONLY</span></div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px">
+            <div style="flex:1;border:1px solid #2C3468;padding:15px 0;text-align:center;font:500 10px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#8E97C8">SHARE CERTIFICATE</div>
+            <div style="flex:1;border:1px solid #EDEFE3;background:#EDEFE3;padding:15px 0;text-align:center;font:600 10px/1 Archivo,sans-serif;letter-spacing:2.2px;color:#101425">OPEN MARKET</div>
+          </div>
+        </div>
+        <div style="padding:16px;font:400 9px/1.6 'JetBrains Mono',monospace;color:#5C67A8;text-align:center">THE PLATE IS CUT. IT CANNOT BE ALTERED,<br>NOT BY YOU AND NOT BY US.</div>
+      </div>
+    </div>
+
+    <div id="1s" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1S</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Onboarding — browse first, no wallet wall</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden;display:flex;flex-direction:column;position:relative">
+        <svg viewBox="0 0 200 200" width="560" height="560" style="position:absolute;left:-85px;top:150px;opacity:.055;pointer-events:none"><path d="{{ tintSystem }}" fill="none" stroke="#8E97C8" stroke-width="0.3"></path></svg>
+        <div style="padding:26px 22px 0;position:relative">
+          <div style="font:600 21px/1 'Bodoni Moda',serif;letter-spacing:4.2px;color:#EDEFE3">CRUX</div>
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:3.2px;color:#5C67A8;margin-top:9px">SERIES 2026 · CREDITCOIN CC3</div>
+          <div style="font:500 38px/1.1 'Bodoni Moda',serif;color:#EDEFE3;margin-top:30px;text-wrap:pretty">Bet on what Ethereum does. Nobody decides who won.</div>
+          <div style="font:400 13px/1.6 Archivo,sans-serif;color:#8E97C8;margin-top:16px">Every market here asks about something that happens on Ethereum. When it happens, a mathematical proof settles the market — in one block, with no committee, no vote and no admin key.</div>
+        </div>
+        <div style="padding:24px 22px 0;position:relative">
+          <div style="background:#EDEFE3;border:1px solid #101425;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background-image:repeating-linear-gradient(90deg,#101425 0 0.6px,transparent 0.6px 2.4px)"></div>
+            <div style="padding:16px 17px 15px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font:500 8.5px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;color:#101425">N° CRUX-000004</span>
+                <span style="font:500 7.5px/1 Archivo,sans-serif;letter-spacing:1.6px;color:#5A6180">SETTLED 41 MINUTES AGO</span>
+              </div>
+              <div style="font:500 21px/1.2 'Bodoni Moda',serif;color:#101425;margin-top:11px">Will ETH trade above $1,903 before block 25,895,445?</div>
+              <div style="display:flex;align-items:center;gap:11px;margin-top:14px;background:#0B0F26;padding:10px 12px">
+                <svg viewBox="0 0 100 100" width="26" height="26"><path d="{{ mark }}" fill="none" stroke="#C8FF3D" stroke-width="1.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>
+                <div><div style="font:600 10px/1 Archivo,sans-serif;letter-spacing:2px;color:#C8FF3D">✦ PROVEN · YES</div><div style="font:400 8.5px/1.5 'JetBrains Mono',monospace;color:#8E97C8;margin-top:5px">$2,407.57 · ETH BLOCK 25,895,136</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 22px 0;position:relative;display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:400 9px/1.4 'JetBrains Mono',monospace;color:#5C67A8;width:14px">01</span><span style="font:400 12.5px/1.5 Archivo,sans-serif;color:#EDEFE3;flex:1">Swipe a card right for yes, left for no. One gesture, one tap.</span></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:400 9px/1.4 'JetBrains Mono',monospace;color:#5C67A8;width:14px">02</span><span style="font:400 12.5px/1.5 Archivo,sans-serif;color:#EDEFE3;flex:1">When the answer appears on Ethereum, a proof is built and checked in a single block.</span></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:400 9px/1.4 'JetBrains Mono',monospace;color:#5C67A8;width:14px">03</span><span style="font:400 12.5px/1.5 Archivo,sans-serif;color:#EDEFE3;flex:1">Winning shares redeem one-for-one. Your browser can re-check the proof itself.</span></div>
+        </div>
+        <div style="margin-top:auto;padding:20px 22px 22px;position:relative">
+          <div style="border:1px solid #EDEFE3;background:#EDEFE3;padding:17px 0;text-align:center;font:600 11px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#101425">BROWSE MARKETS</div>
+          <div style="display:flex;justify-content:space-between;margin-top:14px;font:400 10px/1 Archivo,sans-serif;color:#8E97C8">
+            <span style="border-bottom:1px solid #2C3468;padding-bottom:3px">Watch one settle</span>
+            <span style="border-bottom:1px solid #2C3468;padding-bottom:3px">I have a wallet</span>
+          </div>
+          <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#5C67A8;margin-top:16px;text-align:center">NO WALLET NEEDED TO LOOK AROUND.<br>TESTNET tCTC · NOTHING TO SIGN YET.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1t" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;color:#101425;background:#DFE2D2;padding:3px 6px">1T</span>
+        <span style="font:500 11px/1 Archivo,sans-serif;letter-spacing:2.4px;text-transform:uppercase;color:#8E97C8">Empty portfolio — an unissued plate</span>
+      </div>
+      <div style="width:390px;height:844px;background:#0B0F26;border:1px solid #2C3468;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px 16px 0">
+          <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.8px;color:#5C67A8">BEARER · NOT YET REGISTERED</div>
+          <div style="font:500 34px/1 'JetBrains Mono',monospace;color:#2C3468;margin-top:10px">0.00</div>
+          <div style="font:400 9px/1 'JetBrains Mono',monospace;color:#5C67A8;margin-top:6px">tCTC · PORTFOLIO VALUE</div>
+          <div style="display:flex;margin-top:20px;border-bottom:1px solid #2C3468">
+            <div style="padding:11px 14px;font:600 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#EDEFE3;border-bottom:2px solid #EDEFE3;margin-bottom:-1px">OPEN 0</div>
+            <div style="padding:11px 14px;font:400 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#5C67A8">SETTLED 0</div>
+            <div style="padding:11px 14px;font:400 9px/1 Archivo,sans-serif;letter-spacing:2px;color:#5C67A8">CLAIMED 0</div>
+          </div>
+        </div>
+        <div style="flex:1;padding:22px 16px;display:flex;flex-direction:column">
+          <div style="border:1px dashed #2C3468;padding:26px 22px;text-align:center;position:relative">
+            <svg viewBox="0 0 100 100" width="96" height="96" style="opacity:.55"><circle cx="50" cy="50" r="48" fill="none" stroke="#2C3468" stroke-width="0.5"></circle><circle cx="50" cy="50" r="42" fill="none" stroke="#2C3468" stroke-width="0.3" stroke-dasharray="1 3"></circle></svg>
+            <div style="font:500 8px/1 Archivo,sans-serif;letter-spacing:3px;color:#5C67A8;margin-top:14px">NO INSTRUMENTS HELD</div>
+            <div style="font:500 24px/1.22 'Bodoni Moda',serif;color:#EDEFE3;margin-top:14px;text-wrap:pretty">An empty plate. Nothing has been struck in your name yet.</div>
+            <div style="font:400 12px/1.55 Archivo,sans-serif;color:#8E97C8;margin-top:12px">Positions you take appear here as certificates — unsettled, settled, then cancelled once claimed.</div>
+            <div style="border:1px solid #EDEFE3;background:#EDEFE3;padding:15px 0;margin-top:20px;font:600 10px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#101425">GO TO THE FEED</div>
+          </div>
+          <div style="margin-top:16px;border:1px solid #2C3468;padding:15px;font:400 10.5px/1.6 Archivo,sans-serif;color:#8E97C8">
+            <span style="font:500 8px/1 Archivo,sans-serif;letter-spacing:2.6px;color:#5C67A8;display:block;margin-bottom:9px">WHILE YOU DECIDE</span>
+            41,208 markets have settled on this network. Every one of them by proof. You can read any of their proofs without holding anything.
+            <div style="font:400 9px/1.6 'JetBrains Mono',monospace;color:#5C67A8;margin-top:11px">BROWSE SETTLED MARKETS ↗</div>
+          </div>
+          <div style="margin-top:auto;font:400 3px/1 'JetBrains Mono',monospace;letter-spacing:.4px;color:#2C3468;white-space:nowrap;overflow:hidden">UNISSUED·NO BEARER·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·UNISSUED·NO BEARER·CRUXMARKET·0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C·UNISSUED·NO BEARER</div>
+        </div>
+        <div style="display:flex;border-top:1px solid #2C3468;height:56px;align-items:center">
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">FEED</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">MARKETS</div>
+          <div style="flex:1;text-align:center;font:600 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#EDEFE3;height:100%;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #EDEFE3">PORTFOLIO</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">ISSUE</div>
+          <div style="flex:1;text-align:center;font:400 8px/1 Archivo,sans-serif;letter-spacing:1.8px;color:#5C67A8">PROFILE</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;proofStage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;watching&quot;,&quot;attesting&quot;,&quot;proving&quot;,&quot;proven&quot;],&quot;default&quot;:&quot;proven&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Proof drop&quot;,&quot;label&quot;:&quot;Desktop hero state&quot;},&quot;swipeThreshold&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:78,&quot;min&quot;:30,&quot;max&quot;:160,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Swipe feed&quot;,&quot;label&quot;:&quot;Commit distance&quot;}}">
+class Component extends DCLogic {
+  state = {
+    drag: 0, dragging: false, confirmed: false, tradeAmt: 25, tradeSide: 'YES',
+    stage: ({ watching: 0, attesting: 1, proving: 2, proven: 3 })[this.props.proofStage] ?? 3
+  };
+
+  hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+  ring(cx, cy, R, A, k, turns, phase, steps) {
+    let d = '';
+    for (let i = 0; i <= steps; i++) {
+      const t = phase + turns * 2 * Math.PI * i / steps;
+      const r = R + A * Math.cos(k * t);
+      d += (i ? 'L' : 'M') + (cx + r * Math.cos(t)).toFixed(2) + ' ' + (cy + r * Math.sin(t)).toFixed(2);
+      if (i < steps) d += ' ';
+    }
+    return d;
+  }
+
+  rosette(seed, cx, cy, R) {
+    const h = this.hash(seed);
+    const k1 = 5 + (h % 8), k2 = 3 + ((h >> 4) % 10), k3 = 7 + ((h >> 9) % 6), ph = (h % 100) / 100 * Math.PI;
+    return [
+      this.ring(cx, cy, R, R * 0.14, k1, 1, ph, 260),
+      this.ring(cx, cy, R * 0.78, R * 0.18, k2, 1, ph + 0.5, 260),
+      this.ring(cx, cy, R * 0.52, R * 0.22, k3, 1, ph + 1.1, 240),
+      this.ring(cx, cy, R * 0.26, R * 0.09, k1, 1, ph + 0.2, 180)
+    ].join(' ');
+  }
+
+  series(seed, n, lo, hi) {
+    let h = this.hash(seed), out = [], v = (lo + hi) / 2;
+    for (let i = 0; i < n; i++) {
+      h = Math.imul(h ^ (h >>> 13), 2246822519); h >>>= 0;
+      v += ((h % 1000) / 1000 - 0.46) * (hi - lo) * 0.16;
+      v = Math.max(lo, Math.min(hi, v));
+      out.push(v);
+    }
+    return out;
+  }
+
+  renderVals() {
+    const W = 300, H = 92, pts = this.series('CRUX-000004-price', 44, 0.28, 0.78);
+    const xy = pts.map((v, i) => [(i / (pts.length - 1) * W).toFixed(1), (H - v * H).toFixed(1)]);
+    const d = this.state.drag;
+    return {
+      tintSystem: this.rosette('CRUX-SPEC-0001', 100, 100, 96),
+      tintSeal: this.rosette('precompile-0FD2', 100, 100, 92),
+      tintCrux4: this.rosette('CRUX-000004', 100, 100, 96),
+      tintCrux5: this.rosette('CRUX-000005-whale', 100, 100, 96),
+      tintCrux6: this.rosette('CRUX-000006-dao', 100, 100, 96),
+      tintCrux7: this.rosette('CRUX-000007-gas', 100, 100, 96),
+      mark: this.ring(50, 50, 38, 10, 5.5, 8, 0, 900),
+      priceLine: xy.map(p => p.join(',')).join(' '),
+      priceArea: 'M0,' + H + ' L' + xy.map(p => p.join(',')).join(' L') + ' L' + W + ',' + H + ' Z',
+      drag: d,
+      cardT: 'translateX(' + d + 'px) rotate(' + (d * 0.035).toFixed(2) + 'deg)',
+      yesOp: Math.max(0, Math.min(1, d / 70)),
+      noOp: Math.max(0, Math.min(1, -d / 70)),
+      onDown: e => { this._x0 = e.clientX; this.setState({ dragging: true }); e.currentTarget.setPointerCapture(e.pointerId); },
+      onMove: e => { if (this.state.dragging) this.setState({ drag: e.clientX - this._x0 }); },
+      onUp: () => {
+        const hit = Math.abs(this.state.drag) > (this.props.swipeThreshold ?? 78);
+        this.setState({ dragging: false, drag: 0, confirmed: hit ? (this.state.drag > 0 ? 'YES' : 'NO') : false });
+        if (hit) setTimeout(() => this.setState({ confirmed: false }), 2200);
+      },
+      confirmed: this.state.confirmed,
+      confirmLabel: this.state.confirmed || '',
+      stage: this.state.stage,
+      setStage: n => this.setState({ stage: n }),
+      s0: this.state.stage === 0, s1: this.state.stage === 1, s2: this.state.stage === 2, s3: this.state.stage === 3,
+      notProven: this.state.stage < 3,
+      markOffset: [1, 0.72, 0.16, 0][this.state.stage],
+      go0: () => this.setState({ stage: 0 }), go1: () => this.setState({ stage: 1 }),
+      go2: () => this.setState({ stage: 2 }), go3: () => this.setState({ stage: 3 })
+    };
+  }
+}
+</script>
+</body>
+</html>

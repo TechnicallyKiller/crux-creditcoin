@@ -1,0 +1,104 @@
+/* ============================================================
+   CRUX — security engraving
+   Tokens ported verbatim from the design canvas (artboard 1A).
+   ============================================================ */
+:root {
+  /* ground — the desk the instruments sit on */
+  --indigo-abyss:  #0B0F26;
+  --indigo-ink:    #151A3D;
+  --indigo-raised: #1E2450;
+  --indigo-rule:   #2C3468;
+  --indigo-mute:   #5C67A8;
+  --indigo-soft:   #8E97C8;
+
+  /* vellum — the certificates themselves */
+  --vellum:      #EDEFE3;
+  --vellum-sunk: #DFE2D2;
+  --vellum-ink:  #101425;
+  --vellum-mute: #5A6180;
+  --vellum-body: #3D4460;
+
+  /* PROVEN — ultraviolet security ink. Appears ONLY where a proof verified. */
+  --lime:      #C8FF3D;
+  --lime-deep: #93C412;
+  --lime-text: #5F7C0A;
+
+  /* ASSERTED — rubber stamp */
+  --vermillion: #D6304A;
+  /* PENDING — the plate, waiting to be struck */
+  --bronze:     #C8A24A;
+  --bronze-ink: #8A6A18;
+
+  --cyan-thread: #4DD8E0;
+  --crit: #FF5C5C;
+
+  --serif: 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
+  --sans:  Archivo, system-ui, -apple-system, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--indigo-abyss);
+  color: var(--vellum);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+a { color: var(--cyan-thread); text-decoration: none; }
+
+/* ---------- shared engraving primitives ---------- */
+
+/* Top edge of every certificate: a fine engraved rule. */
+.plate-edge {
+  position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background-image: repeating-linear-gradient(90deg, var(--vellum-ink) 0 0.6px, transparent 0.6px 2.4px);
+}
+
+/* Tear-off line between sections of an instrument. */
+.perforation {
+  height: 9px;
+  background-image: radial-gradient(circle at 5.5px 4.5px, var(--indigo-abyss) 0 2.3px, transparent 2.5px);
+  background-size: 11px 9px;
+}
+
+/* Microtext rule — reads as a hairline, resolves into real strings when zoomed. */
+.microtext {
+  font: 400 3px/1 var(--mono);
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  user-select: none;
+}
+
+.legend {
+  font: 500 8px/1 var(--sans);
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.mono { font-family: var(--mono); }
+.proposition { font-family: var(--serif); font-weight: 500; text-wrap: pretty; }
+
+/* The seal only ever wraps PROVEN. */
+@keyframes crux-strike {
+  0%   { transform: scale(1.5); opacity: 0; }
+  60%  { transform: scale(.96); opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.seal-strike { animation: crux-strike .5s cubic-bezier(.2,.9,.2,1) both; }
+
+@keyframes crux-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: crux-fade .45s ease-out both; }
+
+.phone {
+  width: 100%; max-width: 430px; margin: 0 auto;
+  min-height: 100dvh; display: flex; flex-direction: column;
+  background: var(--indigo-abyss); position: relative; overflow: hidden;
+}
+@media (min-width: 520px) {
+  .phone { border-left: 1px solid var(--indigo-rule); border-right: 1px solid var(--indigo-rule); }
+}
+.scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
