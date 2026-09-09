@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
+import { useAccount, usePublicClient, useWriteContract } from 'wagmi';
+import { parseEther } from 'viem';
 import { Certificate } from '../components/Certificate';
-import { Microtext } from '../components/Engraving';
-import { ADDRESSES } from '../lib/chain';
-import type { Market } from '../lib/markets';
+import { Microtext, VerificationMark } from '../components/Engraving';
+import { ADDRESSES, marketAbi } from '../lib/chain';
+import { stageOf, type Market } from '../lib/markets';
 
 const STAKES = [5, 25, 100];
 const COMMIT_PX = 78;
@@ -18,7 +20,57 @@ const COMMIT_PX = 78;
 export function Feed({ markets, onOpen }: { markets: Market[]; onOpen: (m: Market) => void }) {
   const [index, setIndex] = useState(0);
   const [stake, setStake] = useState(25);
-  const [confirmed, setConfirmed] = useState<null | { side: 'YES' | 'NO'; market: Market }>(null);
+  const [confirmed, setConfirmed] = useState<null | {
+    side: 'YES' | 'NO'; market: Market; state: 'signing' | 'pending' | 'done' | 'failed';
+    hash?: `0x${string}`; error?: string; shares?: number;
+  }>(null);
+
+  const { address } = useAccount();
+  const publicClient = usePublicClient();
+  const { writeContractAsync } = useWriteContract();
+
+  /**
+   * Place the bet the swipe just described.
+   *
+   * The stake is in tCTC but the contract buys SHARES, so the share count is
+   * derived from the live price. The quote is then taken for real and sent as
+   * value: LMSR moves the price on every trade, and CruxMarket refunds the
+   * difference between msg.value and the true cost, so headroom is free while
+   * being short by one wei is a revert.
+   */
+  const place = async (market: Market, side: 'YES' | 'NO') => {
+    if (!address || !publicClient) {
+      setConfirmed({ side, market, state: 'failed', error: 'Connect a wallet to take a position.' });
+      return;
+    }
+    setConfirmed({ side, market, state: 'signing' });
+    try {
+      const yes = side === 'YES';
+      const price = yes ? market.priceYes : 1 - market.priceYes;
+      const shares = parseEther(String(Math.max(1, stake / Math.max(0.02, price))));
+
+      const cost = await publicClient.readContract({
+        address: ADDRESSES.market as `0x${string}`, abi: marketAbi,
+        functionName: 'quoteBuy', args: [BigInt(market.id), yes, shares],
+      });
+      const headroom = (cost * 150n) / 100n;
+
+      const hash = await writeContractAsync({
+        address: ADDRESSES.market as `0x${string}`, abi: marketAbi, functionName: 'buy',
+        args: [BigInt(market.id), yes, shares, headroom], value: headroom,
+      });
+      setConfirmed({ side, market, state: 'pending', hash, shares: Number(shares) / 1e18 });
+
+      await publicClient.waitForTransactionReceipt({ hash, timeout: 180_000 });
+      setConfirmed({ side, market, state: 'done', hash, shares: Number(shares) / 1e18 });
+    } catch (e) {
+      const msg = (e as Error).message ?? String(e);
+      setConfirmed({
+        side, market, state: 'failed',
+        error: /User rejected|denied/i.test(msg) ? 'Signature rejected.' : msg.split('\n')[0].slice(0, 140),
+      });
+    }
+  };
 
   const cardRef = useRef<HTMLDivElement>(null);
   const yesRef = useRef<HTMLDivElement>(null);
@@ -60,15 +112,16 @@ export function Feed({ markets, onOpen }: { markets: Market[]; onOpen: (m: Marke
     if (cardRef.current) cardRef.current.style.transition = 'transform .28s cubic-bezier(.2,.9,.2,1)';
 
     if (Math.abs(x) > COMMIT_PX) {
-      const side = x > 0 ? 'YES' : 'NO';
-      paint(x > 0 ? 700 : -700);
-      setConfirmed({ side, market });
-      setTimeout(() => {
-        setConfirmed(null);
-        setIndex((i) => (i + 1) % Math.max(1, markets.length));
-        if (cardRef.current) cardRef.current.style.transition = 'none';
+      const side: 'YES' | 'NO' = x > 0 ? 'YES' : 'NO';
+      // A market whose trading has closed cannot be bought; say so rather than
+      // letting the wallet surface a raw revert.
+      if (stageOf(market) !== 'watching') {
         paint(0);
-      }, 1900);
+        setConfirmed({ side, market, state: 'failed', error: 'Trading has closed on this market.' });
+        return;
+      }
+      paint(x > 0 ? 700 : -700);
+      void place(market, side);
     } else {
       paint(0);
     }
@@ -156,25 +209,67 @@ export function Feed({ markets, onOpen }: { markets: Market[]; onOpen: (m: Marke
           </div>
         </div>
 
-        {confirmed && (
-          <div className="fade-in" style={{
-            position: 'absolute', inset: 0, bottom: 14, background: 'rgba(11,15,38,.94)',
-            border: '1px solid var(--bronze)', display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center', gap: 16,
-          }}>
-            <div className="legend" style={{ color: 'var(--bronze)', letterSpacing: 3.4 }}>
-              POSITION WRITTEN · AWAITING PROOF
+        {confirmed && (() => {
+          const failed = confirmed.state === 'failed';
+          const done = confirmed.state === 'done';
+          const colour = failed ? 'var(--crit)' : done ? 'var(--lime)' : 'var(--bronze)';
+          const heading = {
+            signing: 'AWAITING SIGNATURE',
+            pending: 'WRITING TO THE LEDGER',
+            done: 'POSITION WRITTEN · AWAITING PROOF',
+            failed: 'NOT WRITTEN',
+          }[confirmed.state];
+
+          return (
+            <div className="fade-in" style={{
+              position: 'absolute', inset: 0, bottom: 14, background: 'rgba(11,15,38,.94)',
+              border: `1px solid ${colour}`, display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 16, padding: 22,
+            }}>
+              <div className="legend" style={{ color: colour, letterSpacing: 3.4, textAlign: 'center' }}>
+                {heading}
+              </div>
+
+              {failed ? (
+                <div style={{ font: '400 11px/1.7 var(--mono)', color: 'var(--indigo-soft)', textAlign: 'center', maxWidth: 300 }}>
+                  {confirmed.error}
+                </div>
+              ) : (
+                <div style={{
+                  border: `1.5px solid ${colour}`, padding: '14px 26px',
+                  font: '700 34px/1 var(--sans)', letterSpacing: 6, color: colour,
+                }}>{confirmed.side}</div>
+              )}
+
+              {!failed && (
+                <div style={{ font: '400 10px/1.8 var(--mono)', color: 'var(--indigo-soft)', textAlign: 'center' }}>
+                  {confirmed.shares ? `${confirmed.shares.toFixed(2)} SHARES · ` : ''}
+                  CRUX-{String(confirmed.market.id).padStart(6, '0')}<br />
+                  {confirmed.hash
+                    ? <a href={`https://creditcoin-testnet.blockscout.com/tx/${confirmed.hash}`} target="_blank" rel="noreferrer">
+                        {confirmed.hash.slice(0, 12)}…{confirmed.hash.slice(-6)} ↗
+                      </a>
+                    : 'CONFIRM IN YOUR WALLET'}
+                </div>
+              )}
+
+              {done && <VerificationMark progress={0} size={34} strokeWidth={1} />}
+
+              <button
+                onClick={() => {
+                  setConfirmed(null);
+                  if (done) setIndex((i) => (i + 1) % Math.max(1, markets.length));
+                  if (cardRef.current) cardRef.current.style.transition = 'none';
+                  paint(0);
+                }}
+                style={{
+                  border: `1px solid ${colour}`, padding: '11px 22px',
+                  font: '600 9px/1 var(--sans)', letterSpacing: 2.4, color: colour,
+                }}
+              >{done ? 'NEXT MARKET' : failed ? 'BACK' : 'DISMISS'}</button>
             </div>
-            <div style={{
-              border: '1.5px solid var(--bronze)', padding: '14px 26px',
-              font: '700 34px/1 var(--sans)', letterSpacing: 6, color: 'var(--bronze)',
-            }}>{confirmed.side}</div>
-            <div style={{ font: '400 10px/1.8 var(--mono)', color: 'var(--indigo-soft)', textAlign: 'center' }}>
-              {stake.toFixed(2)} tCTC · CRUX-{String(confirmed.market.id).padStart(6, '0')}<br />
-              DEMO — NOT BROADCAST
-            </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
 
       <div style={{ padding: '0 16px 6px', display: 'flex', gap: 8, alignItems: 'center' }}>
