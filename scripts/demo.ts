@@ -67,7 +67,7 @@ async function plan(): Promise<void> {
 
   // Trading closes shortly from now; the window opens a full buffer later, so
   // no event that could decide the market is visible while trading is open.
-  const closeBlock = attested + 25n;
+  const closeBlock = attested + 150n;
   const fromBlock = closeBlock + buffer;
   const toBlock = fromBlock + 600n;
 
@@ -175,7 +175,11 @@ async function planMainnet(): Promise<void> {
   });
   const spot = BigInt(priceRaw);
 
-  const closeBlock = attested + 25n;
+  // Trading must stay open long enough for anyone to actually trade. Attested
+  // height advances roughly 5 blocks per minute, so 150 blocks is about half an
+  // hour of real trading — the first version used 25, which is five minutes and
+  // meant markets were shut before the app could even load them.
+  const closeBlock = attested + 150n;
   const fromBlock = closeBlock + 150n;
   // ETH/USD updates on a 0.5% deviation or a ~1h heartbeat, so a ~2h window is
   // comfortably wide enough to contain at least one update.

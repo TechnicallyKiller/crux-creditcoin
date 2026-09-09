@@ -106,7 +106,10 @@ export async function compose(draft: Draft): Promise<ComposedSpec> {
   // buffer on top, or an event landing early in the window is public while
   // people can still trade on it. The contract enforces this; the form respects
   // it so a draft can never be rejected for it.
-  const closeBlock = attested + 25n;
+  // Attested height advances ~5 blocks/minute, so this is roughly half an hour
+  // of real trading. An earlier value of 25 gave a five-minute window and
+  // markets were closed before anyone could reach them.
+  const closeBlock = attested + 150n;
   const fromBlock = closeBlock + BigInt(buffer);
   const toBlock = fromBlock + BigInt(Math.round((draft.windowHours * 3600) / SRC_BLOCK_SECONDS));
 
