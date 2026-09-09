@@ -2,7 +2,7 @@
 pragma solidity ^0.8.23;
 
 import {Test, console} from "forge-std/Test.sol";
-import {CruxMarket, ICruxResolver} from "../src/CruxMarket.sol";
+import {CruxMarket, ICruxResolver, ICruxScore} from "../src/CruxMarket.sol";
 import {AttestSpec, Extract, Comparator} from "../src/CruxTypes.sol";
 import {LMSR} from "../src/LMSR.sol";
 import {IChainInfo} from "../src/IChainInfo.sol";
@@ -36,7 +36,7 @@ contract CruxMarketTest is Test {
 
     function setUp() public {
         stub = new StubResolver();
-        market = new CruxMarket(stub);
+        market = new CruxMarket(stub, ICruxScore(address(0)));
 
         _attested(CLOSE - 1000); // trading open
         vm.deal(alice, 1000 ether);

@@ -106,7 +106,18 @@ contract CruxMarket is ICruxMarket {
     mapping(uint256 => mapping(address => uint256)) public yesCost;
     mapping(uint256 => mapping(address => uint256)) public noCost;
 
-    ICruxScore public score;
+    /**
+     * @notice The reputation contract. Immutable, like the resolver.
+     *
+     * @dev Set from an address predicted with CREATE nonce arithmetic rather
+     *      than by a setter. A `setScore` call was written first and it failed
+     *      on deployment exactly as docs/deployment.md D1 predicts — forge
+     *      under-estimates call gas on CC3 by more than 3x, so the wiring
+     *      transaction ran out of gas while all three contracts deployed fine.
+     *      On a chain whose gas estimation cannot be trusted, the only reliable
+     *      post-deployment transaction is the one you do not send.
+     */
+    ICruxScore public immutable score;
     uint256 public protocolFees;
 
     event MarketCreated(
@@ -126,7 +137,6 @@ contract CruxMarket is ICruxMarket {
 
     error NotOwner();
     error ZeroResolver();
-    error ScoreAlreadySet();
     error NotResolver();
     error InsufficientSubsidy(uint256 required, uint256 supplied);
     error TradingWindowTooTight(uint64 tradingCloseBlock, uint64 fromBlock, uint64 required);
@@ -143,25 +153,16 @@ contract CruxMarket is ICruxMarket {
         _;
     }
 
-    constructor(ICruxResolver r) {
+    constructor(ICruxResolver r, ICruxScore s) {
         if (address(r) == address(0)) revert ZeroResolver();
         OWNER = msg.sender;
         resolver = r;
+        score = s; // may be zero: scoring is a convenience, settlement is not
     }
 
     /// @notice Withdraw accrued protocol fees. Touches only `protocolFees`,
     ///         never market collateral or subsidies, so it cannot make a
     ///         market unable to pay its winners.
-    /// @dev Set once, immediately after deployment. CruxScore needs this
-    ///      contract's address in its constructor, so the two cannot both be
-    ///      immutable — but unlike settlement, scoring is not consensus-critical,
-    ///      and a market with no score contract still trades and settles fine.
-    function setScore(ICruxScore s) external {
-        if (msg.sender != OWNER) revert NotOwner();
-        if (address(score) != address(0)) revert ScoreAlreadySet();
-        score = s;
-    }
-
     function withdrawProtocolFees(address to) external {
         if (msg.sender != OWNER) revert NotOwner();
         uint256 amount = protocolFees;

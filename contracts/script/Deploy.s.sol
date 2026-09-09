@@ -28,24 +28,24 @@ import {ICruxMarket} from "../src/ICruxMarket.sol";
  */
 contract Deploy is Script {
     function run() external returns (CruxMarket market, CruxAttestedResolver resolver, CruxScore score) {
-        // The resolver is deployed immediately after the market, so its
-        // address is the deployer's next-but-one CREATE address. Asserted
-        // below rather than trusted.
+        // Market, resolver and score all reference each other, so every
+        // address is predicted from the deployer's CREATE nonce and passed in
+        // at construction. Three deploys, zero wiring calls, nothing that can
+        // half-succeed — the first version used a setScore call and it ran out
+        // of gas exactly as docs/deployment.md D1 warns.
         address deployer = msg.sender;
         uint64 nonce = vm.getNonce(deployer);
         address predictedResolver = vm.computeCreateAddress(deployer, nonce + 1);
+        address predictedScore = vm.computeCreateAddress(deployer, nonce + 2);
 
         vm.startBroadcast();
-        market = new CruxMarket(ICruxResolver(predictedResolver));
+        market = new CruxMarket(ICruxResolver(predictedResolver), ICruxScore(predictedScore));
         resolver = new CruxAttestedResolver(ICruxMarket(address(market)));
-        // Scoring is not consensus-critical — a market with no score contract
-        // still trades and settles — so unlike the resolver it is wired with a
-        // one-shot setter rather than address prediction.
         score = new CruxScore(address(market));
-        market.setScore(ICruxScore(address(score)));
         vm.stopBroadcast();
 
         require(address(resolver) == predictedResolver, "resolver address prediction failed");
+        require(address(score) == predictedScore, "score address prediction failed");
 
         console.log("CruxMarket          :", address(market));
         console.log("CruxAttestedResolver:", address(resolver));

@@ -1,17 +1,7 @@
 {
+  "CruxAttestedResolver": "0x80C8B0b55827F0456564554E3A82F9B20ad6019F",
+  "CruxMarket": "0x80FBe4f593fc33A102CC41e3aF158ED4Fb71864C",
+  "CruxScore": "0x6DD3dbA185d6BDC01D729399982BcB70ea067E66",
   "chainId": 102031,
-  "network": "Creditcoin CC3 Testnet",
-  "CruxMarket": "0x34a712c4206a826d3E44be50FFcc33bE1Fa3dA3C",
-  "CruxAttestedResolver": "0x3a2153c98B967578F764c5Df340dc7c5E99B8757",
-  "EvmV1Decoder": "0x6e94c85Bf6b80394a4c051d03EC93Eefc854423F",
-  "deployedAtBlock": 5441970,
-  "deployer": "0x364edc06254874e62ff4ad8fa4d9a45238cb5609",
-  "resolverImmutable": true,
-  "settleNoGraceBlocks": 150,
-  "verifiedOnChain": "market.resolver and resolver.MARKET cross-checked; SETTLE_NO_GRACE_BLOCKS reads 150",
-  "supersedes": {
-    "CruxMarket": "0xbaaB5e17f572CC17BA3dCa8Ebf6089908873653f",
-    "CruxAttestedResolver": "0x55EC8907f937fEA942c5f98039a218708E965280",
-    "reason": "settleNo front-running fix; markets 1-3 remain on the old pair as historical record"
-  }
+  "deployedAtBlock": 5459487
 }

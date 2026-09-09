@@ -29,9 +29,12 @@ contract CruxScoreTest is Test {
 
     function setUp() public {
         stub = new StubResolver();
-        market = new CruxMarket(stub);
+        // Same CREATE-nonce prediction the deploy script uses, so the test
+        // exercises the real wiring rather than a setter that no longer exists.
+        address predictedScore = vm.computeCreateAddress(address(this), vm.getNonce(address(this)) + 1);
+        market = new CruxMarket(stub, ICruxScore(predictedScore));
         score = new CruxScore(address(market));
-        market.setScore(ICruxScore(address(score)));
+        assertEq(address(score), predictedScore);
         _attested(CLOSE - 1000);
         vm.deal(alice, 10_000 ether);
         vm.deal(address(this), 10_000 ether);
@@ -123,9 +126,8 @@ contract CruxScoreTest is Test {
 
     /// @notice Winnings must never be trappable by a misbehaving score contract.
     function test_revertingScoreCannotTrapWinnings() public {
-        CruxMarket m2 = new CruxMarket(stub);
         StubResolver s2 = stub;
-        m2.setScore(ICruxScore(address(new RevertingScore())));
+        CruxMarket m2 = new CruxMarket(stub, ICruxScore(address(new RevertingScore())));
 
         AttestSpec memory spec = AttestSpec({
             chainKey: 3, emitter: address(0xA66), topic0: bytes32(uint256(1)),
