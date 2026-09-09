@@ -89,7 +89,10 @@ export function Feed({ markets, onOpen }: { markets: Market[]; onOpen: (m: Marke
 
   return (
     <>
-      <div style={{ flex: 1, position: 'relative', margin: '0 14px', minHeight: 0 }}>
+      {/* minHeight is a floor, not a preference: if this ever lands in a
+          container that is not a bounded flex column, flex:1 resolves to zero
+          and the card disappears rather than merely shrinking. */}
+      <div style={{ flex: 1, position: 'relative', margin: '0 14px', minHeight: 520 }}>
         {/* the stack beneath — two more plates waiting */}
         <div style={{ position: 'absolute', left: 10, right: 10, top: 8, bottom: 14, border: '1px solid var(--indigo-rule)', background: 'var(--indigo-ink)' }} />
         <div style={{ position: 'absolute', left: 5, right: 5, top: 4, bottom: 14, border: '1px solid var(--indigo-rule)', background: 'var(--indigo-raised)' }} />

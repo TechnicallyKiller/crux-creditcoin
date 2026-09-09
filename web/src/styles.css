@@ -116,7 +116,15 @@ a { color: var(--cyan-thread); text-decoration: none; }
   flex: 1;
   min-height: 0;
 }
-.desk-main { overflow-y: auto; border-right: 1px solid var(--indigo-rule); min-width: 0; }
+/* A flex column, NOT a scroll container. The feed sizes its card with flex:1,
+   which collapses to zero height unless the parent is a column with a bounded
+   height — that is what put the swipe card at 0px and spilled its absolutely
+   positioned children over the chrome. Children own their own scrolling. */
+.desk-main {
+  display: flex; flex-direction: column;
+  min-width: 0; min-height: 0;
+  border-right: 1px solid var(--indigo-rule);
+}
 .desk-side { overflow-y: auto; min-width: 0; }
 
 .rail {
