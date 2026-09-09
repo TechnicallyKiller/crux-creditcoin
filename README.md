@@ -1,93 +1,74 @@
 # CRUX
 
-**Attestation-settled prediction markets on Creditcoin.**
+**Settlement by cryptographic proof.**
 
-> Built on Creditcoin. Settled by Ethereum reality.
+A contract states its resolution rule as **data** — which chain, which contract, which event,
+which field, which comparison, which block window — and CRUX settles it against a **proof that
+the event actually occurred on Ethereum**, verified by a Creditcoin precompile inside a single
+block.
 
-Every prediction market dies at the oracle. Polymarket needs UMA's optimistic oracle — bonds,
-disputes, a two-hour challenge window, human token-holders voting. Kalshi needs a CFTC-registered
-clearinghouse and a review committee. Every one of them ultimately trusts a reporter, a committee,
-a regulator, or a bonded game.
+No oracle. No committee. No admin key. No dispute window.
 
-CRUX markets settle themselves. Resolution is a **cryptographic proof that an event occurred on
-Ethereum**, verified inside a single Creditcoin block by the Attestcoin Protocol precompile. No
-committee, no admin key, no trusted reporter, no dispute window — you cannot dispute mathematics.
+Its first application is **prediction markets that settle themselves**, because that is the
+clearest demonstration: the hardest unsolved problem in prediction markets is the oracle, and
+this removes it rather than bonding it.
 
-*BUIDL CTC 2026 Fall · Attestcoin Protocol · Tracks: DeFi (primary), AI (secondary)*
+*BUIDL CTC 2026 Fall · Attestcoin Protocol · Creditcoin CC3 testnet*
 
 ---
 
-## Status
-
-**Phase 0 of 5 complete — the protocol integration is proven end-to-end; the product is not built yet.**
-
-This repository is deliberately honest about that line. Here is exactly where it stands:
+## Live now
 
 | | |
 |---|---|
-| ✅ Attestcoin proof pipeline verified live on Ethereum **mainnet** and Sepolia | working, reproducible |
-| ✅ `EvmV1Decoder` decoding real attested mainnet transactions | working, tested |
-| ✅ `USCBase` inheritance path compiling | working |
-| ✅ Test harness (7 tests, all green) | working |
-| ⬜ `CruxAttestedResolver`, `CruxMarket` (LMSR), `CruxBeacon` | Phase 1–2 |
-| ⬜ Worker, indexer, AI resolver, frontend | Phase 2–4 |
-| ⬜ Anything deployed on-chain | blocked on testnet faucet |
+| `CruxMarket` | [`0xA558efC5…ceCbdC`](https://creditcoin-testnet.blockscout.com/address/0xA558efC57e25b3bF45927CeeC7543E0831ceCbdC) |
+| `CruxAttestedResolver` | [`0xa2CD2dCd…D42E89`](https://creditcoin-testnet.blockscout.com/address/0xa2CD2dCd2cce9402029bbaf9cAe5054f15D42E89) |
+| `CruxScore` | [`0xFFB272Ef…05d81E`](https://creditcoin-testnet.blockscout.com/address/0xFFB272EfF1fF82C05a74015e5e6c49900405d81E) |
+| `CruxBeacon` (Sepolia) | [`0x0F1bf92E…45c7C8`](https://sepolia.etherscan.io/address/0x0F1bf92EE0C79F7Ca5C1e30E9412aD5BFF45c7C8) |
 
-Nothing is deployed yet. Every claim marked verified below was **executed against the live
-network**, not read from documentation — timings and receipts included.
+**59 tests green.** A market has settled itself end-to-end on live networks, from a real Ethereum
+mainnet Chainlink price, with no human anywhere in the loop.
 
 ---
 
-## The idea
+## Verify it yourself, right now
 
-The hardest unsolved problem in prediction markets is the oracle. Attestcoin makes that machinery
-unnecessary for any question whose answer is an Ethereum event: resolution stops being a governance
-problem and becomes a proof.
+Verification on Creditcoin is a `view` — a free staticcall. So you do not have to take any of this
+on trust:
 
-That is not a bolt-on integration — **it is the product**. Remove Attestcoin and there is no CRUX.
+```bash
+npm install
+node --experimental-strip-types scripts/prove-tx.ts 3 <any-ethereum-mainnet-tx-hash>
+```
 
-### Two lanes, one hard boundary
+That fetches a Merkle + continuity proof from the public Attestcoin prover and asks the precompile
+at `0x…0FD2` whether the transaction really happened. No wallet, no gas, no account.
 
-| Lane | Question | Resolution | Trust assumption |
-|---|---|---|---|
-| **`proof`** | "Did *this* happen on Ethereum?" | Attestcoin Merkle + continuity proof, verified by the precompile | The Attestcoin attestor quorum — the same assumption Creditcoin itself makes. Nothing else. |
-| **`ai`** | Off-chain events (sports, politics, "did X ship by Y?") | AI resolver posts an outcome + bond; anyone may challenge with a counter-bond | An AI agent bounded by an economic dispute game. |
-
-An AI oracle is centralized, so applying it everywhere would undercut the entire thesis. Confining
-it to questions provably outside cryptography's reach — and bonding it — contains the damage. The
-UI labels every market with its lane, so a user always knows which guarantee they hold.
-
-### Two clocks
-
-The game loop runs at Creditcoin's 15s blocks and feels instant. The truth loop runs at Ethereum's
-pace — attestation lands ~8 minutes behind head — and feels weighty. Rather than disguise that
-latency, resolution is the spectacle: a **Proof Drop** animating the Merkle path, then stamping
-`PROVEN · ETHEREUM MAINNET · BLOCK 25,821,980`. No competitor can render that screen, because none
-of them actually prove anything.
+The app does the same thing **from your browser**, against endpoints we do not operate, with the
+transaction hash as an input — so you can paste a hash we have never seen.
 
 ---
 
-## How the Attestcoin integration works
+## How it works
 
-Creditcoin's precompile at `0x…0FD2` synchronously verifies two proofs inside a single block:
+Attestcoin gives Creditcoin two proofs about a foreign chain:
 
-| Proof | Proves |
+| Proof | Establishes |
 |---|---|
-| **Merkle proof** | this transaction is included in that block |
-| **Continuity proof** | that block is part of the finalized chain, linked to a committed attestation |
+| **Merkle** | this transaction is in that block |
+| **Continuity** | that block is on the finalised chain, linked to a committed attestation |
 
-Once verified, `EvmV1Decoder` turns *"prove a transaction happened"* into *"read the data inside
-it"* — recovering receipt status, logs, topics and data. A prediction market is exactly this, plus
-a comparator, plus a payout.
+A precompile verifies both synchronously. `EvmV1Decoder` then turns *"prove it happened"* into
+*"read what it said"* — receipt status, logs, topics, data.
 
-A market's resolution rule is therefore **data, not code**:
+CRUX's contribution is that the **rule is data, not code**:
 
 ```solidity
 struct AttestSpec {
     uint64     chainKey;      // 3 = Ethereum mainnet, 1 = Sepolia
-    address    emitter;       // log MUST originate here
+    address    emitter;       // the log MUST come from here
     bytes32    topic0;        // event signature
-    Extract    extractMode;   // indexed topic, or a 32-byte data word
+    Extract    extractMode;   // an indexed topic, or a 32-byte data word
     uint8      extractIndex;
     Comparator cmp;           // GT GTE LT LTE EQ EXISTS
     int256     threshold;
@@ -96,182 +77,101 @@ struct AttestSpec {
 }
 ```
 
-`YES` becomes provable by a single proof; `NO` becomes provable by the mere passage of time — once
-`toBlock` is attested and no valid proof ever arrived, absence is established. Anyone may submit a
-resolving proof and collect a bounty, so there is **no privileged resolver role in the proof lane
-at all**.
+Ten fields. **No contract is deployed for a new market.** One audited resolver interprets any
+spec, which is what makes this an engine rather than one hardcoded integration.
+
+`YES` is provable by a single proof. `NO` is established by the observation window becoming fully
+attested with no qualifying event in it — absence proven by time rather than by assertion.
+
+`CruxBeacon` extends the reach further: Attestcoin can prove transactions and logs but never
+storage slots, so the beacon `staticcall`s any contract and emits what it read. Any `view`-readable
+EVM state becomes attestable.
 
 ---
 
-## Verified, live
+## What we found
 
-Run on **2026-08-24** against Creditcoin CC3 testnet, the Attestcoin proof builder, and Ethereum
-mainnet. Reproduce with the commands in [Running it](#running-it).
+Building this surfaced several things the documentation gets wrong or omits. Full detail in
+[`docs/phase-0.md`](docs/phase-0.md) and [`docs/deployment.md`](docs/deployment.md).
 
-```
-Creditcoin CC3      chainId 102031 · gas 0.5 gwei
-chainKey 3 Ethereum attested 25,821,950 vs head 25,821,995 → lag 45 blocks (~9.0 min)
-chainKey 1 Sepolia  attested 11,554,030 vs head 11,554,068 → lag 38 blocks (~7.6 min)
-checkpoint interval every 10 source blocks, both chains
-proof generation    ~700–730 ms       verification ~235–255 ms
-mainnet proof       TRUE ✓ PROVEN     sepolia proof  TRUE ✓ PROVEN
-```
+**Inclusion is not success, and it is exploitable.** The precompile proves a transaction was
+*included*, not that it *succeeded*. We proved this against a real mainnet transaction that
+**reverted** — `0xc3ab8c0e…1023` — and the precompile returned `TRUE`. Without a
+`receiptStatus == 1` guard, an attacker resolves any market by broadcasting a transaction they
+know will fail. Pinned by an adversarial test against that exact transaction.
 
-### The fact that shapes the whole project
+**Proofs expire.** A continuity proof must chain to the *current* committed attestation, so a
+stale proof is **invalid**, not merely more expensive. Same transaction, measured: a proof captured
+four days earlier carried 5 continuity roots and was rejected; regenerated, it carried 65 and
+returned `TRUE`. The docs describe staleness as a gas penalty. It is harder than that.
 
-**Creditcoin testnet attests Ethereum *mainnet*, not only Sepolia.**
+**`settleNo` was front-runnable.** It required only that the window be attested — it never checked
+that no qualifying event occurred, because absence is not provable. But a holder of NO shares is
+*rationally motivated* to call it the instant the window is attested and win a market the chain can
+prove they lost. A grace period now guarantees a proof-holder time to land it.
 
-The hackathon requires deployment on a testnet, which normally makes every demo synthetic. Here it
-does not: markets can be written against **real Chainlink prices, real whale transfers, real DAO
-votes**, resolved by cryptographic proof, while the dApp sits on Creditcoin testnet exactly as the
-rules require.
+**One event must be able to settle many markets.** `USCBase` keys replay protection on the
+transaction alone, but a single Chainlink update legitimately resolves "ETH above $2,000?",
+"above $2,400?" and "above $2,500?" at once. Under that scheme the first resolution consumes the
+transaction and the rest become permanently unresolvable. CRUX binds the market into the key.
 
-### Verification is free
-
-`verify` is a **staticcall**. Proofs can be verified with zero funds and no wallet — so the
-frontend can independently re-verify client-side, trusting neither our backend nor us. It also
-means development is not blocked on a faucet.
-
----
-
-## Findings
-
-Building this surfaced several things that contradict the documentation or our own initial
-research. Full detail in **[docs/phase-0.md](docs/phase-0.md)**.
-
-### Inclusion is not success — and it is exploitable
-
-The precompile proves a transaction was **included**, not that it **succeeded**. This is not
-theoretical:
-
-```
-tx     0xc3ab8c0e12e7aec6c8b28a91f358c662c189584ff0236434b0ac3c49f0aa1023
-block  25,821,980 (Ethereum mainnet)
-status 0x0  ← REVERTED on mainnet
-verify on 0x…0FD2 → TRUE ✓ PROVEN — 240 ms
-```
-
-The protocol cheerfully proves a **failed** transaction. Without a `receiptStatus == 1` guard, an
-attacker resolves any market by sending a transaction they know will revert. It is the
-highest-severity foot-gun in the stack, and it is pinned here by a test running against that exact
-reverted mainnet transaction.
-
-### Forked Foundry tests can never execute the precompile
-
-`eth_getCode` at `0x…0FD2` returns `0x`. It is **native runtime code**, not EVM bytecode, so
-`vm.createSelectFork` has nothing to pull into the local EVM. (`EvmV1Decoder` *is* ordinary
-bytecode and forks fine — which is why decoding works and verification does not.) Testing is
-therefore three-tier: **forked** for the real decoder, **mocked** for CRUX's own logic, **live**
-out-of-process for real proofs.
-
-### Continuity cost tracks checkpoint alignment, not freshness
-
-All proofs seconds old:
-
-| tx in block | offset from checkpoint | continuity roots |
-|---|---|---|
-| 25,821,960 | 0 (aligned) | **1** |
-| 25,821,955 | 5 | **6** |
-
-Roots ≈ distance to the enclosing checkpoint + 1. Since gas scales with root count, resolution cost
-swings ~6× depending on where in the 10-block window the event lands — which we do not control. The
-resolution bounty must be sized for the worst case.
-
-### Two incompatible `INativeQueryVerifier` interfaces exist
-
-`@gluwa/usc-contracts` ships a lean copy with only `verify` (view, **reverts on failure rather than
-returning false** — never treat the return value as the failure signal). `USCBase` needs
-`verifyAndEmit` and `calculateTxIndex`, which that copy omits, so it cannot be built against the
-npm package alone.
+**`topic0` alone is not a match.** Event signatures are global and unowned — anyone can emit
+`AnswerUpdated` with any value and produce a valid proof of a genuinely real transaction. Pinning
+the emitter is the only thing separating *"Chainlink said $2,512"* from *"somebody said $2,512"*.
 
 ---
 
 ## Running it
 
-Requires Node ≥ 22 and [Foundry](https://getfoundry.sh). **No wallet or funds needed** for anything
-below.
+Requires Node ≥ 22 and [Foundry](https://getfoundry.sh).
 
 ```bash
-git clone https://github.com/TechnicallyKiller/crux-creditcoin.git
-cd crux-creditcoin
 npm install
-cp .env.example .env        # defaults work; RPC keys only needed from Phase 2
+cp web/.env.example web/.env          # add a Reown project id for wallets (optional)
+
+npm run dev -w @crux/web              # the app
+npm run check:abi                     # precompile ABI conformance, live
+npm run liveness                      # is Attestcoin actually attesting?
+
+CC3_RPC_URL=https://rpc.cc3-testnet.creditcoin.network forge test --root contracts
 ```
 
-**Check that Attestcoin is live and how far behind it is running:**
-
-```bash
-node --experimental-strip-types scripts/check-liveness.ts
-```
-
-**Prove a real Ethereum transaction on Creditcoin, end to end** — fetches a Merkle + continuity
-proof and has the precompile verify it. `3` = Ethereum mainnet, `1` = Sepolia. Writes a fixture:
-
-```bash
-node --experimental-strip-types scripts/prove-tx.ts 3
-node --experimental-strip-types scripts/prove-tx.ts 1
-```
-
-**Find an attestable transaction that reverted on mainnet** (this produced the finding above):
-
-```bash
-node --experimental-strip-types scripts/find-reverted.ts 3
-```
-
-**Run the contract tests** (forks CC3 testnet):
-
-```bash
-CC3_RPC_URL=https://rpc.cc3-testnet.creditcoin.network forge test --root contracts -vv
-```
+Reads need no wallet. Every market, spec and proof on this network is public.
 
 ---
 
 ## Layout
 
 ```
-contracts/              Foundry. Linked EvmV1Decoder, pre-Paris EVM for CC3 forks.
-  src/usc/              Vendored USCBase + VerifierInterface, with rationale.
-  src/DecoderProbe.sol  Decode + receipt-status guard + wrapped precompile call.
-  src/CruxBaseProbe.sol Proves USCBase is inheritable — the Phase 1 shape.
-  test/                 7 tests: forked decoder, mocked precompile, adversarial C3.
-scripts/
-  check-liveness.ts     Attestation liveness + lag monitor.
-  prove-tx.ts           Proof → precompile, end-to-end. Captures fixtures.
-  find-reverted.ts      Finds attestable reverted transactions.
-fixtures/               Real captured proofs, including the adversarial one.
-docs/plan.md            Full research record, decision register and build plan.
-docs/phase-0.md         What was run, what came back, what it changed.
-worker/ ai/ indexer/ web/   Scaffolded; implemented in Phase 2–4.
+contracts/          Foundry. 59 tests.
+  CruxAttestedResolver.sol   verify → decode → match spec → settle
+  CruxMarket.sol             LMSR markets, tCTC collateral, cost basis
+  CruxScore.sol              soulbound calibration, Brier not profit
+  CruxBeacon.sol             turns view-readable state into attestable events
+  LMSR.sol                   max-shifted scoring rule, fuzz-tested
+web/                Vite + React + viem. Security-engraving design system.
+worker/             Permissionless resolution. A convenience, not a trust assumption.
+indexer/            node:sqlite event index. A read cache, never an authority.
+scripts/            Liveness, proof generation, ABI conformance, demo driver.
+docs/               Findings, deployment log, design and logo briefs.
 ```
 
-## Roadmap
+## Attestcoin integration
 
-| Phase | Scope | State |
-|---|---|---|
-| **0** | Toolchain proven end-to-end against live networks | **done** |
-| **1** | `CruxAttestedResolver`, `AttestSpec`, `CruxMarket` (LMSR); deploy to CC3 | next |
-| **2** | Chainlink mainnet markets, resolution worker, indexer, batch proofs | |
-| **3** | AI lane with bonded disputes; Brier-score soulbound reputation | cuttable |
-| **4** | Mobile-first swipe feed, Proof Drop, leaderboards | |
-| **5** | Demo video, deck, submission | |
+Not a bolt-on. Remove Attestcoin and there is no product.
 
-## Networks
+- `verifyAndEmit` on the block-prover precompile, on every proof-lane settlement
+- `EvmV1Decoder` for receipt status, log matching and field extraction
+- `USCBase` for verify-then-dispatch, with replay protection widened to per-market
+- `get_latest_attestation_height_and_hash` driving NO-settlement and the trading gate
+- both `chainKey 3` (Ethereum **mainnet**) and `chainKey 1` (Sepolia)
+- `CruxBeacon` converting foreign contract state into attestable events
 
-| | CC3 Testnet |
-|---|---|
-| EVM chain ID | `102031` |
-| RPC | `https://rpc.cc3-testnet.creditcoin.network` |
-| Explorer | [creditcoin-testnet.blockscout.com](https://creditcoin-testnet.blockscout.com) |
-| BlockProver precompile | `0x0000000000000000000000000000000000000FD2` |
-| `EvmV1Decoder` | `0x731c345d79Fb8BbDC541f9DF3b6317585F849F9f` |
-| Proof builder | `https://prover.cc3-testnet.creditcoin.network` |
+**Creditcoin testnet attests Ethereum mainnet.** That is why the demo is not synthetic: real
+Chainlink prices, real events, resolved by proof, while the dApp sits on testnet exactly as the
+rules require.
 
-Attested source chains: **chainKey 3** — Ethereum mainnet · **chainKey 1** — Sepolia.
+---
 
-## Built with
-
-[`@gluwa/usc-sdk`](https://www.npmjs.com/package/@gluwa/usc-sdk) · `@gluwa/usc-contracts` ·
-Foundry · Solidity 0.8.23 · ethers v6 · TypeScript
-
-Original work created for BUIDL CTC 2026 Fall.
-See the [Attestcoin Protocol docs](https://docs.creditcoin.org/creditcoin-usc).
+Research and verification performed against live Creditcoin CC3 testnet, the Attestcoin proof
+builder and Ethereum mainnet. Everything marked verified was executed, not read.
