@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<svg viewBox="-100 -100 200 200" width="100%" height="100%" fill="none" style="display:block;overflow:visible">
+  <sc-for list="{{ shapes }}" as="s" hint-placeholder-count="1">
+    <path d="{{ s.d }}" stroke="{{ s.stroke }}" strokeWidth="{{ s.w }}" fill="{{ s.fill }}" strokeLinecap="{{ s.cap }}"></path>
+  </sc-for>
+</svg>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:240,&quot;height&quot;:240},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;rosette&quot;,&quot;seal&quot;,&quot;loop&quot;],&quot;default&quot;:&quot;rosette&quot;,&quot;tsType&quot;:&quot;'rosette'|'seal'|'loop'&quot;},&quot;detail&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;mid&quot;,&quot;micro&quot;],&quot;default&quot;:&quot;full&quot;,&quot;tsType&quot;:&quot;'full'|'mid'|'micro'&quot;},&quot;ink&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#EDEFE3&quot;,&quot;options&quot;:[&quot;#EDEFE3&quot;,&quot;#0B0F26&quot;,&quot;#C8FF3D&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;ground&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0B0F26&quot;,&quot;options&quot;:[&quot;#0B0F26&quot;,&quot;#EDEFE3&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C8FF3D&quot;,&quot;options&quot;:[&quot;#C8FF3D&quot;,&quot;#EDEFE3&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;proven&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  circlePath(r) {
+    return "M " + (-r) + " 0 A " + r + " " + r + " 0 1 1 " + r + " 0 A " + r + " " + r + " 0 1 1 " + (-r) + " 0 Z";
+  }
+  polarPath(fn, steps, sweep) {
+    const end = sweep == null ? 1 : sweep;
+    const n = Math.max(8, Math.round(steps * end));
+    let d = "";
+    for (let i = 0; i <= n; i++) {
+      const t = (i / steps) * Math.PI * 2;
+      const r = fn(t);
+      d += (i ? " L " : "M ") + (r * Math.cos(t)).toFixed(2) + " " + (r * Math.sin(t)).toFixed(2);
+    }
+    if (end >= 1) d += " Z";
+    return d;
+  }
+  freePath(fn, steps, rot) {
+    let d = "";
+    const c = Math.cos(rot || 0), s = Math.sin(rot || 0);
+    for (let i = 0; i <= steps; i++) {
+      const p = fn((i / steps) * Math.PI * 2);
+      const x = p[0] * c - p[1] * s, y = p[0] * s + p[1] * c;
+      d += (i ? " L " : "M ") + x.toFixed(2) + " " + y.toFixed(2);
+    }
+    return d + " Z";
+  }
+  ray(a, r0, r1) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return "M " + (r0 * c).toFixed(2) + " " + (r0 * s).toFixed(2) + " L " + (r1 * c).toFixed(2) + " " + (r1 * s).toFixed(2);
+  }
+  loopFn() {
+    const A = 44, B = 26;
+    return (t) => [A * Math.cos(t) + B * Math.cos(3 * t), A * Math.sin(t) - B * Math.sin(3 * t)];
+  }
+  // full-detail engraved rosette; sweep < 1 leaves the interior struck only partway
+  buildRosette(sweep) {
+    const S = [];
+    S.push({ d: this.circlePath(97), w: 1.7, role: "frame" });
+    S.push({ d: this.circlePath(92.5), w: 0.7, role: "frame" });
+    S.push({ d: this.circlePath(90), w: 0.4, role: "frame" });
+    for (let i = 0; i < 10; i++) {
+      const R0 = 76 + i * 1.05, ph = i * 0.196;
+      S.push({ d: this.polarPath((t) => R0 + 8.5 * Math.cos(12 * t + ph), 288, sweep), w: 0.42, role: "frame" });
+    }
+    S.push({ d: this.circlePath(66), w: 0.85, role: "frame" });
+    const N = 176;
+    for (let j = 0; j < N; j++) {
+      if (j / N > sweep) continue;
+      const t = (j / N) * Math.PI * 2;
+      // distance in degrees from the nearest diagonal: 0 on the crux arms, 45 on the axes
+      const dd = Math.abs(((t * 180) / Math.PI) % 90 - 45);
+      const k = Math.max(0, Math.min(1, (dd - 13) / 6));
+      const rIn = 63 - 51 * k;
+      if (64.5 - rIn < 1.8) continue;
+      S.push({ d: this.ray(t, rIn, 64.5), w: 0.34 + 0.75 * k, role: "field" });
+    }
+    if (sweep < 1) S.push({ d: this.ray(sweep * Math.PI * 2, 12, 66), w: 1.5, role: "field" });
+    S.push({ d: this.circlePath(3.2), w: 0, fill: "INK", role: "core" });
+    return S;
+  }
+  // small sizes keep the polarity of the big mark: paper crux cut out of an inked disc
+  buildMid(variant) {
+    if (variant === "loop") {
+      return [
+        { d: this.circlePath(90), w: 7, role: "frame" },
+        { d: this.freePath(this.loopFn(), 240, Math.PI / 4), w: 7.5, role: "field" },
+        { d: this.circlePath(5), w: 0, fill: "INK", role: "core" }
+      ];
+    }
+    const S = [{ d: this.circlePath(93), w: 0, fill: "INK", role: "frame" }];
+    S.push({ d: this.circlePath(74), w: 5, role: "cut" });
+    const arms = variant === "seal" ? [[45, -74, 74], [135, -74, -4], [135, 20, 74]] : [[45, -74, 74], [135, -74, 74]];
+    arms.forEach((a) => S.push({ d: this.ray((a[0] * Math.PI) / 180, a[1], a[2]), w: 15, cap: "butt", role: "cut" }));
+    S.push({ d: this.circlePath(7.5), w: 0, fill: "INK", role: "core" });
+    return S;
+  }
+  buildMicro(variant) {
+    if (variant === "loop") {
+      return [
+        { d: this.circlePath(84), w: 15, role: "frame" },
+        { d: this.freePath(this.loopFn(), 180, Math.PI / 4), w: 13, role: "field" }
+      ];
+    }
+    const S = [{ d: this.circlePath(92), w: 0, fill: "INK", role: "frame" }];
+    const arms = variant === "seal" ? [[45, -78, 78], [135, -78, -6], [135, 24, 78]] : [[45, -78, 78], [135, -78, 78]];
+    arms.forEach((a) => S.push({ d: this.ray((a[0] * Math.PI) / 180, a[1], a[2]), w: 19, cap: "butt", role: "cut" }));
+    return S;
+  }
+  renderVals() {
+    const variant = this.props.variant || "rosette";
+    const detail = this.props.detail || "full";
+    const ink = this.props.ink || "#EDEFE3";
+    const accent = this.props.accent || "#C8FF3D";
+    const proven = !!this.props.proven;
+    let shapes;
+    if (detail === "micro") shapes = this.buildMicro(variant);
+    else if (detail === "mid") shapes = this.buildMid(variant);
+    else if (variant === "loop") {
+      shapes = [
+        { d: this.circlePath(97), w: 1.7, role: "frame" },
+        { d: this.circlePath(92.5), w: 0.7, role: "frame" },
+        { d: this.circlePath(66), w: 0.4, role: "frame" },
+        { d: this.freePath(this.loopFn(), 900, Math.PI / 4), w: 2.4, role: "field" },
+        { d: this.circlePath(13), w: 0.6, role: "core" },
+        { d: this.circlePath(3.6), w: 0, fill: "INK", role: "core" }
+      ];
+    } else shapes = this.buildRosette(variant === "seal" ? 0.62 : 1);
+    return {
+      shapes: shapes.map((s) => {
+        const ground = this.props.ground || "#0B0F26";
+        const c = s.role === "cut" ? (proven ? accent : ground) : proven && s.role !== "frame" ? accent : ink;
+        return { d: s.d, w: s.w, cap: s.cap || "round", stroke: s.w ? c : "none", fill: s.fill === "INK" ? c : "none" };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

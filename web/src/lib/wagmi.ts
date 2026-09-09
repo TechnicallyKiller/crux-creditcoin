@@ -52,7 +52,16 @@ export const wagmiAdapter = new WagmiAdapter({
 
 export const wagmiConfig = wagmiAdapter.wagmiConfig;
 
+/**
+ * AppKit initialises at module scope, which means anything it throws happens
+ * before React mounts — and a throw there is a blank page, not a broken button.
+ * Wrapped so a bad project id, a blocked origin or a CDN failure costs the
+ * connect button and nothing else. Reads never needed a wallet.
+ */
+export let walletError: string | null = null;
+
 if (walletReady) {
+  try {
   createAppKit({
     adapters: [wagmiAdapter],
     networks: [cc3Network],
@@ -74,4 +83,8 @@ if (walletReady) {
       '--w3m-border-radius-master': '0px',
     },
   });
+  } catch (e) {
+    walletError = (e as Error)?.message ?? String(e);
+    console.error('[crux] AppKit failed to initialise; reads still work:', e);
+  }
 }

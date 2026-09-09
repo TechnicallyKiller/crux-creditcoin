@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Archivo:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #EDEFE3; }
+    a { color: #0B0F26; }
+    a:hover { color: #4A4F63; }
+  </style>
+</helmet>
+
+<section style="width:1480px;padding:72px 72px 96px;background:#EDEFE3;color:#0B0F26;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+
+  <header style="display:flex;flex-direction:column;gap:14px">
+    <div style="height:2px;background:#0B0F26"></div>
+    <div style="height:1px;background:#0B0F26"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:10px">
+      <div style="font-family:'Bodoni Moda',serif;font-size:52px;letter-spacing:0.3em;line-height:1">CRUX</div>
+      <div style="display:flex;gap:48px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#4A4F63;text-align:right">
+        <div>Identity specimen<br>Sheet 01 · Logomark</div>
+        <div>Plate no. 0001<br>Settlement engine · Creditcoin</div>
+      </div>
+    </div>
+    <div style="height:1px;background:#0B0F26"></div>
+  </header>
+
+  <div style="display:flex;flex-direction:column;gap:32px" data-screen-label="1a Rosette-cross">
+    <div style="display:flex;align-items:baseline;gap:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;border:1px solid #0B0F26;padding:5px 9px">1a</div>
+      <div style="font-family:'Bodoni Moda',serif;font-size:30px;letter-spacing:0.04em">Guilloche rosette resolving into a cross</div>
+      <div style="flex:1;height:1px;background:#0B0F26"></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#4A4F63">Primary direction</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 380px;gap:24px;align-items:stretch">
+      <div style="background:#0B0F26;padding:44px;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1">
+        <dc-import name="CruxMark" variant="rosette" detail="full" ink="#EDEFE3" hint-size="100%,100%" style="width:100%;height:100%"></dc-import>
+      </div>
+      <div style="background:#EDEFE3;border:1px solid #0B0F26;padding:44px;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1">
+        <dc-import name="CruxMark" variant="rosette" detail="full" ink="#0B0F26" hint-size="100%,100%" style="width:100%;height:100%"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.85;letter-spacing:0.04em;color:#0B0F26">
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#4A4F63">Construction</div>
+        <div>r(θ) = R₀ + A·cos(12θ + φ)<br>10 curves · φ step 0.196 rad<br>rose-engine band, r 76–86</div>
+        <div>Radial intaglio field, r 17–64.5<br>length ∝ |sin 2θ|^1.9<br>→ ink converges on the diagonals,<br>void holds a cross of paper</div>
+        <div>Inner rosette k = 4, lobes at 45°<br>Eye r = 13 · point r = 3</div>
+        <div style="height:1px;background:#0B0F26"></div>
+        <div style="color:#4A4F63">The rosette is authenticity you can see. The crossing is where two chains meet — and the decisive point itself.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div style="background:#0B0F26;padding:44px 52px;display:flex;align-items:center;gap:36px">
+        <div style="width:140px;height:140px;flex:none">
+          <dc-import name="CruxMark" variant="rosette" detail="full" ink="#EDEFE3" hint-size="140px,140px" style="width:140px;height:140px"></dc-import>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Bodoni Moda',serif;font-size:60px;letter-spacing:0.3em;line-height:1;color:#EDEFE3;padding-left:0.02em">CRUX</div>
+          <div style="height:1px;background:#EDEFE3;opacity:0.9"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.3em;text-transform:uppercase;color:#EDEFE3">Proof, then settlement</div>
+        </div>
+      </div>
+      <div style="background:#EDEFE3;border:1px solid #0B0F26;padding:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+        <dc-import name="CruxMark" variant="rosette" detail="full" ink="#0B0F26" hint-size="156px,156px" style="width:156px;height:156px"></dc-import>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <div style="font-family:'Bodoni Moda',serif;font-size:46px;letter-spacing:0.34em;line-height:1;padding-left:0.06em">CRUX</div>
+          <div style="width:180px;height:1px;background:#0B0F26"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:24px">
+      <div style="border:1px solid #0B0F26;padding:34px 40px;display:flex;flex-direction:column;gap:26px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#4A4F63">Favicon scale · rendered at size</div>
+        <div style="display:flex;gap:44px;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+            <div style="background:#0B0F26;width:16px;height:16px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="micro" ink="#EDEFE3" hint-size="16px,16px" style="width:16px;height:16px"></dc-import></div>
+            <div style="background:#EDEFE3;border:1px solid #0B0F26;width:16px;height:16px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="micro" ink="#0B0F26" ground="#EDEFE3" hint-size="16px,16px" style="width:16px;height:16px"></dc-import></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#4A4F63">16</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+            <div style="background:#0B0F26;width:32px;height:32px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="mid" ink="#EDEFE3" hint-size="32px,32px" style="width:32px;height:32px"></dc-import></div>
+            <div style="background:#EDEFE3;border:1px solid #0B0F26;width:32px;height:32px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="mid" ink="#0B0F26" ground="#EDEFE3" hint-size="32px,32px" style="width:32px;height:32px"></dc-import></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#4A4F63">32</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+            <div style="background:#0B0F26;width:48px;height:48px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="mid" ink="#EDEFE3" hint-size="48px,48px" style="width:48px;height:48px"></dc-import></div>
+            <div style="background:#EDEFE3;border:1px solid #0B0F26;width:48px;height:48px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="mid" ink="#0B0F26" ground="#EDEFE3" hint-size="48px,48px" style="width:48px;height:48px"></dc-import></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#4A4F63">48</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+            <div style="background:#0B0F26;width:96px;height:96px;display:flex"><dc-import name="CruxMark" variant="rosette" detail="mid" ink="#EDEFE3" hint-size="96px,96px" style="width:96px;height:96px"></dc-import></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#4A4F63">96 · app tile</div>
+          </div>
+          <div style="flex:1;font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.8;color:#4A4F63;max-width:230px">Below 24 px the engraving is dropped and the mark collapses to ring + crux. 16 px is two strokes and a rim — nothing else survives.</div>
+        </div>
+      </div>
+      <div style="background:#0B0F26;padding:34px 40px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C8FF3D">Proven variant · UV</div>
+        <div style="display:flex;align-items:center;gap:28px">
+          <div style="width:168px;height:168px;flex:none">
+            <dc-import name="CruxMark" variant="rosette" detail="full" ink="#EDEFE3" accent="#C8FF3D" proven="{{ true }}" hint-size="168px,168px" style="width:168px;height:168px"></dc-import>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.8;color:#EDEFE3">Lime enters only on the field and the point — the parts the proof touches. The rim stays vellum. Never the default mark.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px" data-screen-label="1b/1c alternates">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;align-items:baseline;gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;border:1px solid #0B0F26;padding:5px 9px">1b</div>
+        <div style="font-family:'Bodoni Moda',serif;font-size:24px">A seal caught mid-strike</div>
+        <div style="flex:1;height:1px;background:#0B0F26"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div style="background:#0B0F26;padding:32px;display:flex;aspect-ratio:1/1"><dc-import name="CruxMark" variant="seal" detail="full" ink="#EDEFE3" hint-size="100%,100%" style="width:100%;height:100%"></dc-import></div>
+        <div style="border:1px solid #0B0F26;padding:32px;display:flex;aspect-ratio:1/1"><dc-import name="CruxMark" variant="seal" detail="full" ink="#0B0F26" hint-size="100%,100%" style="width:100%;height:100%"></dc-import></div>
+      </div>
+      <div style="display:flex;gap:28px;align-items:center">
+        <div style="background:#0B0F26;width:16px;height:16px;display:flex;flex:none"><dc-import name="CruxMark" variant="seal" detail="micro" ink="#EDEFE3" hint-size="16px,16px" style="width:16px;height:16px"></dc-import></div>
+        <div style="background:#0B0F26;width:32px;height:32px;display:flex;flex:none"><dc-import name="CruxMark" variant="seal" detail="mid" ink="#EDEFE3" hint-size="32px,32px" style="width:32px;height:32px"></dc-import></div>
+        <div style="background:#0B0F26;width:48px;height:48px;display:flex;flex:none"><dc-import name="CruxMark" variant="seal" detail="mid" ink="#EDEFE3" hint-size="48px,48px" style="width:48px;height:48px"></dc-import></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.8;color:#4A4F63">Rim complete, interior struck to 223° — verification as a process with a moment. Weaker at 16 px: the gap reads as a defect.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;align-items:baseline;gap:16px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;border:1px solid #0B0F26;padding:5px 9px">1c</div>
+        <div style="font-family:'Bodoni Moda',serif;font-size:24px">One line that closes</div>
+        <div style="flex:1;height:1px;background:#0B0F26"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div style="background:#0B0F26;padding:32px;display:flex;aspect-ratio:1/1"><dc-import name="CruxMark" variant="loop" detail="full" ink="#EDEFE3" hint-size="100%,100%" style="width:100%;height:100%"></dc-import></div>
+        <div style="border:1px solid #0B0F26;padding:32px;display:flex;aspect-ratio:1/1"><dc-import name="CruxMark" variant="loop" detail="full" ink="#0B0F26" hint-size="100%,100%" style="width:100%;height:100%"></dc-import></div>
+      </div>
+      <div style="display:flex;gap:28px;align-items:center">
+        <div style="background:#0B0F26;width:16px;height:16px;display:flex;flex:none"><dc-import name="CruxMark" variant="loop" detail="micro" ink="#EDEFE3" hint-size="16px,16px" style="width:16px;height:16px"></dc-import></div>
+        <div style="background:#0B0F26;width:32px;height:32px;display:flex;flex:none"><dc-import name="CruxMark" variant="loop" detail="mid" ink="#EDEFE3" hint-size="32px,32px" style="width:32px;height:32px"></dc-import></div>
+        <div style="background:#0B0F26;width:48px;height:48px;display:flex;flex:none"><dc-import name="CruxMark" variant="loop" detail="mid" ink="#EDEFE3" hint-size="48px,48px" style="width:48px;height:48px"></dc-import></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.8;color:#4A4F63">A single unbroken stroke, four lobes on the diagonals, returning exactly to its origin. Animates as the loop drawing itself.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="display:flex;flex-direction:column;gap:18px">
+    <div style="height:1px;background:#0B0F26"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr) 1fr;gap:24px;align-items:flex-start">
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="width:44px;height:44px;background:#0B0F26"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.8;letter-spacing:0.1em"><span style="color:#4A4F63">INK-INDIGO</span><br>#0B0F26</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="width:44px;height:44px;background:#EDEFE3;border:1px solid #0B0F26"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.8;letter-spacing:0.1em"><span style="color:#4A4F63">VELLUM</span><br>#EDEFE3</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="width:44px;height:44px;background:#C8FF3D"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.8;letter-spacing:0.1em"><span style="color:#4A4F63">LIME · UV ONLY</span><br>#C8FF3D</div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.9;color:#4A4F63;letter-spacing:0.04em">Wordmark set in Bodoni Moda 400, tracking 0.30 em, as a stand-in for a redrawn cut: hairlines thinned, R leg extended to a hairline, U with a full stem serif.</div>
+    </div>
+    <div style="height:1px;background:#0B0F26"></div>
+    <div style="height:2px;background:#0B0F26"></div>
+  </footer>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}"></script>
+</body>
+</html>
