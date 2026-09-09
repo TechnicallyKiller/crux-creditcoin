@@ -10,6 +10,10 @@ interface ICruxResolver {
     function registerSpec(uint256 marketId, AttestSpec calldata spec) external;
 }
 
+interface ICruxScore {
+    function record(address bearer, uint256 marketId, uint256 claimedProbability, bool correct) external;
+}
+
 /**
  * @title CruxMarket
  * @notice Binary prediction markets on Creditcoin, collateralised in native
@@ -88,6 +92,21 @@ contract CruxMarket is ICruxMarket {
     mapping(uint256 => Market) public markets;
     mapping(uint256 => mapping(address => uint256)) public yesShares;
     mapping(uint256 => mapping(address => uint256)) public noShares;
+
+    /**
+     * @notice What each bearer actually paid, per side, in collateral wei.
+     *
+     * @dev Two extra SSTOREs per trade, and they buy the one thing a Brier
+     *      score cannot be computed without: the probability the bearer
+     *      ASSERTED. That is the price they paid, not the market price at
+     *      settlement — scoring against the latter would measure the market's
+     *      final opinion rather than the trader's judgement, which is precisely
+     *      the thing calibration is supposed to capture.
+     */
+    mapping(uint256 => mapping(address => uint256)) public yesCost;
+    mapping(uint256 => mapping(address => uint256)) public noCost;
+
+    ICruxScore public score;
     uint256 public protocolFees;
 
     event MarketCreated(
@@ -107,6 +126,7 @@ contract CruxMarket is ICruxMarket {
 
     error NotOwner();
     error ZeroResolver();
+    error ScoreAlreadySet();
     error NotResolver();
     error InsufficientSubsidy(uint256 required, uint256 supplied);
     error TradingWindowTooTight(uint64 tradingCloseBlock, uint64 fromBlock, uint64 required);
@@ -132,6 +152,16 @@ contract CruxMarket is ICruxMarket {
     /// @notice Withdraw accrued protocol fees. Touches only `protocolFees`,
     ///         never market collateral or subsidies, so it cannot make a
     ///         market unable to pay its winners.
+    /// @dev Set once, immediately after deployment. CruxScore needs this
+    ///      contract's address in its constructor, so the two cannot both be
+    ///      immutable — but unlike settlement, scoring is not consensus-critical,
+    ///      and a market with no score contract still trades and settles fine.
+    function setScore(ICruxScore s) external {
+        if (msg.sender != OWNER) revert NotOwner();
+        if (address(score) != address(0)) revert ScoreAlreadySet();
+        score = s;
+    }
+
     function withdrawProtocolFees(address to) external {
         if (msg.sender != OWNER) revert NotOwner();
         uint256 amount = protocolFees;
@@ -197,9 +227,11 @@ contract CruxMarket is ICruxMarket {
         if (yes) {
             m.qYes += shares;
             yesShares[marketId][msg.sender] += shares;
+            yesCost[marketId][msg.sender] += cost;
         } else {
             m.qNo += shares;
             noShares[marketId][msg.sender] += shares;
+            noCost[marketId][msg.sender] += cost;
         }
 
         m.collateral += cost;
@@ -217,6 +249,12 @@ contract CruxMarket is ICruxMarket {
 
         mapping(address => uint256) storage book = yes ? yesShares[marketId] : noShares[marketId];
         if (book[msg.sender] < shares) revert InsufficientShares();
+
+        // Reduce the cost basis proportionally, so a partial sell leaves the
+        // average price paid on the remainder unchanged. Scoring a bearer
+        // against a basis distorted by their own exits would be wrong.
+        mapping(address => uint256) storage costs = yes ? yesCost[marketId] : noCost[marketId];
+        costs[msg.sender] -= (costs[msg.sender] * shares) / book[msg.sender];
 
         uint256 gross = LMSR.sellProceeds(m.qYes, m.qNo, m.b, yes, shares);
         uint256 fee = (gross * FEE_BPS) / 10_000;
@@ -281,9 +319,34 @@ contract CruxMarket is ICruxMarket {
         uint256 shares = book[msg.sender];
         if (shares == 0) revert NothingToClaim();
 
+        _recordStanding(marketId, m.outcome);
+
         book[msg.sender] = 0;
         _send(msg.sender, shares); // winning shares redeem 1:1
         emit Claimed(marketId, msg.sender, shares);
+    }
+
+    /**
+     * @notice Score both sides of a bearer's position on claim.
+     *
+     * @dev Split out and wrapped in try/catch on purpose. Scoring is a
+     *      convenience, not consensus: a reverting score contract must never be
+     *      able to trap somebody's winnings. Money first, reputation second.
+     */
+    function _recordStanding(uint256 marketId, bool outcome) internal {
+        if (address(score) == address(0)) return;
+
+        uint256 yShares = yesShares[marketId][msg.sender];
+        uint256 nShares = noShares[marketId][msg.sender];
+
+        if (yShares > 0) {
+            uint256 paid = (yesCost[marketId][msg.sender] * 1e18) / yShares;
+            try score.record(msg.sender, marketId, paid > 1e18 ? 1e18 : paid, outcome) {} catch {}
+        }
+        if (nShares > 0) {
+            uint256 paid = (noCost[marketId][msg.sender] * 1e18) / nShares;
+            try score.record(msg.sender, marketId, paid > 1e18 ? 1e18 : paid, !outcome) {} catch {}
+        }
     }
 
     // ----------------------------------------------------------------- views

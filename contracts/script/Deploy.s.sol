@@ -2,7 +2,8 @@
 pragma solidity ^0.8.23;
 
 import {Script, console} from "forge-std/Script.sol";
-import {CruxMarket, ICruxResolver} from "../src/CruxMarket.sol";
+import {CruxMarket, ICruxResolver, ICruxScore} from "../src/CruxMarket.sol";
+import {CruxScore} from "../src/CruxScore.sol";
 import {CruxAttestedResolver} from "../src/CruxAttestedResolver.sol";
 import {ICruxMarket} from "../src/ICruxMarket.sol";
 
@@ -26,7 +27,7 @@ import {ICruxMarket} from "../src/ICruxMarket.sol";
  *      so this must stay a single command with no manual steps.
  */
 contract Deploy is Script {
-    function run() external returns (CruxMarket market, CruxAttestedResolver resolver) {
+    function run() external returns (CruxMarket market, CruxAttestedResolver resolver, CruxScore score) {
         // The resolver is deployed immediately after the market, so its
         // address is the deployer's next-but-one CREATE address. Asserted
         // below rather than trusted.
@@ -37,13 +38,20 @@ contract Deploy is Script {
         vm.startBroadcast();
         market = new CruxMarket(ICruxResolver(predictedResolver));
         resolver = new CruxAttestedResolver(ICruxMarket(address(market)));
+        // Scoring is not consensus-critical — a market with no score contract
+        // still trades and settles — so unlike the resolver it is wired with a
+        // one-shot setter rather than address prediction.
+        score = new CruxScore(address(market));
+        market.setScore(ICruxScore(address(score)));
         vm.stopBroadcast();
 
         require(address(resolver) == predictedResolver, "resolver address prediction failed");
 
         console.log("CruxMarket          :", address(market));
         console.log("CruxAttestedResolver:", address(resolver));
+        console.log("CruxScore           :", address(score));
         console.log("resolver wired      :", address(market.resolver()) == address(resolver));
+        console.log("score wired         :", address(market.score()) == address(score));
         console.log("(immutable - no wiring transaction, nothing left to fail)");
 
         // Record addresses so the market-lifecycle scripts and the off-chain
@@ -52,6 +60,7 @@ contract Deploy is Script {
         string memory out = "deployment";
         vm.serializeAddress(out, "CruxMarket", address(market));
         vm.serializeAddress(out, "CruxAttestedResolver", address(resolver));
+        vm.serializeAddress(out, "CruxScore", address(score));
         vm.serializeUint(out, "chainId", block.chainid);
         string memory json = vm.serializeUint(out, "deployedAtBlock", block.number);
         vm.writeJson(json, "../deployments/cc3-testnet.json");
