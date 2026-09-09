@@ -1,7 +1,14 @@
 {
-  "CruxAttestedResolver": "0x80C8B0b55827F0456564554E3A82F9B20ad6019F",
-  "CruxMarket": "0x80FBe4f593fc33A102CC41e3aF158ED4Fb71864C",
-  "CruxScore": "0x6DD3dbA185d6BDC01D729399982BcB70ea067E66",
   "chainId": 102031,
-  "deployedAtBlock": 5459487
+  "network": "Creditcoin CC3 Testnet",
+  "CruxMarket": "0xA558efC57e25b3bF45927CeeC7543E0831ceCbdC",
+  "CruxAttestedResolver": "0xa2CD2dCd2cce9402029bbaf9cAe5054f15D42E89",
+  "CruxScore": "0xFFB272EfF1fF82C05a74015e5e6c49900405d81E",
+  "EvmV1Decoder": "0x6e94c85Bf6b80394a4c051d03EC93Eefc854423F",
+  "deployedAtBlock": 5459517,
+  "deployer": "0x364edc06254874e62ff4ad8fa4d9a45238cb5609",
+  "allReferencesImmutable": true,
+  "settleNoGraceBlocks": 150,
+  "verifiedOnChain": "market.resolver, market.score, resolver.MARKET, score.MARKET all cross-checked; setScore absent",
+  "note": "Three deploys, zero wiring transactions. Every cross-reference is set from a CREATE-nonce-predicted address at construction."
 }

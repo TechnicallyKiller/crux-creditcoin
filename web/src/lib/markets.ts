@@ -60,7 +60,7 @@ async function questionsFromLogs(): Promise<Map<number, string>> {
           { indexed: false, name: 'question', type: 'string' },
         ],
       },
-      fromBlock: 5441970n,
+      fromBlock: 5459517n,
       toBlock: 'latest',
     });
     for (const l of logs) {

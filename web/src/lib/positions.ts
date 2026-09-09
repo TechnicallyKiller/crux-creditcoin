@@ -73,7 +73,7 @@ async function fetchTrades(holder: Address) {
       address: ADDRESSES.market as Address,
       event: TRADED,
       args: { trader: holder },
-      fromBlock: 5441970n,
+      fromBlock: 5459517n,
       toBlock: 'latest',
     });
   } catch {
