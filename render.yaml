@@ -8,10 +8,14 @@ services:
   - type: web
     name: crux
     runtime: static
-    buildCommand: npm install && npm run build -w @crux/web
+    # Workspace install from the repo root, then build only the web package.
+    buildCommand: npm ci --include=dev || npm install; npm run build -w @crux/web
     staticPublishPath: ./web/dist
     pullRequestPreviewsEnabled: false
     envVars:
+      # Pinned so Render does not build on an older Node than we test against.
+      - key: NODE_VERSION
+        value: "22"
       # Vite inlines VITE_* at BUILD time, so this must be set in Render's
       # dashboard — a value only present at runtime never reaches the bundle.
       - key: VITE_REOWN_PROJECT_ID
