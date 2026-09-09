@@ -131,16 +131,19 @@ async function trade() {
         const cost = await pub.readContract({
           address: MARKET, abi: marketAbi, functionName: 'quoteBuy', args: [marketId, yes, shares],
         });
-        // Slippage guard with headroom: other bearers move the price between
-        // the quote and the block that includes us, which is the whole point of
-        // an LMSR and not an error.
-        const maxCost = (cost * 112n) / 100n;
+        // Generous headroom, and send it as value too. LMSR moves the price on
+        // every trade — one bearer buying 65 shares shifted YES from 0.500 to
+        // 0.657 — so a tight guard rejects any quote taken a block earlier.
+        // That rejection is the guard working, not a bug, but a bot has no
+        // reason to be price-sensitive. CruxMarket refunds the difference
+        // between msg.value and the true cost, so overpaying is free.
+        const maxCost = cost * 3n;
 
         const hash = await wallet.writeContract({
           address: MARKET, abi: marketAbi, functionName: 'buy',
           args: [marketId, yes, shares, maxCost], value: maxCost,
         });
-        await pub.waitForTransactionReceipt({ hash, timeout: 90_000 });
+        await pub.waitForTransactionReceipt({ hash, timeout: 180_000 });
         const after = await pub.readContract({ address: MARKET, abi: marketAbi, functionName: 'priceYes', args: [marketId] });
         console.log(`${bot.name.padEnd(11)} #${marketId} ${yes ? 'YES' : 'NO '} ${String(size).padStart(3)} sh · ${Number(formatEther(cost)).toFixed(2)} tCTC → yes ${(Number(after) / 1e18).toFixed(3)}`);
       } catch (e) {
