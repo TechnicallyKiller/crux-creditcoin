@@ -1,0 +1,27 @@
+# Render blueprint — https://render.com/docs/blueprint-spec
+#
+# The app is a static build: reads go straight to Creditcoin from the browser,
+# so there is no server to run and nothing to keep warm. That matters on a free
+# tier, where a web service would cold-start and make a judge think the app is
+# broken when it is only asleep.
+services:
+  - type: web
+    name: crux
+    runtime: static
+    buildCommand: npm install && npm run build -w @crux/web
+    staticPublishPath: ./web/dist
+    pullRequestPreviewsEnabled: false
+    envVars:
+      # Vite inlines VITE_* at BUILD time, so this must be set in Render's
+      # dashboard — a value only present at runtime never reaches the bundle.
+      - key: VITE_REOWN_PROJECT_ID
+        sync: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+    routes:
+      # Single-page app: everything falls through to index.html.
+      - type: rewrite
+        source: /*
+        destination: /index.html
