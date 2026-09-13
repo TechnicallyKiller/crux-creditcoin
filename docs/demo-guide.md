@@ -19,89 +19,94 @@ film. Nothing needs to be set up first.
 
 ---
 
-## The run — 2:30
+## The run — 2:45
 
-### 1 · The problem (0:00–0:15)
+Framed for the audience that is actually watching: the Creditcoin team. Lead with their problem,
+not ours.
+
+### 1 · Creditcoin's own problem (0:00–0:20)
 
 Open on the app, desktop. Don't touch anything.
 
-> "Every prediction market dies in the same place. Polymarket needs UMA's bonded voters and a
-> two-hour challenge window. Kalshi needs a registered clearinghouse. In the end, all of them trust
-> somebody to report the truth."
+> "Creditcoin exists to bring credit on-chain. But a lender on Creditcoin can't see what a borrower
+> did on Ethereum — and that's the whole problem. This season, more than twenty teams built some
+> version of a cross-chain credit passport. Every one of them had to write their own contract to
+> verify one specific event."
 
-### 2 · The claim (0:15–0:30)
+*This is the strongest possible opening for these judges. You're describing their ecosystem back to
+them, accurately, and you counted.*
 
-Drag a certificate slightly, let it spring back.
+### 2 · The layer they were all rebuilding (0:20–0:45)
 
-> "CRUX doesn't have one. These markets settle on a cryptographic proof that the event happened on
-> Ethereum — verified by a Creditcoin precompile, inside a single block."
-
-### 3 · The rule is data (0:30–1:05)
-
-Click a market → **Market detail**. Scroll to **Resolution rule**. Expand the raw spec.
-
-> "A market's resolution rule is data. Which chain, which contract, which event, which field, which
-> comparison, which block window. Ten fields.
+> "They were all rebuilding the same layer underneath. CRUX is that layer.
 >
-> No contract was deployed for this market. One audited resolver reads the spec and demands a proof
-> that matches it. That's why this is an engine, not one integration."
+> A contract states its resolution rule as **data** — which chain, which contract, which event,
+> which field, which comparison, which window. CRUX settles it against a cryptographic proof that
+> the event actually happened on Ethereum, verified by Creditcoin's own precompile, inside one
+> block."
 
-**Linger on the ten-field block.** This is the slide that separates you from 46 other submissions.
+### 3 · The rule is data (0:45–1:20)
 
-### 4 · It's real mainnet (1:05–1:25)
+Click a market → **Market detail** → scroll to **Resolution rule** → expand the raw spec.
 
-Point at the aggregator address in the spec. Open a second tab on Etherscan for
+> "Ten fields. No contract was deployed for this market.
+>
+> Change the emitter and the topic and this same resolver proves a loan repayment instead of a
+> price. A credit passport is this spec with a different payout. That's why it's a protocol and not
+> an app."
+
+**Linger here.** This is the beat that turns "nice prediction market" into "infrastructure the
+ecosystem needs."
+
+### 4 · Real mainnet, not a mock (1:20–1:40)
+
+Point at the aggregator in the spec. Second tab: Etherscan on
 `0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5`.
 
-> "That's Chainlink's live ETH/USD feed on Ethereum mainnet — not a Sepolia mock. Creditcoin's
-> testnet attests mainnet, so the market is testnet and the fact is real."
+> "That's Chainlink's live ETH/USD feed on Ethereum mainnet — not a Sepolia mock. Creditcoin testnet
+> attests mainnet, so the deployment satisfies the rules and the fact is still real."
 
-Cutting to Etherscan matters: it proves the address is a real contract, not a label you typed.
+### 5 · The Proof Drop (1:40–2:10)
 
-### 5 · The Proof Drop (1:25–2:00)
+Open a settled YES market (1 or 3). Walk the scrubber: WATCHING → ATTESTING → PROVING → PROVEN.
 
-Open a **settled YES market** (1 or 3). Walk the scrubber: WATCHING → ATTESTING → PROVING → PROVEN.
-
-> "Watching — the window is open, Ethereum hasn't said anything yet.
+> "Watching — the window is open, Ethereum hasn't said anything.
 >
-> Attesting — it happened, but Creditcoin hasn't attested the block. That's *pending*, not unknown.
-> No oracle-based market can show you this state, because none of them have a proof in flight.
+> Attesting — it happened, but Creditcoin hasn't attested the block yet. That's *pending*, not
+> unknown. No oracle-based system can show you this state, because none of them have a proof in
+> flight.
 >
 > Proving — the Merkle path to the receipts root, then the continuity chain to a committed
 > attestation.
 >
-> Proven. Eighty-one continuity roots, verified by the precompile."
+> Proven. Eighty-one continuity roots, verified by the precompile. No committee voted."
 
-**Hold two full seconds on the seal.** That's the shot.
+**Hold two seconds on the seal.**
 
-### 6 · Don't trust us (2:00–2:30) — DO NOT CUT THIS
+### 6 · Don't trust us (2:10–2:35) — DO NOT CUT
 
-Right-hand panel → paste the clipboard hash → **PROVE IT**. Both calls tick green.
+Right panel → paste the clipboard hash → **PROVE IT**. Both calls tick green.
 
-> "You don't have to believe any of this. Verification is a free staticcall, so your browser asks
-> the precompile directly. This transaction isn't one we prepared. Neither endpoint is ours — and
-> you can point it at your own node."
+> "You don't have to believe any of this. Verification on Creditcoin is a free staticcall, so your
+> browser asks the precompile directly. This transaction isn't one we prepared. Neither endpoint is
+> ours — point it at your own node."
 
 Point at **OUR SERVERS INVOLVED: 0**.
 
-**This is the strongest thirty seconds you have.** Nobody else in the field can offer it. If you're
-over time, cut beat 4, never this.
+### 7 · Both directions (2:35–2:50)
 
-### 7 · The other half (2:30–2:45)
+Open a settled NO market (2 or 4) — void certificate, cancellation perforation.
 
-Open a **settled NO market** (2 or 4) — void certificate, cancellation perforation.
+> "And it settles the other way too. Not by a proof — by the window becoming fully attested with
+> nothing matching in it. Absence, established by time."
 
-> "A market can also settle NO. Not by a proof — by its window becoming fully attested with nothing
-> matching in it. Absence, established by time."
+### 8 · Close on the ecosystem (2:50–3:00)
 
-### 8 · Close (2:45–3:00)
+> "Settlement rules become data; settlement becomes a proof instead of a report. Prediction markets
+> are what we built on it first — cross-chain credit, escrow and parametric payouts are the same
+> primitive with a different payout."
 
-> "Prediction markets are the first thing built on this. The same engine settles anything on a
-> proven foreign-chain fact."
-
-End on the app with the addresses visible in the sidebar.
-
----
+End on the app with the contract addresses visible.
 
 ## Rules
 
@@ -128,7 +133,9 @@ and a judge who catches a fake cut discounts everything else.
 
 ## After recording
 
-1. Upload unlisted to YouTube → URL into the submission
+1. Upload anywhere with a public link — **Loom is safest** (no login to watch, public by default).
+   YouTube unlisted, Vimeo or Drive also fine. **Drive must be set to "Anyone with the link"** —
+   a judge hitting a permission wall scores that field zero.
 2. Deck from `docs/deck.md` → export PDF → URL
 3. Fill the team fields — **only you can do these**
 4. Copy `docs/submission.md` into the form
