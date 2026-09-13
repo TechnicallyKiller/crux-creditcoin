@@ -117,12 +117,17 @@ async function trade() {
     const wallet = createWalletClient({ account, chain: cc3, transport });
 
     const bal = await pub.getBalance({ address: bot.address });
-    if (bal < parseEther('5')) {
-      console.log(`${bot.name.padEnd(11)} skipped — ${formatEther(bal)} tCTC, needs funding`);
+    if (bal < parseEther('8')) {
+      console.log(`${bot.name.padEnd(11)} skipped — ${Number(formatEther(bal)).toFixed(2)} tCTC, needs funding`);
       continue;
     }
 
-    for (const size of cfg.sizes) {
+    // Scale the trade to what this bearer can actually afford, keeping a few
+    // tCTC back for gas. A bot that reverts teaches the demo nothing.
+    const affordable = Number(formatEther(bal)) - 4;
+
+    for (const rawSize of cfg.sizes) {
+      const size = Math.max(4, Math.min(rawSize, Math.floor(affordable * 0.45)));
       const marketId = BigInt(open[Math.floor(Math.random() * open.length)]);
       const yes = Math.random() < cfg.yesBias;
       const shares = parseEther(String(size));
@@ -131,17 +136,22 @@ async function trade() {
         const cost = await pub.readContract({
           address: MARKET, abi: marketAbi, functionName: 'quoteBuy', args: [marketId, yes, shares],
         });
-        // Generous headroom, and send it as value too. LMSR moves the price on
-        // every trade — one bearer buying 65 shares shifted YES from 0.500 to
-        // 0.657 — so a tight guard rejects any quote taken a block earlier.
-        // That rejection is the guard working, not a bug, but a bot has no
-        // reason to be price-sensitive. CruxMarket refunds the difference
-        // between msg.value and the true cost, so overpaying is free.
+        // Two different numbers, for two different jobs.
+        //
+        // maxCost is the slippage guard and can be generous: LMSR moves the
+        // price on every trade, so a quote taken a block earlier is often stale
+        // by tens of percent, and a bot has no reason to be price-sensitive.
+        //
+        // value is what must actually be IN THE WALLET. The contract refunds
+        // the difference, but the balance still has to cover it at submission —
+        // sending 3x quoted meant a 20 tCTC trade needed 60 tCTC on hand and
+        // reverted 'insufficient funds' on a wallet holding 21.
         const maxCost = cost * 3n;
+        const value = (cost * 13n) / 10n;
 
         const hash = await wallet.writeContract({
           address: MARKET, abi: marketAbi, functionName: 'buy',
-          args: [marketId, yes, shares, maxCost], value: maxCost,
+          args: [marketId, yes, shares, maxCost], value,
         });
         await pub.waitForTransactionReceipt({ hash, timeout: 180_000 });
         const after = await pub.readContract({ address: MARKET, abi: marketAbi, functionName: 'priceYes', args: [marketId] });

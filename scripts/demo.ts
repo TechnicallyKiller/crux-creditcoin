@@ -177,9 +177,13 @@ async function planMainnet(): Promise<void> {
 
   // Trading must stay open long enough for anyone to actually trade. Attested
   // height advances roughly 5 blocks per minute, so 150 blocks is about half an
-  // hour of real trading — the first version used 25, which is five minutes and
-  // meant markets were shut before the app could even load them.
-  const closeBlock = attested + 150n;
+  // hour — the first version used 25, which is five minutes and meant markets
+  // were shut before the app could even load them.
+  //
+  // Override for a longer window when recording:
+  //   TRADING_BLOCKS=900 node ... demo.ts plan-mainnet     (~3 hours)
+  const tradingBlocks = BigInt(process.env.TRADING_BLOCKS ?? '150');
+  const closeBlock = attested + tradingBlocks;
   const fromBlock = closeBlock + 150n;
   // ETH/USD updates on a 0.5% deviation or a ~1h heartbeat, so a ~2h window is
   // comfortably wide enough to contain at least one update.
