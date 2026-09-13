@@ -27,7 +27,7 @@ const POLL_MS = Number(process.env.WORKER_POLL_MS ?? 60_000);
 
 /** Source-chain RPCs by chainKey. Public fallbacks reject archive getLogs (C8). */
 const SOURCE_RPC: Record<number, string[]> = {
-  3: [process.env.ETH_MAINNET_RPC_URL, 'https://eth.drpc.org', 'https://rpc.flashbots.net'].filter(Boolean) as string[],
+  3: [process.env.ETH_MAINNET_RPC_URL, 'https://rpc.mevblocker.io', 'https://eth.drpc.org', 'https://rpc.flashbots.net'].filter(Boolean) as string[],
   1: [process.env.SEPOLIA_RPC_URL, 'https://ethereum-sepolia-rpc.publicnode.com'].filter(Boolean) as string[],
 };
 

@@ -14,7 +14,7 @@ const PROVER = process.env.PROVER_URL ?? 'https://prover.cc3-testnet.creditcoin.
 const ANSWER_UPDATED = '0x0559884fd3a460db3073b7fc896cc77986f16e378210ded43186175bf646fc5f';
 
 // C8 — most public mainnet RPCs reject archive eth_getLogs outright.
-const RPCS = [process.env.ETH_MAINNET_RPC_URL, 'https://eth.drpc.org', 'https://rpc.flashbots.net'].filter(Boolean) as string[];
+const RPCS = [process.env.ETH_MAINNET_RPC_URL, 'https://rpc.mevblocker.io', 'https://eth.drpc.org', 'https://rpc.flashbots.net'].filter(Boolean) as string[];
 
 async function getLogs(from: bigint, to: bigint): Promise<any[]> {
   for (const url of RPCS) {
